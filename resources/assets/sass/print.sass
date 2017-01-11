@@ -1,0 +1,113 @@
+// Print
+
+@import '_fonts'
+@import '_functions'
+@import '_mixins'
+@import '_colors'
+@import '_general'
+
+body
+    background: $white
+
+.estimate-print
+    padding: 2rem
+    .header
+        .logo
+            background: $black
+            padding: 1rem
+            text-align: center
+            .img
+                width: rem(150px)
+        .info
+            padding: .5rem 0
+            .data
+                +font-size(14px)
+                display: inline-block
+                font-weight: 400
+                padding: .2rem
+                width: 49%
+    .estimate-table
+        border-collapse: collapse
+        margin-bottom: .5rem
+        width: 100%
+        thead
+            tr
+                th
+                    background: $black
+                    color: $white
+                    +font-size(14px)
+                    font-weight: 400
+                    padding: .5rem
+                    text-align: left
+                    text-transform: uppercase
+        tbody,
+        tfoot
+            tr
+                &:nth-child(odd)
+                    background: #f8f8f8
+                td
+                    +font-size(14px)
+                    padding: .5rem
+                    .product-title
+                        +font-size(14px)
+                        font-weight: 600
+                    .product-category,
+                    .product-brand
+                        +font-size(12px)
+                    .product-description
+                        +font-size(13px)
+                    .product-photo
+                        height: rem(60px)
+                        overflow: hidden
+                        position: relative
+                        width: rem(60px)
+                        .img
+                            position: relative
+                            top: 50%
+                            transform: translateY(-50%)
+                            width: 100%
+                    .badge
+                        +font-size(16px)
+                        border-radius: rem(3px)
+                        color: $white
+                        display: inline-block
+                        padding: .3rem .5rem
+                        text-align: center
+                        &.badge-green
+                            background: $success
+                    .price
+                        +font-size(14px)
+                        color: $navy
+                        font-weight: 400
+                        &.with-sale
+                            text-decoration: line-through
+                    .qty
+                        +font-size(16px)
+    .notes,
+    .observations
+        margin-bottom: .5rem
+        .left
+            display: inline-block
+            width: 80%
+        .right
+            display: inline-block
+            width: 19%
+        .title
+            +font-size(14px)
+            font-weight: 600
+        .content
+            +font-size(12px)
+            line-height: 1.5
+    .signature
+        +font-size(13px)
+        text-align: center
+    .footer
+        +font-size(12px)
+        margin-top: 1rem
+        text-align: center
+        .address
+            width: 100%
+        .contact
+            span
+                display: inline-block
+                padding: 0 2rem
