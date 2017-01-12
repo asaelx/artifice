@@ -82,4 +82,14 @@
         <!-- /.col-12 -->
     </div>
     <!-- /.row -->
+    <div class="row">
+        <div class="col-12">
+            <div class="pagination">
+                {{ $brands->links() }}
+            </div>
+            <!-- /.pagination -->
+        </div>
+        <!-- /.col-12 -->
+    </div>
+    <!-- /.row -->
 @endsection

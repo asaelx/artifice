@@ -55,7 +55,7 @@
                             <th>Nombre</th>
                             <th>Usuario</th>
                             <th>Correo electrónico</th>
-                            <th>Fecha de registro</th>
+                            <th>Registro</th>
                             <th>Cotizaciones</th>
                             <th>Opciones</th>
                         </tr>
@@ -66,7 +66,8 @@
                                 <td>{{ $user->name }} {!! ($user->role == 'admin') ? '<span class="badge badge-blue">Administrador</span>' : '<span class="badge badge-blue">Vendedor</span>' !!}</td>
                                 <td>{{ $user->username }}</td>
                                 <td><a href="mailto:{{ $user->email }}" class="link">{{ $user->email }}</a></td>
-                                <td>{{ $user->created_at }}</td>
+                                <td>{{ ucfirst(\Date::createFromFormat('Y-m-d H:i:s', $user->created_at)->diffForHumans()) }}</td>
+                                {{-- <td>{{ $user->created_at }}</td> --}}
                                 <td><a href="#" class="link">3</a></td>
                                 <td>
                                     <span href="#" class="dropdown">
@@ -96,6 +97,16 @@
                 </table>
                 <!-- /.table -->
             @endif
+        </div>
+        <!-- /.col-12 -->
+    </div>
+    <!-- /.row -->
+    <div class="row">
+        <div class="col-12">
+            <div class="pagination">
+                {{ $users->links() }}
+            </div>
+            <!-- /.pagination -->
         </div>
         <!-- /.col-12 -->
     </div>

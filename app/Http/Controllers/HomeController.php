@@ -3,6 +3,12 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Estimate;
+use App\Client;
+use App\Product;
+use App\Brand;
+use App\Category;
+use App\User;
 
 class HomeController extends Controller
 {
@@ -23,6 +29,12 @@ class HomeController extends Controller
      */
     public function index()
     {
-        return view('dashboard');
+        $estimates = Estimate::all();
+        $clients = Client::all();
+        $products = Product::all();
+        $brands = Brand::all();
+        $categories = Category::all();
+        $users = User::all();
+        return view('dashboard', compact('estimates', 'clients', 'products', 'brands', 'categories', 'users'));
     }
 }

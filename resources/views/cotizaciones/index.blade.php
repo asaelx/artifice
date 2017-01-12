@@ -61,6 +61,7 @@
                             <th>Cliente</th>
                             <th>Vendedor</th>
                             <th>Estado</th>
+                            <th>Expira</th>
                             <th>Total</th>
                             <th>Opciones</th>
                         </tr>
@@ -69,7 +70,7 @@
                         @foreach ($estimates as $estimate)
                             <tr>
                                 <td>{{ $estimate->folio }}</td>
-                                <td>{{ $estimate->created_at }}</td>
+                                <td>{{ ucfirst(\Date::createFromFormat('Y-m-d H:i:s', $estimate->created_at)->diffForHumans()) }}</td>
                                 <td>{{ $estimate->client->name }}</td>
                                 <td>{{ $estimate->user->name }}</td>
                                 <td>
@@ -81,6 +82,7 @@
                                         <span class="badge badge-red">Rechazada</span>
                                     @endif
                                 </td>
+                                <td>{{ ucfirst(\Date::createFromFormat('Y-m-d H:i:s', $estimate->expiration)->diffForHumans()) }}</td>
                                 <td><span class="price">${{ $estimate->total }}</span></td>
                                 <td>
                                     <span href="#" class="dropdown">
@@ -122,6 +124,16 @@
         <!-- /.col-12 -->
     </div>
     <!-- /.row -->
+    <div class="row">
+        <div class="col-12">
+            <div class="pagination">
+                {{ $estimates->links() }}
+            </div>
+            <!-- /.pagination -->
+        </div>
+        <!-- /.col-12 -->
+    </div>
+    <!-- /.row -->
 @endsection
 
 @section('modal')
@@ -132,8 +144,8 @@
             <div class="content">
                 {{ Form::open(['url' => url('cotizaciones/{id}/email'), 'class' => 'form']) }}
                     <div class="form-group">
-                        {{ Form::label('to', 'Enviar a', ['class' => 'label']) }}
-                        {{ Form::select('to', $emails, null, ['class' => 'select2-add', 'data-placeholder' => 'Selecciona o escribe un correo electrónico']) }}
+                        {{ Form::label('email', 'Enviar a', ['class' => 'label']) }}
+                        {{ Form::select('email', $emails, null, ['class' => 'select2-add', 'data-placeholder' => 'Selecciona o escribe un correo electrónico']) }}
                     </div>
                     <!-- /.form-group -->
                     <div class="form-group">

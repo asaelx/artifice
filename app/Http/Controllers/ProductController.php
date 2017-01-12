@@ -87,11 +87,11 @@ class ProductController extends Controller
      */
     public function store(ProductRequest $request)
     {
-        if(!is_numeric($request->input('brand_id'))){
+        if(!is_numeric($request->input('brand_id')) && $request->input('brand_id') != ''){
             $brand = Brand::create(['title' => $request->input('brand_id'), 'description' => $request->input('brand_id')]);
             $request->merge(['brand_id' => $brand->id]);
         }
-        if(!is_numeric($request->input('category_id'))){
+        if(!is_numeric($request->input('category_id')) && $request->input('category_id') != ''){
             $category = Category::create(['title' => $request->input('category_id'), 'description' => $request->input('category_id')]);
             $request->merge(['category_id' => $category->id]);
         }

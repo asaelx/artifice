@@ -407,6 +407,15 @@ $(function(){
             }
         });
 
+    }// End Modal
+
+    // Notifications
+    var notification = $('.notification');
+    if(notification.length){
+        notification.delay(4000).slideUp();
+        $body.on('click', '.close-notification', function(){
+            notification.slideUp();
+        });
     }
 });
 

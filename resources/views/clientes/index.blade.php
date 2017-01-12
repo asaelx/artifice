@@ -100,4 +100,14 @@
         <!-- /.col-12 -->
     </div>
     <!-- /.row -->
+    <div class="row">
+        <div class="col-12">
+            <div class="pagination">
+                {{ $clients->links() }}
+            </div>
+            <!-- /.pagination -->
+        </div>
+        <!-- /.col-12 -->
+    </div>
+    <!-- /.row -->
 @endsection

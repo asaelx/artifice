@@ -206,6 +206,40 @@ img {
   }
 }
 
+@-webkit-keyframes up-in {
+  from {
+    visibility: hidden;
+    filter: alpha(opacity=0);
+    opacity: 0;
+    -webkit-transform: translateY(-2rem);
+    transform: translateY(-2rem);
+  }
+  to {
+    visibility: visible;
+    filter: alpha(opacity=100);
+    opacity: 1;
+    -webkit-transform: translateY(0);
+    transform: translateY(0);
+  }
+}
+
+@keyframes up-in {
+  from {
+    visibility: hidden;
+    filter: alpha(opacity=0);
+    opacity: 0;
+    -webkit-transform: translateY(-2rem);
+    transform: translateY(-2rem);
+  }
+  to {
+    visibility: visible;
+    filter: alpha(opacity=100);
+    opacity: 1;
+    -webkit-transform: translateY(0);
+    transform: translateY(0);
+  }
+}
+
 @-webkit-keyframes show-modal {
   from {
     visibility: hidden;
@@ -389,6 +423,7 @@ img {
   margin-left: 14.2857142857rem;
   min-height: 100vh;
   padding: 1rem 2rem;
+  position: relative;
   width: calc(100% - 14.2857142857rem);
 }
 
@@ -406,6 +441,48 @@ img {
 
 .main .section-title .add {
   float: right;
+}
+
+.main .notification {
+  font-size: 16px;
+  font-size: 1.1428571429rem;
+  visibility: hidden;
+  filter: alpha(opacity=0);
+  opacity: 0;
+  -webkit-animation: up-in 0.6s 0.5s forwards cubic-bezier(0.87, -0.41, 0.19, 1.44);
+  animation: up-in 0.6s 0.5s forwards cubic-bezier(0.87, -0.41, 0.19, 1.44);
+  background: #1abc9c;
+  box-shadow: 0 2px 3px 2px rgba(0, 0, 0, 0.2);
+  color: #fff;
+  left: 0;
+  padding: .8rem 3rem;
+  position: absolute;
+  top: 0;
+  width: 100%;
+}
+
+.main .notification .typcn {
+  font-size: 20px;
+  font-size: 1.4285714286rem;
+}
+
+.main .notification .close-notification {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  background: none;
+  border: 0;
+  color: #fff;
+  position: absolute;
+  right: 3rem;
+  top: 50%;
+  -webkit-transform: translateY(-50%);
+  transform: translateY(-50%);
+}
+
+.main .notification .close-notification:hover {
+  color: #e74c3c;
+  cursor: pointer;
 }
 
 .table {
@@ -646,6 +723,45 @@ img {
   margin-bottom: 3rem;
 }
 
+.pagination {
+  text-align: center;
+}
+
+.pagination .list {
+  clear: both;
+  content: '';
+  display: table;
+  display: inline-block;
+  list-style: none;
+}
+
+.pagination .list .item {
+  float: left;
+  margin-right: .5rem;
+}
+
+.pagination .list .item .link,
+.pagination .list .item span {
+  font-size: 14px;
+  font-size: 1rem;
+  border-radius: 0.2142857143rem;
+  display: inline-block;
+  font-family: "Titillium Web", sans-serif;
+  font-weight: 400;
+  padding: .4rem .8rem;
+  text-align: center;
+  text-decoration: none;
+}
+
+.pagination .list .item .link {
+  background: #1abc9c;
+  color: #fff;
+}
+
+.pagination .list .item span {
+  background: #ccc;
+}
+
 .form .form-group {
   margin-bottom: 1rem;
 }
@@ -849,6 +965,39 @@ img {
 .product-result .product-price .product-regular-price,
 .product-result .product-price .product-sale-price {
   font-weight: 400;
+}
+
+.counter {
+  border-radius: 0.2142857143rem;
+  overflow: hidden;
+  position: relative;
+}
+
+.counter .icon {
+  background: #3498db;
+  text-align: center;
+  height: 5.7142857143rem;
+}
+
+.counter .icon .typcn {
+  font-size: 30px;
+  font-size: 2.1428571429rem;
+  color: #fff;
+  position: relative;
+  top: .5rem;
+}
+
+.counter .count {
+  font-size: 20px;
+  font-size: 1.4285714286rem;
+  background: #fff;
+  height: 5.7142857143rem;
+  text-align: center;
+}
+
+.counter .count .qty,
+.counter .count .title {
+  display: block;
 }
 
 /*! normalize.css v5.0.0 | MIT License | github.com/necolas/normalize.css */

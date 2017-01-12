@@ -7,6 +7,7 @@
     margin-left: rem(200px)
     min-height: 100vh
     padding: 1rem 2rem
+    position: relative
     width: calc(100% - #{rem(200px)})
     .section-title
         +clear
@@ -17,3 +18,29 @@
         width: 100%
         .add
             float: right
+    .notification
+        +font-size(16px)
+        +opacity(0)
+        animation: up-in .6s .5s forwards $bouncy
+        background: $green
+        box-shadow: 0 2px 3px 2px rgba($black, .2)
+        color: $white
+        left: 0
+        padding: .8rem 3rem
+        position: absolute
+        top: 0
+        width: 100%
+        .typcn
+            +font-size(20px)
+        .close-notification
+            appearance: none
+            background: none
+            border: 0
+            color: $white
+            position: absolute
+            right: 3rem
+            top: 50%
+            transform: translateY(-50%)
+            &:hover
+                color: $red
+                cursor: pointer

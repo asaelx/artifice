@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Http\Requests\EstimateRequest;
+use App\Http\Requests\EstimateEmailRequest;
 use Carbon\Carbon;
 use Barryvdh\Snappy\Facades\SnappyPdf as PDF;
 use App\Estimate;
@@ -13,6 +14,8 @@ use App\Client;
 use App\Currency;
 use App\User;
 use App\Setting;
+use Mail;
+use App\Mail\EstimateGenerated;
 
 class EstimateController extends Controller
 {
@@ -137,16 +140,23 @@ class EstimateController extends Controller
     /**
      * Show the pdf of the specified resource.
      *
+     * @param  \App\Http\Requests\EstimateEmailRequest  $request
      * @param  Estimate  $estimate
      * @return \Illuminate\Http\Response
      */
-    public function email(Request $request, Estimate $estimate)
+    public function email(EstimateEmailRequest $request, Estimate $estimate)
     {
         // Email
         $setting = Setting::latest()->first();
         $pdf = \PDF::loadView('cotizaciones.pdf', ['estimate' => $estimate]);
-        $filename = $setting->title.' - Cotización para '.$estimate->client->name.'['.Carbon::now().'].pdf';
-        return $pdf->stream($filename);
+        $filename = $setting->title.'_Cotización_para_'.$estimate->client->name.'-'.Carbon::now();
+        $slug = str_slug($filename);
+        $path = 'storage/cotizaciones/'.$slug.'.pdf';
+        $pdf->save($path);
+        $request->merge(['pdf' => $path]);
+        Mail::to($request->input('email'))->send(new EstimateGenerated($estimate, $request));
+        unlink($path);
+        return redirect('cotizaciones');
     }
 
     /**

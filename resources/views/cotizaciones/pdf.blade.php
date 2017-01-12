@@ -18,7 +18,7 @@
                 <!-- /.logo -->
                 <div class="info">
                     <span class="data"><b>Cotización Piezas en existencia</b></span>
-                    <span class="data"><b>Fecha:</b> {{ \Carbon\Carbon::today()->toFormattedDateString() }}</span>
+                    <span class="data"><b>Fecha:</b> {{ \Date::today()->toFormattedDateString() }}</span>
                     <span class="data"><b>Atención:</b> {{ $estimate->client->name }}</span>
                     <span class="data"><b>Teléfono:</b> {{ $estimate->client->phone }}</span>
                     <span class="data"><b>E-mail:</b> {{ $estimate->client->email }}</span>

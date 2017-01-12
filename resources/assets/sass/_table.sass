@@ -132,3 +132,27 @@
         +font-size(28px)
         font-weight: 400
         margin-bottom: 3rem
+.pagination
+    text-align: center
+    .list
+        +clear
+        display: inline-block
+        list-style: none
+        .item
+            float: left
+            margin-right: .5rem
+            .link,
+            span
+                +font-size(14px)
+                border-radius: rem(3px)
+                display: inline-block
+                font-family: $sans
+                font-weight: 400
+                padding: .4rem .8rem
+                text-align: center
+                text-decoration: none
+            .link
+                background: $green
+                color: $white
+            span
+                background: $gray
