@@ -364,4 +364,72 @@ $(function(){
             notification.slideUp();
         });
     }
+
+    // Reportes
+    var charts = $('.chart');
+    if(charts.length){
+        // var estimates_canvas = $('#estimates-chart');
+        //
+        // var estimates_chart_js = new Chart(estimates_canvas, {
+        //     type: 'bar',
+        //     data: {
+        //         labels: ["Admin", "Juan", "Pepe"],
+        //         datasets: [{
+        //             label: 'Pendientes',
+        //             data: [10, 19, 3],
+        //             backgroundColor: [
+        //                 'rgba(255, 99, 132, 0.2)',
+        //                 'rgba(54, 162, 235, 0.2)',
+        //                 'rgba(255, 206, 86, 0.2)'
+        //             ],
+        //             borderColor: [
+        //                 'rgba(255,99,132,1)',
+        //                 'rgba(54, 162, 235, 1)',
+        //                 'rgba(255, 206, 86, 1)'
+        //             ],
+        //             borderWidth: 2
+        //         },
+        //         {
+        //             label: 'Aceptadas',
+        //             data: [2, 4, 7],
+        //             backgroundColor: [
+        //                 'rgba(255, 99, 132, 0.2)',
+        //                 'rgba(54, 162, 235, 0.2)',
+        //                 'rgba(255, 206, 86, 0.2)'
+        //             ],
+        //             borderColor: [
+        //                 'rgba(255,99,132,1)',
+        //                 'rgba(54, 162, 235, 1)',
+        //                 'rgba(255, 206, 86, 1)'
+        //             ],
+        //             borderWidth: 2
+        //         },
+        //         {
+        //             label: 'Rechazadas',
+        //             data: [5, 9, 4],
+        //             backgroundColor: [
+        //                 'rgba(255, 99, 132, 0.2)',
+        //                 'rgba(54, 162, 235, 0.2)',
+        //                 'rgba(255, 206, 86, 0.2)'
+        //             ],
+        //             borderColor: [
+        //                 'rgba(255,99,132,1)',
+        //                 'rgba(54, 162, 235, 1)',
+        //                 'rgba(255, 206, 86, 1)'
+        //             ],
+        //             borderWidth: 2
+        //         }]
+        //     },
+        //     options: {
+        //         scales: {
+        //             yAxes: [{
+        //                 ticks: {
+        //                     beginAtZero:true
+        //                 }
+        //             }]
+        //         }
+        //     }
+        // });
+
+    } // End Reportes
 });

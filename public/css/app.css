@@ -485,6 +485,11 @@ img {
   cursor: pointer;
 }
 
+.main .box .title {
+  font-weight: 400;
+  margin-bottom: 1rem;
+}
+
 .table {
   border-collapse: collapse;
   width: 100%;

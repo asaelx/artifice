@@ -86,3 +86,6 @@ Route::get('productos/getProductById/{id}', 'ProductController@getProductById');
 // Ajustes
 Route::get('ajustes', 'SettingController@index');
 Route::patch('ajustes/{setting}', 'SettingController@update');
+
+// Reportes
+Route::get('reportes', 'ReportController@index');

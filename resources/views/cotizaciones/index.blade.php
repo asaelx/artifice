@@ -82,7 +82,7 @@
                                         <span class="badge badge-red">Rechazada</span>
                                     @endif
                                 </td>
-                                <td>{{ ucfirst(\Date::createFromFormat('Y-m-d H:i:s', $estimate->expiration)->diffForHumans()) }}</td>
+                                <td>{{ ucfirst(\Date::createFromFormat('Y-m-d', $estimate->expiration)->diffForHumans()) }}</td>
                                 <td><span class="price">${{ $estimate->total }}</span></td>
                                 <td>
                                     <span href="#" class="dropdown">
