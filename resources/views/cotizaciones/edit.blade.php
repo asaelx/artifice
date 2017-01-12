@@ -23,3 +23,7 @@
     </div>
     <!-- /.row -->
 @endsection
+
+@section('modal')
+    @include('cotizaciones.modal')
+@endsection

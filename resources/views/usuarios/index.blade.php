@@ -3,7 +3,10 @@
 @section('title', 'Usuarios')
 @section('sectionTitle', 'Usuarios')
 @section('add')
-    <a href="{{ url('usuarios/nuevo') }}" class="btn btn-blue add"><i class="typcn typcn-plus"></i> Nuevo usuario</a>
+    <div class="buttons pr">
+        <a href="{{ url('usuarios/nuevo') }}" class="btn btn-blue add"><i class="typcn typcn-plus"></i> Nuevo usuario</a>
+    </div>
+    <!-- /.buttons -->
 @endsection
 
 @section('content')

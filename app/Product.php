@@ -32,7 +32,17 @@ class Product extends Model
      * The attributes that are mass assignable.
      * @var array
      */
-    protected $fillable = ['title', 'slug', 'description', 'code', 'stock', 'regular_price', 'sale_price', 'brand_id', 'category_id'];
+    protected $fillable = [
+        'title',
+        'slug',
+        'description',
+        'code',
+        'stock',
+        'regular_price',
+        'sale_price',
+        'brand_id',
+        'category_id'
+    ];
 
     public function estimate_details()
     {

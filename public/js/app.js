@@ -467,6 +467,10 @@ $(function(){
             }
         });
 
+        $(document).keyup(function(e) {
+          if (e.keyCode === 27) close_modal();
+        });
+
         var unlock_discount_modal = $('#unlock-discount-modal');
         if(unlock_discount_modal.length){
             var form = unlock_discount_modal.find('.form');

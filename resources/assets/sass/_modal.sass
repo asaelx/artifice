@@ -11,8 +11,13 @@
     z-index: 99
     &.show
         +opacity(1)
-        animation: show-modal 0.3s ease-in-out
+        animation: show-modal .3s forwards ease-in-out
+        .modal
+            +opacity(1)
+            transform: translate(-50%, 10%)
+            transition: all .3s $bouncy
     .modal
+        +opacity(0)
         background: $white
         border-radius: rem(3px)
         box-shadow: 0 2px 5px 3px rgba($black, 0.1)

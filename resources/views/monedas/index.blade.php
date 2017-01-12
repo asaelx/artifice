@@ -3,7 +3,10 @@
 @section('title', 'Monedas')
 @section('sectionTitle', 'Monedas')
 @section('add')
-    <a href="{{ url('monedas/nuevo') }}" class="btn btn-blue add"><i class="typcn typcn-plus"></i> Agregar moneda</a>
+    <div class="buttons pr">
+        <a href="{{ url('monedas/nuevo') }}" class="btn btn-blue add"><i class="typcn typcn-plus"></i> Agregar moneda</a>
+    </div>
+    <!-- /.buttons -->
 @endsection
 
 @section('content')

@@ -83,6 +83,7 @@ Route::delete('productos/{product}', 'ProductController@destroy');
 Route::get('productos/{product}/editar', 'ProductController@edit');
 Route::get('productos/getProducts', 'ProductController@getProducts');
 Route::get('productos/getProductById/{id}', 'ProductController@getProductById');
+Route::post('productos/importProducts', 'ProductController@importProducts');
 
 // Ajustes
 Route::get('ajustes', 'SettingController@index');

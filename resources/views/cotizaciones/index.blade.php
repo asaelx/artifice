@@ -3,7 +3,10 @@
 @section('title', 'Cotizaciones')
 @section('sectionTitle', 'Cotizaciones')
 @section('add')
-    <a href="{{ url('cotizaciones/nuevo') }}" class="btn btn-blue add"><i class="typcn typcn-plus"></i> Nueva cotización</a>
+    <div class="buttons pr">
+        <a href="{{ url('cotizaciones/nuevo') }}" class="btn btn-blue add"><i class="typcn typcn-plus"></i> Nueva cotización</a>
+    </div>
+    <!-- /.buttons -->
 @endsection
 
 @section('content')

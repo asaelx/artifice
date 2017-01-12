@@ -8,6 +8,7 @@ use App\Product;
 use App\Brand;
 use App\Category;
 use App\Picture;
+use Excel;
 
 class ProductController extends Controller
 {
@@ -47,6 +48,7 @@ class ProductController extends Controller
             ->with('pictures', 'brand', 'category')->get();
         $data = ['items' => [], 'total_count' => $products->count()];
         foreach ($products as $product) {
+            $picture = (isset($product->pictures[0])) ? url('storage/'.$product->pictures[0]->url) : null;
             $push = [
                 'id' => $product->id,
                 'text' => $product->title,
@@ -58,11 +60,62 @@ class ProductController extends Controller
                 'sale_price' => $product->sale_price,
                 'brand' => $product->brand->title,
                 'category' => $product->category->title,
-                'picture' => url('storage/'.$product->pictures[0]->url)
+                'picture' => $picture
             ];
             array_push($data['items'], $push);
         }
         return $data;
+    }
+
+    /**
+     * Import products from file.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function importProducts(Request $request)
+    {
+        Excel::load($request->file('file'), function($reader) {
+            // Getting all results
+            $results = $reader->get();
+
+            foreach ($results as $result) {
+                // TODO: Validate to avoid duplicates
+                $brand = Brand::where('title', $result->marca_producto)->first();
+                if($brand){
+                    $brand_id = $brand->id;
+                }else{
+                    $brand_id = Brand::create(['title' => $result->marca_producto, 'description' => $result->marca_producto])->id;
+                }
+
+                $category = Category::where('title', $result->categoria_producto)->first();
+                if($category){
+                    $category_id = $category->id;
+                }else{
+                    $category_id = Brand::create(['title' => $result->categoria_producto, 'description' => $result->categoria_producto])->id;
+                }
+
+                $product = Product::create([
+                    'title' => $result->titulo_producto,
+                    'description' => $result->titulo_producto,
+                    'code' => $result->sku_producto,
+                    'stock' => 0,
+                    'regular_price' => 0,
+                    'sale_price' => 0,
+                    'brand_id' => $brand_id,
+                    'category_id' => $category_id
+                ]);
+
+                $photo = Picture::where('original_name', 'nophoto')->first();
+                if($photo){
+                    $product->pictures()->sync([$photo->id]);
+                }
+
+            }
+
+            session()->flash('flash_message', 'Se han importado '.$results->count().' productos');
+
+        });
+        return redirect('productos');
     }
 
     /**
@@ -120,7 +173,7 @@ class ProductController extends Controller
     {
         $product = Product::with('pictures', 'brand', 'category')
             ->find($id);
-        $product->picture = url('storage/'.$product->pictures[0]->url);
+        $product->picture = (isset($product->pictures[0])) ? url('storage/'.$product->pictures[0]->url) : null;
         return $product;
     }
 

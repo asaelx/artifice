@@ -3,6 +3,7 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use App\Product;
 
 class Brand extends Model
 {
@@ -11,4 +12,9 @@ class Brand extends Model
      * @var array
      */
     protected $fillable = ['title', 'description'];
+
+    public function products()
+    {
+        return $this->hasMany('App\Product');
+    }
 }

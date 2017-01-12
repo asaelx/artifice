@@ -3,7 +3,10 @@
 @section('title', 'Marcas')
 @section('sectionTitle', 'Marcas')
 @section('add')
-    <a href="{{ url('marcas/nuevo') }}" class="btn btn-blue add"><i class="typcn typcn-plus"></i> Agregar marca</a>
+    <div class="buttons pr">
+        <a href="{{ url('marcas/nuevo') }}" class="btn btn-blue add"><i class="typcn typcn-plus"></i> Agregar marca</a>
+    </div>
+    <!-- /.buttons -->
 @endsection
 
 @section('content')
@@ -46,6 +49,7 @@
                         <tr>
                             <th>Título</th>
                             <th>Descripción</th>
+                            <th>Productos</th>
                             <th>Opciones</th>
                         </tr>
                     </thead>
@@ -54,6 +58,7 @@
                             <tr>
                                 <td>{{ $brand->title }}</td>
                                 <td>{{ $brand->description }}</td>
+                                <td>{{ $brand->products()->count() }}</td>
                                 <td>
                                     <span href="#" class="dropdown">
                                         <i class="typcn typcn-social-flickr"></i>
