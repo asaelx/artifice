@@ -26,6 +26,7 @@ Route::get('cotizaciones/{estimate}/editar', 'EstimateController@edit');
 Route::get('cotizaciones/{estimate}/download', 'EstimateController@download');
 Route::get('cotizaciones/{estimate}/pdf', 'EstimateController@pdf');
 Route::post('cotizaciones/{estimate}/email', 'EstimateController@email');
+Route::post('cotizaciones/unlockDiscount/{id}', 'EstimateController@unlockDiscount');
 
 // Clientes
 Route::get('clientes', 'ClientController@index');

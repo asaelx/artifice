@@ -8,7 +8,7 @@
 
 @section('content')
     @unless ($products->isEmpty())
-        <div class="row">
+        {{-- <div class="row">
             {{ Form::open(['url' => '/', 'class' => 'form']) }}
                 <div class="col-3">
                     <div class="form-group">
@@ -44,7 +44,7 @@
                 <!-- /.col-3 -->
             {{ Form::close() }}
         </div>
-        <!-- /.row -->
+        <!-- /.row --> --}}
     @endunless
     <div class="row">
         <div class="col-12">

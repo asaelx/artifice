@@ -8,7 +8,7 @@
 
 @section('content')
     @unless ($estimates->isEmpty())
-        <div class="row">
+        {{-- <div class="row">
             {{ Form::open(['url' => '/', 'class' => 'form']) }}
                 <div class="col-3">
                     <div class="form-group">
@@ -40,7 +40,7 @@
                 <!-- /.col-3 -->
             {{ Form::close() }}
         </div>
-        <!-- /.row -->
+        <!-- /.row --> --}}
     @endunless
     <div class="row">
         <div class="col-12">
@@ -97,7 +97,7 @@
                                             </li>
                                             <!-- /.item -->
                                             <li class="item">
-                                                <a href="{{ url('cotizaciones/'.$estimate->id.'/pdf') }}" class="link"><i class="typcn typcn-printer"></i> Imprimir</a>
+                                                <a href="{{ url('cotizaciones/'.$estimate->id.'/pdf') }}" class="link" target="_blank"><i class="typcn typcn-printer"></i> Imprimir</a>
                                             </li>
                                             <!-- /.item -->
                                             <li class="item">

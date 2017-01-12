@@ -193,7 +193,7 @@
 <div class="row">
     <div class="col-12">
         <div class="buttons pr">
-            <button type="submit" class="btn btn-green"><i class="typcn typcn-printer"></i> Guardar e imprimir</button>
+            <button type="submit" class="btn btn-green"><i class="typcn typcn-printer"></i> Guardar</button>
         </div>
         <!-- /.tools -->
     </div>

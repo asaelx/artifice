@@ -80,6 +80,7 @@ class EstimateController extends Controller
                 'product_id' => $item_estimate_detail['product_id']
             ]);
         }
+        session()->flash('flash_message', 'Se ha generado la cotización: '.$estimate->folio);
         return redirect('cotizaciones');
     }
 
@@ -138,6 +139,19 @@ class EstimateController extends Controller
     }
 
     /**
+     * Get a json object of the discount code.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function unlockDiscount(Request $request, $id)
+    {
+        $discount = Setting::where('discount_code', $request->input('discount_code'))->first();
+        if($discount)
+            return ['discount' => true, 'product_id' => $id];
+        return ['discount' => false];
+    }
+
+    /**
      * Show the pdf of the specified resource.
      *
      * @param  \App\Http\Requests\EstimateEmailRequest  $request
@@ -156,6 +170,7 @@ class EstimateController extends Controller
         $request->merge(['pdf' => $path]);
         Mail::to($request->input('email'))->send(new EstimateGenerated($estimate, $request));
         unlink($path);
+        session()->flash('flash_message', 'Se ha enviado la cotización '.$estimate->folio.' al correo: '.$request->input('email'));
         return redirect('cotizaciones');
     }
 

@@ -8,7 +8,7 @@
 
 @section('content')
     @unless ($currencies->isEmpty())
-        <div class="row">
+        {{-- <div class="row">
             {{ Form::open(['url' => '/', 'class' => 'form']) }}
                 <div class="col-6">
                     <div class="form-group">
@@ -28,7 +28,7 @@
                 <!-- /.col-6 -->
             {{ Form::close() }}
         </div>
-        <!-- /.row -->
+        <!-- /.row --> --}}
     @endunless
     <div class="row">
         <div class="col-12">

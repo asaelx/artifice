@@ -152,7 +152,8 @@ $(function(){
     if(dateable.length){
         dateable.datepicker({
             language: 'es-ES',
-            format: 'yyyy-mm-dd'
+            format: 'yyyy-mm-dd',
+            startDate: new Date()
         });
     }
 
@@ -186,7 +187,9 @@ $(function(){
                     price_tag = tr.find('.product-price-total'),
                     price = parseFloat(price_tag.data('price')),
                     subtotal = price*qty,
-                    discount = (parseFloat(tr.find('.discount').val()) / 100) * parseFloat(subtotal),
+                    discount_input = tr.find('.discount'),
+                    discount_value = (discount_input.length) ? discount_input.val() : 0,
+                    discount = (parseFloat(discount_value) / 100) * parseFloat(subtotal),
                     total = subtotal - discount;
 
                 price_tag.text('$'+total.toFixed(2));
@@ -203,7 +206,9 @@ $(function(){
                     qty = parseFloat($e.find('.qty').val()),
                     price = parseFloat($e.find('.product-price-total').data('price')),
                     subtotal = price*qty,
-                    discount = (parseFloat($e.find('.discount').val()) / 100) * parseFloat(subtotal),
+                    discount_input = $e.find('.discount'),
+                    discount_value = (discount_input.length) ? discount_input.val() : 0,
+                    discount = (parseFloat(discount_value) / 100) * parseFloat(subtotal),
                     total = subtotal - discount;
 
                 grand_subtotal = grand_subtotal + subtotal;
@@ -305,15 +310,22 @@ $(function(){
                         })
                     });
 
-                    var td_discount = $('<td>', {
-                        html: $('<input>', {
+                    var input_discount = $('<input>', {
                             class: 'input discount',
                             value: 0,
                             type: 'number',
                             min: 0,
                             max: 100,
                             name: 'estimate_details['+data.id+'][discount]'
-                        })
+                        });
+                    var button_discount = $('<button>', {
+                            class: 'unlock-discount btn btn-blue modal-trigger',
+                            'data-modal': 'unlock-discount',
+                            'data-id': data.id,
+                            html: $('<i>', { class: 'typcn typcn-lock-closed' })
+                        });
+                    var td_discount = $('<td>', {
+                        html: button_discount
                     });
 
                     var td_total = $('<td>', {
@@ -399,8 +411,40 @@ $(function(){
                 form.attr('action', action_id);
         }
 
-        function close_modal(){
-            $('.layer').removeClass('show');
+        function close_modal(id){
+            var modal = $('.layer');
+            modal.removeClass('show');
+
+            var form = modal.find('.form');
+            if(form.length){
+                var action = form.attr('action'),
+                    action_wildcard = action.replace(/\d/g, '{id}');
+                form.attr('action', action_wildcard);
+                form[0].reset();
+            }
+
+            if(id){
+                var cotizador = $('.cotizador');
+                if(cotizador.length){
+                    var tr = cotizador.find('tr')
+                            .find('input[name="estimate_details['+id+'][product_id]"]')
+                            .closest('tr');
+                    if(tr.length){
+                        var td = tr.find('.unlock-discount').closest('td');
+                        if(td.length){
+                            var input_discount = $('<input>', {
+                                    class: 'input discount',
+                                    value: 0,
+                                    type: 'number',
+                                    min: 0,
+                                    max: 100,
+                                    name: 'estimate_details['+id+'][discount]'
+                                });
+                            td.html(input_discount);
+                        }
+                    }
+                }
+            }
         }
 
 
@@ -409,10 +453,12 @@ $(function(){
                 modal_id = $this.data('modal'),
                 resource_id = $this.data('id');
             show_modal(modal_id, resource_id);
+            return false;
         });
 
         $body.on('click', '.close-modal', function(){
             close_modal();
+            return false;
         });
 
         $body.on('click', '.layer', function(e){
@@ -420,6 +466,22 @@ $(function(){
                 close_modal();
             }
         });
+
+        var unlock_discount_modal = $('#unlock-discount-modal');
+        if(unlock_discount_modal.length){
+            var form = unlock_discount_modal.find('.form');
+            form.submit(function(){
+                var $this = $(this),
+                    action = $this.attr('action'),
+                    data = $this.serialize();
+                $.post(action, data, function(data){
+                    if(data.discount){
+                        close_modal(data.product_id);
+                    }
+                });
+                return false;
+            });
+        } // End Unlock discount
 
     }// End Modal
 
