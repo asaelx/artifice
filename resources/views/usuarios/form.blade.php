@@ -13,16 +13,18 @@
     {{ Form::input('email', 'email', null, ['class' => 'input']) }}
 </div>
 <!-- /.form-group -->
-<div class="form-group">
-    {{ Form::label('password', 'Contraseña', ['class' => 'label']) }}
-    {{ Form::input('password', 'password', null, ['class' => 'input']) }}
-</div>
-<!-- /.form-group -->
-<div class="form-group">
-    {{ Form::label('password_confirmation', 'Confirmar contraseña', ['class' => 'label']) }}
-    {{ Form::input('password', 'password_confirmation', null, ['class' => 'input']) }}
-</div>
-<!-- /.form-group -->
+@unless (isset($user->id))
+    <div class="form-group">
+        {{ Form::label('password', 'Contraseña', ['class' => 'label']) }}
+        {{ Form::input('password', 'password', null, ['class' => 'input']) }}
+    </div>
+    <!-- /.form-group -->
+    <div class="form-group">
+        {{ Form::label('password_confirmation', 'Confirmar contraseña', ['class' => 'label']) }}
+        {{ Form::input('password', 'password_confirmation', null, ['class' => 'input']) }}
+    </div>
+    <!-- /.form-group -->
+@endunless
 <div class="form-group">
     {{ Form::label('role', 'Rol', ['class' => 'label']) }}
     {{ Form::select('role', $roles, null, ['class' => 'select2']) }}

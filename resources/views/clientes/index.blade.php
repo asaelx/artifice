@@ -70,7 +70,7 @@
                                 <td><a href="mailto:{{ $client->email }}" class="link">{{ $client->email }}</a></td>
                                 <td>{{ $client->phone }}</td>
                                 <td>{{ $client->created_at }}</td>
-                                <td><a href="#" class="link">3</a></td>
+                                <td><a href="{{ url('cotizaciones') }}" class="link">{{ $client->estimates()->count() }}</a></td>
                                 <td>
                                     <span href="#" class="dropdown">
                                         <i class="typcn typcn-social-flickr"></i>
@@ -80,7 +80,7 @@
                                             </li>
                                             <!-- /.item -->
                                             <li class="item">
-                                                <a href="#" class="link"><i class="typcn typcn-clipboard"></i> Cotizaciones</a>
+                                                <a href="{{ url('cotizaciones') }}" class="link"><i class="typcn typcn-clipboard"></i> Cotizaciones</a>
                                             </li>
                                             <!-- /.item -->
                                             <li class="item">

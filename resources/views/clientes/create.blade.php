@@ -6,6 +6,7 @@
 @section('content')
     <div class="row">
         <div class="col-6">
+            @include('layout.errors')
             {{ Form::model($client = new \App\Client, ['url' => 'clientes', 'class' => 'form']) }}
                 @include('clientes.form')
             {{ Form::close() }}

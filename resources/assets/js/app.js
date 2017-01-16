@@ -238,7 +238,7 @@ $(function(){
                             value: 1,
                             type: 'number',
                             min: 1,
-                            max: data.stock,
+                            max: (data.stock > 0) ? data.stock : 1,
                             name: 'estimate_details['+data.id+'][qty]'
                         })
                     });

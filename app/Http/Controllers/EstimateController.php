@@ -74,9 +74,10 @@ class EstimateController extends Controller
         }
         $estimate = Estimate::create($request->all());
         foreach ($request->input('estimate_details') as $item_estimate_detail) {
+            $discount = (isset($item_estimate_detail['discount'])) ? $item_estimate_detail['discount'] : 0;
             $estimate->estimate_details()->create([
                 'quantity' => $item_estimate_detail['qty'],
-                'discount' => $item_estimate_detail['discount'],
+                'discount' => $discount,
                 'product_id' => $item_estimate_detail['product_id']
             ]);
         }
@@ -172,6 +173,7 @@ class EstimateController extends Controller
         unlink($path);
         session()->flash('flash_message', 'Se ha enviado la cotización '.$estimate->folio.' al correo: '.$request->input('email'));
         return redirect('cotizaciones');
+        // return view('emails.estimate', compact('estimate', 'request'));
     }
 
     /**

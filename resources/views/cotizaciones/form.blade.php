@@ -139,7 +139,7 @@
                                 <!-- /.price -->
                             </td>
                             <td>
-                                {{ Form::input('number', 'estimate_details['.$product->id.'][qty]', $estimate_detail->quantity, ['class' => 'input qty', 'min' => '1', 'max' => $product->stock]) }}
+                                {{ Form::input('number', 'estimate_details['.$product->id.'][qty]', $estimate_detail->quantity, ['class' => 'input qty', 'min' => '1', 'max' => ($product->stock > 0) ? $product->stock : '1']) }}
                             </td>
                             <td>
                                 {{ Form::input('number', 'estimate_details['.$product->id.'][discount]', $estimate_detail->discount, ['class' => 'input discount', 'min' => '0', 'max' => '100']) }}

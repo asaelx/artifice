@@ -6,18 +6,7 @@
     {{ Form::open(['url' => '/login', 'class' => 'login-form auth-form']) }}
         <h1 class="title">Iniciar sesión</h1>
         <!-- /.title -->
-        @if($errors->any())
-
-        <ul class="notifications">
-        @foreach($errors->all() as $error)
-
-          <li class="notification error">
-            <div class="message"><span class="typcn typcn-warning"></span> {{ $error }}</div>
-          </li>
-        @endforeach
-
-        </ul>
-        @endif
+        @include('layout.errors')
         <div class="form-group">
             {{ Form::label('username', 'Usuario', ['class' => 'label']) }}
             {{ Form::input('text', 'username', old('username'), ['required', 'autofocus', 'class' => 'input']) }}

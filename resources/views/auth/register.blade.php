@@ -6,18 +6,7 @@
     {{ Form::open(['url' => '/register', 'class' => 'register-form auth-form', 'files' => true]) }}
         <h1 class="title">Registrase</h1>
         <!-- /.title -->
-        @if($errors->any())
-
-        <ul class="notifications">
-        @foreach($errors->all() as $error)
-
-          <li class="notification error">
-            <div class="message"><span class="typcn typcn-warning"></span> {{ $error }}</div>
-          </li>
-        @endforeach
-
-        </ul>
-        @endif
+        @include('layout.errors')
         <div class="form-group">
             {{ Form::label('name', 'Nombre', ['class' => 'label']) }}
             {{ Form::input('text', 'name', old('name'), ['required', 'autofocus', 'class' => 'input']) }}

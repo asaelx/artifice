@@ -26,7 +26,8 @@ class CurrencyRequest extends FormRequest
         return [
             'title' => 'required',
             'code' => 'required',
-            'symbol' => 'required'
+            'symbol' => 'required',
+            'precision' => 'required|numeric'
         ];
     }
 
@@ -40,7 +41,9 @@ class CurrencyRequest extends FormRequest
         return [
             'title.required' => 'No has escrito un título',
             'code.required' => 'No has escrito un código',
-            'symbol.required' => 'No has escrito un símbolo'
+            'symbol.required' => 'No has escrito un símbolo',
+            'precision.required' => 'No has escrito una precisión',
+            'precision.numeric' => 'La precisión debe ser un número entero'
         ];
     }
 }

@@ -435,6 +435,7 @@ img {
   font-size: 2rem;
   border-bottom: 1px solid #ccc;
   font-weight: 600;
+  margin: 0;
   padding-bottom: .5rem;
   width: 100%;
 }
@@ -484,6 +485,25 @@ img {
 .main .box .title {
   font-weight: 400;
   margin-bottom: 1rem;
+}
+
+.main .errors {
+  list-style: none;
+}
+
+.main .errors .error {
+  font-size: 16px;
+  font-size: 1.1428571429rem;
+  color: #e74c3c;
+  margin-bottom: 1rem;
+}
+
+.main .errors .error .typcn {
+  color: #e74c3c;
+}
+
+.main .errors .error:last-child {
+  margin: 0;
 }
 
 .table {
@@ -900,6 +920,16 @@ img {
 
 .layer .modal .content {
   padding: 1rem;
+}
+
+.layer .modal .content p {
+  font-size: 16px;
+  font-size: 1.1428571429rem;
+  margin-bottom: .5rem;
+}
+
+.layer .modal .content p:last-child {
+  margin: 0;
 }
 
 .product-result {

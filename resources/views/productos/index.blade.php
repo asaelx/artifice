@@ -147,16 +147,30 @@
             <h3 class="title"><i class="typcn typcn-storage"></i> Subir archivo <button class="close-modal"><i class="typcn typcn-times"></i></button></h3>
             <!-- /.title -->
             <div class="content">
-                {{ Form::open(['url' => url('productos/importProducts'), 'files' => true,'class' => 'form']) }}
-                    <div class="form-group">
-                        {{ Form::label('file', 'Selecciona un archivo .xsl, .xlsx o .csv', ['class' => 'label']) }}
-                        {{ Form::file('file', null, ['class' => 'input']) }}
+                <div class="row">
+                    <div class="col-12">
+                        <p>Asegúrate que los títulos de las columnas sean:</p>
+                        <p><b>title, description, code, stock, regular_price, sale_price, brand_id, category_id</b></p>
                     </div>
-                    <div class="form-group">
-                        {{ Form::submit('Cargar productos', ['class' => 'btn btn-green']) }}
+                    <!-- /.col-12 -->
+                </div>
+                <!-- /.row -->
+                <div class="row">
+                    <div class="col-12">
+                        {{ Form::open(['url' => url('productos/importProducts'), 'files' => true,'class' => 'form']) }}
+                            <div class="form-group">
+                                {{ Form::label('file', 'Selecciona un archivo .xsl, .xlsx o .csv', ['class' => 'label']) }}
+                                {{ Form::file('file', ['required']) }}
+                            </div>
+                            <div class="form-group">
+                                {{ Form::submit('Cargar productos', ['class' => 'btn btn-green']) }}
+                            </div>
+                            <!-- /.form-group -->
+                        {{ Form::close() }}
                     </div>
-                    <!-- /.form-group -->
-                {{ Form::close() }}
+                    <!-- /.col-12 -->
+                </div>
+                <!-- /.row -->
             </div>
             <!-- /.content -->
         </div>

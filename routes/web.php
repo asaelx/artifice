@@ -20,7 +20,6 @@ Route::get('cotizaciones', 'EstimateController@index');
 Route::post('cotizaciones', 'EstimateController@store');
 Route::get('cotizaciones/nuevo', 'EstimateController@create');
 Route::patch('cotizaciones/{estimate}', 'EstimateController@update');
-Route::get('cotizaciones/{estimate}', 'EstimateController@show');
 Route::delete('cotizaciones/{estimate}', 'EstimateController@destroy');
 Route::get('cotizaciones/{estimate}/editar', 'EstimateController@edit');
 Route::get('cotizaciones/{estimate}/download', 'EstimateController@download');
