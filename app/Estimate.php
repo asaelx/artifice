@@ -7,6 +7,7 @@ use App\Product;
 use App\Client;
 use App\User;
 use App\EstimateDetail;
+use App\Email;
 
 class Estimate extends Model
 {
@@ -42,5 +43,10 @@ class Estimate extends Model
     public function estimate_details()
     {
         return $this->hasMany('App\EstimateDetail');
+    }
+
+    public function emails()
+    {
+        return $this->hasMany('App\Email');
     }
 }

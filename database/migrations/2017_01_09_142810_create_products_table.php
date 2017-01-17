@@ -23,7 +23,7 @@ class CreateProductsTable extends Migration
             $table->string('regular_price');
             $table->string('sale_price')->nullable();
             $table->integer('brand_id')->unsigned()->nullable();
-            $table->integer('category_id')->unsigned();
+            $table->integer('category_id')->unsigned()->nullable();
             $table->timestamps();
 
             $table->foreign('brand_id')

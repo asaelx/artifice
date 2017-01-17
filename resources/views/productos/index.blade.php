@@ -13,11 +13,11 @@
 @section('content')
     @unless ($products->isEmpty())
         {{-- <div class="row">
-            {{ Form::open(['url' => '/', 'class' => 'form']) }}
+            {{ Form::open(['url' => url('productos'), 'method' => 'GET', 'class' => 'form']) }}
                 <div class="col-3">
                     <div class="form-group">
                         {{ Form::label('title', 'Título', ['class' => 'label']) }}
-                        {{ Form::input('text', 'title', null, ['class' => 'input']) }}
+                        {{ Form::input('text', 'title', ($request->has('title')) ? $request->input('title') : null, ['class' => 'input']) }}
                     </div>
                     <!-- /.form-group -->
                 </div>
@@ -25,27 +25,34 @@
                 <div class="col-3">
                     <div class="form-group">
                         {{ Form::label('code', 'Código', ['class' => 'label']) }}
-                        {{ Form::input('text', 'code', null, ['class' => 'input']) }}
+                        {{ Form::input('text', 'code', ($request->has('code')) ? $request->input('code') : null, ['class' => 'input']) }}
                     </div>
                     <!-- /.form-group -->
                 </div>
                 <!-- /.col-3 -->
                 <div class="col-3">
                     <div class="form-group">
-                        {{ Form::label('brand', 'Marca', ['class' => 'label']) }}
-                        {{ Form::select('brand', $brands, null, ['class' => 'select2']) }}
+                        {{ Form::label('brand_id', 'Marca', ['class' => 'label']) }}
+                        {{ Form::select('brand_id', $brands, ($request->has('brand_id')) ? $request->input('brand_id') : null, ['class' => 'select2', 'data-placeholder' => 'Selecciona Marca']) }}
                     </div>
                     <!-- /.form-group -->
                 </div>
                 <!-- /.col-3 -->
                 <div class="col-3">
                     <div class="form-group">
-                        {{ Form::label('category', 'Categoría', ['class' => 'label']) }}
-                        {{ Form::select('category', $categories, null, ['class' => 'select2']) }}
+                        {{ Form::label('category_id', 'Categoría', ['class' => 'label']) }}
+                        {{ Form::select('category_id', $categories, ($request->has('category_id')) ? $request->input('category_id') : null, ['class' => 'select2', 'data-placeholder' => 'Selecciona Categoría']) }}
                     </div>
                     <!-- /.form-group -->
                 </div>
                 <!-- /.col-3 -->
+                <div class="col-12">
+                    <div class="form-group">
+                        {{ Form::submit('Buscar', ['class' => 'btn btn-green']) }}
+                    </div>
+                    <!-- /.form-group -->
+                </div>
+                <!-- /.col-12 -->
             {{ Form::close() }}
         </div>
         <!-- /.row --> --}}
@@ -87,10 +94,14 @@
                                 <td>
                                     <h4 class="product-title">{{ $product->title }}</h4>
                                     <!-- /.product-title -->
-                                    <h5 class="product-brand"><b>Marca:</b> <i>{{ $product->brand->title }}</i></h5>
-                                    <!-- /.product-brand -->
-                                    <h5 class="product-category"><b>Categoría:</b> <i>{{ $product->category->title }}</i></h5>
-                                    <!-- /.product-category -->
+                                    @if ($product->brand)
+                                        <h5 class="product-brand"><b>Marca:</b> <i>{{ $product->brand->title }}</i></h5>
+                                        <!-- /.product-brand -->
+                                    @endif
+                                    @if ($product->category)
+                                        <h5 class="product-category"><b>Categoría:</b> <i>{{ $product->category->title }}</i></h5>
+                                        <!-- /.product-category -->
+                                    @endif
                                     <div class="product-description">
                                         {{ $product->description }}
                                     </div>

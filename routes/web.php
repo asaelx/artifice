@@ -90,3 +90,6 @@ Route::patch('ajustes/{setting}', 'SettingController@update');
 
 // Reportes
 Route::get('reportes', 'ReportController@index');
+
+// Emails
+Route::get('emails', 'EmailController@index');

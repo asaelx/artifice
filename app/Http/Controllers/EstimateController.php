@@ -171,6 +171,11 @@ class EstimateController extends Controller
         $request->merge(['pdf' => $path]);
         Mail::to($request->input('email'))->send(new EstimateGenerated($estimate, $request));
         unlink($path);
+        $estimate->emails()->create([
+            'to' => $request->input('email'),
+            'subject' => $request->input('subject'),
+            'message' => $request->input('message')
+        ]);
         session()->flash('flash_message', 'Se ha enviado la cotización '.$estimate->folio.' al correo: '.$request->input('email'));
         return redirect('cotizaciones');
         // return view('emails.estimate', compact('estimate', 'request'));
@@ -185,8 +190,8 @@ class EstimateController extends Controller
      */
     public function update(EstimateRequest $request, Estimate $estimate)
     {
-        foreach ($request->input('estimate_details') as $estimate_detail) {
-             EstimateDetail::find($estimate_detail['id'])->delete();
+        foreach ($estimate->estimate_details as $estimate_detail) {
+            EstimateDetail::find($estimate_detail->id)->delete();
         }
         if(!is_numeric($request->input('client_id'))){
             $request->merge(['name' => $request->input('client_id')]);
@@ -195,9 +200,10 @@ class EstimateController extends Controller
         }
         $estimate->update($request->all());
         foreach ($request->input('estimate_details') as $item_estimate_detail) {
+            $discount = (isset($item_estimate_detail['discount'])) ? $item_estimate_detail['discount'] : 0;
             $estimate->estimate_details()->create([
                 'quantity' => $item_estimate_detail['qty'],
-                'discount' => $item_estimate_detail['discount'],
+                'discount' => $discount,
                 'product_id' => $item_estimate_detail['product_id']
             ]);
         }

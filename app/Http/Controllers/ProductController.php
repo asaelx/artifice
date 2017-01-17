@@ -8,6 +8,7 @@ use App\Product;
 use App\Brand;
 use App\Category;
 use App\Picture;
+use Storage;
 use Excel;
 
 class ProductController extends Controller
@@ -31,7 +32,9 @@ class ProductController extends Controller
     {
         $products = Product::latest()->paginate(5);
         $brands = Brand::pluck('title', 'id');
+        $brands = [''=>''] + $brands->toArray();
         $categories = Category::pluck('title', 'id');
+        $categories = [''=>''] + $categories->toArray();
         return view('productos.index', compact('products', 'brands', 'categories'));
     }
 
@@ -94,22 +97,31 @@ class ProductController extends Controller
                     $category_id = Brand::create(['title' => $result->categoria_producto, 'description' => $result->categoria_producto])->id;
                 }
 
-                $product = Product::create([
-                    'title' => $result->titulo_producto,
-                    'description' => $result->titulo_producto,
-                    'code' => $result->sku_producto,
-                    'stock' => 0,
-                    'regular_price' => 0,
-                    'sale_price' => 0,
-                    'brand_id' => $brand_id,
-                    'category_id' => $category_id
-                ]);
+                // $exists = Product::where('title', $result->titulo_producto)->first();
+                // if(!$exists){
+                    $photo_url = 'http://artificestore.mx/archivos/imagenes/'.$result->id_foto.'_image_'.$result->nombre_foto;
+                    $file = @file_get_contents($photo_url);
+                    $save = Storage::put('public/products/'.$result->nombre_foto, $file);
+                    $picture = Picture::create([
+                        'original_name' => $result->nombre_foto,
+                        'url' => str_replace('/storage/', '', Storage::url('products/'.$result->nombre_foto))
+                    ]);
 
-                $photo = Picture::where('original_name', 'nophoto')->first();
-                if($photo){
-                    $product->pictures()->sync([$photo->id]);
-                }
+                    $product = Product::create([
+                        'title' => $result->titulo_producto,
+                        'description' => $result->titulo_producto,
+                        'code' => $result->sku_producto,
+                        'stock' => 0,
+                        'regular_price' => 0,
+                        'sale_price' => null,
+                        'brand_id' => $brand_id,
+                        // 'brand_id' => null,
+                        'category_id' => $category_id
+                        // 'category_id' => null
+                    ]);
 
+                    $product->pictures()->sync([$picture->id]);
+                // }
             }
 
             session()->flash('flash_message', 'Se han importado '.$results->count().' productos');

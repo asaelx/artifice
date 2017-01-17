@@ -21,6 +21,7 @@
             'marcas' => ['icon' => 'tags', 'name' => 'Marcas'],
             'categorias' => ['icon' => 'tags', 'name' => 'Categorías'],
             'reportes' => ['icon' => 'chart-pie', 'name' => 'Reportes'],
+            'emails' => ['icon' => 'mail', 'name' => 'Emails enviados'],
             // 'actividad' => ['icon' => 'chart-area', 'name' => 'Actividad']
         ];
 
