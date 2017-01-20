@@ -8,9 +8,12 @@ $(function(){
         $(window).click(function() {
             dropdown.find('.list').removeClass('open');
         });
-        $body.on('click', '.dropdown', function(){
+        $body.on('click', '.dropdown', function(e){
+            if ($(e.target).hasClass('link'))
+                return true;
             var list = $(this).find('.list');
             list.addClass('open');
+            return false;
         });
     }
 

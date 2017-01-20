@@ -113,7 +113,7 @@
                                     {!! ($product->sale_price != '') ? '<span class="price">$'.$product->sale_price.'</span>' : '' !!}
                                 </td>
                                 <td>
-                                    <span href="#" class="dropdown">
+                                    <span class="dropdown">
                                         <i class="typcn typcn-social-flickr"></i>
                                         <ul class="list">
                                             <li class="item">
