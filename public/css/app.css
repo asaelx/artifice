@@ -668,6 +668,7 @@ img {
   font-size: 20px;
   font-size: 1.4285714286rem;
   color: inherit;
+  cursor: pointer;
   display: inline-block;
   position: relative;
 }

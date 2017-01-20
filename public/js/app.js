@@ -73,7 +73,6 @@ $(function(){
     var dropdown = $('.dropdown');
     if(dropdown.length){
         $(window).click(function() {
-            console.log('click');
             dropdown.find('.list').removeClass('open');
         });
         $body.on('click', '.dropdown', function(){
