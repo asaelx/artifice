@@ -144,7 +144,8 @@ $(function(){
         selectable_add.select2({
             width: '100%',
             language: 'es',
-            tags: true
+            tags: true,
+            selectOnClose: true
         });
     }
 
