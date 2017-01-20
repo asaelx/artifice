@@ -69,6 +69,20 @@ $(function(){
     var $body = $('body');
     var base_url = window.location.origin;
 
+    // dropdown
+    var dropdown = $('.dropdown');
+    if(dropdown.length){
+        $(window).click(function() {
+            console.log('click');
+            dropdown.find('.list').removeClass('open');
+        });
+        $body.on('click', '.dropdown', function(){
+            var list = $(this).find('.list');
+            list.addClass('open');
+            return false;
+        });
+    }
+
     // Select2
     var selectable = $('.select2');
 

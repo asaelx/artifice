@@ -28,14 +28,27 @@ class ProductController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        $products = Product::latest()->paginate(5);
+        $values = '';
+        foreach($request->all() as $key => $value){
+            $values .= $value;
+        }
+        if($values == ''){
+            $products = Product::latest()->paginate(5);
+        }else{
+            $products = Product::latest()
+                ->where('title', $request->input('title'))
+                ->orWhere('code', $request->input('code'))
+                ->orWhere('brand_id', $request->input('brand_id'))
+                ->orWhere('category_id', $request->input('category_id'))
+                ->paginate(5);
+        }
         $brands = Brand::pluck('title', 'id');
         $brands = [''=>''] + $brands->toArray();
         $categories = Category::pluck('title', 'id');
         $categories = [''=>''] + $categories->toArray();
-        return view('productos.index', compact('products', 'brands', 'categories'));
+        return view('productos.index', compact('products', 'brands', 'categories', 'request'));
     }
 
     /**

@@ -12,8 +12,8 @@
 
 @section('content')
     @unless ($products->isEmpty())
-        {{-- <div class="row">
-            {{ Form::open(['url' => url('productos'), 'method' => 'GET', 'class' => 'form']) }}
+        <div class="row">
+            {{ Form::open(['url' => url('productos'), 'class' => 'form search', 'method' => 'GET']) }}
                 <div class="col-3">
                     <div class="form-group">
                         {{ Form::label('title', 'Título', ['class' => 'label']) }}
@@ -55,16 +55,16 @@
                 <!-- /.col-12 -->
             {{ Form::close() }}
         </div>
-        <!-- /.row --> --}}
+        <!-- /.row -->
     @endunless
     <div class="row">
         <div class="col-12">
             @if ($products->isEmpty())
                 <div class="empty">
                     <i class="typcn typcn-coffee"></i>
-                    <h2 class="title">Aún no hay productos</h2>
+                    <h2 class="title">No se encontraron resultados</h2>
                     <!-- /.title -->
-                    <a href="{{ url('productos/nuevo') }}" class="btn btn-blue">Agregar una producto</a>
+                    <a href="{{ url('productos/nuevo') }}" class="btn btn-blue">Agregar un producto</a>
                 </div>
                 <!-- /.empty -->
             @else

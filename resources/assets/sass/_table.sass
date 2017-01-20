@@ -81,12 +81,8 @@
                 .dropdown
                     +font-size(20px)
                     color: inherit
-                    display: block
+                    display: inline-block
                     position: relative
-                    &:hover,
-                    &:focus
-                        .list
-                            +opacity(1)
                     .list
                         +opacity(0)
                         background: $white
@@ -98,6 +94,8 @@
                         position: absolute
                         top: 0
                         z-index: 10
+                        &.open
+                            +opacity(1)
                         .item
                             .link
                                 +font-size(16px)
