@@ -24,7 +24,7 @@ class SettingsTableSeeder extends Seeder
             'store_url' => 'artificestore.mx',
             'address' => 'Calle 49 Num. 230 x 28 y 28A Col. San Antonio Cucul Mérida, Yucatán',
             'Observations' => 'Lorem ipsum',
-            'tax' => 15,
+            'tax' => 16,
             'currency_id' => $currency->id
         ]);
     }

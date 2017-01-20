@@ -167,7 +167,11 @@ return [
          * Package Service Providers...
          */
 
-        //
+         Collective\Html\HtmlServiceProvider::class,
+         Cviebrock\EloquentSluggable\ServiceProvider::class,
+         Barryvdh\Snappy\ServiceProvider::class,
+         Jenssegers\Date\DateServiceProvider::class,
+         Maatwebsite\Excel\ExcelServiceProvider::class,
 
         /*
          * Application Service Providers...
@@ -177,12 +181,6 @@ return [
         // App\Providers\BroadcastServiceProvider::class,
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
-
-        Collective\Html\HtmlServiceProvider::class,
-        Cviebrock\EloquentSluggable\ServiceProvider::class,
-        Barryvdh\Snappy\ServiceProvider::class,
-        Jenssegers\Date\DateServiceProvider::class,
-        Maatwebsite\Excel\ExcelServiceProvider::class,
 
     ],
 

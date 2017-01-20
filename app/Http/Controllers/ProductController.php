@@ -47,7 +47,7 @@ class ProductController extends Controller
     {
         $products = Product::latest()
             ->where('title', 'like', '%'.$request->input('q').'%')
-            ->orWhere('code', $request->input('q'))
+            ->orWhere('code', 'like', '%'.$request->input('q').'%')
             ->with('pictures', 'brand', 'category')->get();
         $data = ['items' => [], 'total_count' => $products->count()];
         foreach ($products as $product) {
@@ -61,8 +61,8 @@ class ProductController extends Controller
                 'stock' => $product->stock,
                 'regular_price' => $product->regular_price,
                 'sale_price' => $product->sale_price,
-                'brand' => $product->brand->title,
-                'category' => $product->category->title,
+                'brand' => ($product->brand) ? $product->brand->title : '',
+                'category' => ($product->category) ? $product->category->title : '',
                 'picture' => $picture
             ];
             array_push($data['items'], $push);

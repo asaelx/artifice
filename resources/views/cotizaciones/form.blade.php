@@ -164,7 +164,7 @@
                     <td colspan="2"><span id="grand_subtotal" class="price">${{ ($estimate->subtotal) ? $estimate->subtotal : '0.00' }}</span></td>
                     {{ Form::hidden('subtotal', ($estimate->subtotal) ? $estimate->subtotal : 0) }}
                 </tr>
-                <tr class="discount">
+                {{-- <tr class="discount">
                     <td colspan="6" class="tr"><b>Con descuento</b></td>
                     <td colspan="2"><span id="grand_discount" class="price">${{ ($estimate->discount) ? $estimate->discount : '0.00' }}</span></td>
                     {{ Form::hidden('discount', ($estimate->discount) ? $estimate->discount : 0) }}
@@ -173,7 +173,7 @@
                     <td colspan="6" class="tr"><b>Usted ahorra</b></td>
                     <td colspan="2"><span id="grand_save" class="price">${{ ($estimate->save) ? $estimate->save : '0.00' }}</span></td>
                     {{ Form::hidden('save', ($estimate->save) ? $estimate->save : 0) }}
-                </tr>
+                </tr> --}}
                 <tr class="tax">
                     <td colspan="6" class="tr"><b>I.V.A.</b></td>
                     <td colspan="2"><span id="tax" class="price" data-tax="{{ $settings->tax }}">{{ $settings->tax }}%</span></td>

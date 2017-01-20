@@ -83,7 +83,7 @@
                         <td colspan="5" class="tr"><b>Subtotal</b></td>
                         <td colspan="2"><span class="price">${{ ($estimate->subtotal) ? $estimate->subtotal : '0.00' }}</span></td>
                     </tr>
-                    <tr class="discount">
+                    {{-- <tr class="discount">
                         <td colspan="5" class="tr"><b>Con descuento</b></td>
                         <td colspan="2"><span class="price">${{ ($estimate->discount) ? $estimate->discount : '0.00' }}</span></td>
                     </tr>
@@ -91,7 +91,7 @@
                         <td colspan="5" class="tr"><b>Usted ahorra</b></td>
                         <td colspan="2"><span class="price">${{ ($estimate->save) ? $estimate->save : '0.00' }}</span></td>
                     </tr>
-                    <tr class="tax">
+                    <tr class="tax"> --}}
                         <td colspan="5" class="tr"><b>I.V.A.</b></td>
                         <td colspan="2"><span class="price" data-tax="{{ $settings->tax }}">{{ $settings->tax }}%</span></td>
                     </tr>

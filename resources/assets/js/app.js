@@ -20,17 +20,18 @@ $(function(){
 
         function formatProduct(product) {
             if (!product.id) { return product.text; }
-            var with_sale = (product.sale_price != '') ? 'with-sale' : '',
+            var with_sale = (product.sale_price != '' && product.sale_price) ? 'with-sale' : '',
                 regular_price = '<h5 class="product-regular-price '+with_sale+'">$'+product.regular_price+'</h5>',
-                sale_price = (product.sale_price != '') ? '<h5 class="product-sale-price">$'+product.sale_price+'</h5>' : '';
+                sale_price = (product.sale_price != '' && product.sale_price) ? '<h5 class="product-sale-price">$'+product.sale_price+'</h5>' : '',
+                brand = (product.brand != '') ? '<h5 class="product-brand"><b>Marca:</b> <i>'+product.brand+'</i></h5>' : '',
+                category = (product.category != '') ? '<h5 class="product-category"><b>Categoría:</b> <i>'+product.category+'</i></h5>' : '';
             var $product = $(
                 '<span class="product-result">'+
                 '<div class="product-photo"><img src="'+product.picture+'" class="img" /></div>'+
                 '<div class="product-meta">'+
                 '<h4 class="product-title">'+product.title+'</h4>'+
                 '<h5 class="product-code"><b>Código:</b> <i>'+product.code+'</i></h5>'+
-                '<h5 class="product-brand"><b>Marca:</b> <i>'+product.brand+'</i></h5>'+
-                '<h5 class="product-category"><b>Categoría:</b> <i>'+product.category+'</i></h5>'+
+                brand+category+
                 '</div>'+
                 '<div class="product-description">'+product.description+'</div>'+
                 '<div class="product-stock"><b>Disponibles</b> <p>'+product.stock+'</p></div>'+
@@ -116,12 +117,12 @@ $(function(){
 
         function set_total(tr){
             if(tr){
-                var qty = parseFloat(tr.find('.qty').val()),
+                var qty = parseFloat((tr.find('.qty').val() != '') ? tr.find('.qty').val() : 0),
                     price_tag = tr.find('.product-price-total'),
                     price = parseFloat(price_tag.data('price')),
                     subtotal = price*qty,
                     discount_input = tr.find('.discount'),
-                    discount_value = (discount_input.length) ? discount_input.val() : 0,
+                    discount_value = (discount_input.length && discount_input.val() != '') ? discount_input.val() : 0,
                     discount = (parseFloat(discount_value) / 100) * parseFloat(subtotal),
                     total = subtotal - discount;
 
@@ -136,11 +137,11 @@ $(function(){
 
             $.each(products, function(i, e){
                 var $e = $(e),
-                    qty = parseFloat($e.find('.qty').val()),
+                    qty = parseFloat(($e.find('.qty').val() != '') ? $e.find('.qty').val() : 0),
                     price = parseFloat($e.find('.product-price-total').data('price')),
                     subtotal = price*qty,
                     discount_input = $e.find('.discount'),
-                    discount_value = (discount_input.length) ? discount_input.val() : 0,
+                    discount_value = (discount_input.length && discount_input.val() != '') ? discount_input.val() : 0,
                     discount = (parseFloat(discount_value) / 100) * parseFloat(subtotal),
                     total = subtotal - discount;
 
@@ -155,8 +156,6 @@ $(function(){
             $('#grand_subtotal').text(grand_subtotal);
 
             var span_grand_subtotal = $('#grand_subtotal'),
-                span_grand_discount = $('#grand_discount'),
-                span_grand_save = $('#grand_save'),
                 span_grand_total = $('#grand_total'),
                 tax = parseFloat($('#tax').data('tax')),
                 taxes = (tax / 100) * grand_total,
@@ -164,8 +163,6 @@ $(function(){
 
             span_grand_subtotal.text('$'+grand_subtotal.toFixed(2));
             span_grand_total.text('$'+grand_total_after_tax.toFixed(2));
-            span_grand_save.text('$'+grand_save.toFixed(2));
-            span_grand_discount.text('$'+grand_discount.toFixed(2));
 
             var input_grand_subtotal = $('[name="subtotal"]'),
                 input_grand_discount = $('[name="discount"]'),
@@ -206,28 +203,32 @@ $(function(){
                         class: 'product-title',
                         text: data.title
                     });
-                    var h5_brand = $('<h5>', {
-                        class: 'product-brand',
-                        html: '<b>Marca:</b> <i>'+data.brand.title+'</i>'
-                    });
-                    var h5_category = $('<h5>', {
-                        class: 'product-category',
-                        html: '<b>Marca:</b> <i>'+data.category.title+'</i>'
-                    });
                     var div_description = $('<div>', {
                         class: 'product-description',
                         html: data.description
                     });
                     var td_product = $('<td>');
+                    if(data.brand){
+                        var h5_brand = $('<h5>', {
+                            class: 'product-brand',
+                            html: '<b>Marca:</b> <i>'+data.brand.title+'</i>'
+                        });
+                        td_product.append(h5_brand);
+                    }
+                    if(data.category){
+                        var h5_category = $('<h5>', {
+                            class: 'product-category',
+                            html: '<b>Marca:</b> <i>'+data.category.title+'</i>'
+                        });
+                        td_product.append(h5_category);
+                    }
                     td_product.append(h4_title);
-                    td_product.append(h5_brand);
-                    td_product.append(h5_category);
                     td_product.append(div_description);
 
-                    var with_sale = (data.sale_price != '') ? 'with-sale' : '';
+                    var with_sale = (data.sale_price != '' && data.sale_price) ? 'with-sale' : '';
                     var regular_price = '<h5 class="price '+with_sale+'">$'+data.regular_price+'</h5>';
-                    var sale_price = (data.sale_price != '') ? '<h5 class="price">$'+data.sale_price+'</h5>' : '';
-                    var price = (data.sale_price != '') ? data.sale_price : data.regular_price;
+                    var sale_price = (data.sale_price != '' && data.sale_price) ? '<h5 class="price">$'+data.sale_price+'</h5>' : '';
+                    var price = (data.sale_price != '' && data.sale_price) ? data.sale_price : data.regular_price;
                     var td_price = $('<td>', {
                         html: regular_price+sale_price
                     });
@@ -320,12 +321,7 @@ $(function(){
             return false;
         });
 
-        $body.on('change', '.qty', function(){
-            var tr = $(this).closest('tr');
-            set_total(tr);
-        });
-
-        $body.on('change', '.discount', function(){
+        $body.on('keyup', '.qty, .discount', function(){
             var tr = $(this).closest('tr');
             set_total(tr);
         });
