@@ -78,7 +78,6 @@ $(function(){
         $body.on('click', '.dropdown', function(){
             var list = $(this).find('.list');
             list.addClass('open');
-            return false;
         });
     }
 
