@@ -143,7 +143,7 @@
     <div class="row">
         <div class="col-12">
             <div class="pagination">
-                {{ $products->links() }}
+                {{ $products->appends($request->all())->links() }}
             </div>
             <!-- /.pagination -->
         </div>
