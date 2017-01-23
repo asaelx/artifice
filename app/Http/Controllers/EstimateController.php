@@ -64,6 +64,8 @@ class EstimateController extends Controller
      */
     public function store(EstimateRequest $request)
     {
+        $request->merge(['discount' => ($request->has('discount')) ? $request->input('discount') : 0]);
+        $request->merge(['save' => ($request->has('save')) ? $request->input('save') : 0]);
         $latest = Estimate::latest()->first();
         $folio = (is_null($latest)) ? sprintf('%05d', 1) : sprintf('%05d', $latest->folio + 1);
         $request->merge(['folio' => $folio]);
@@ -72,6 +74,7 @@ class EstimateController extends Controller
             $client = Client::create($request->all());
             $request->merge(['client_id' => $client->id]);
         }
+        $request->merge(['discount' => ($request->has('discount')) ? $request->input('discount') : 0]);
         $estimate = Estimate::create($request->all());
         foreach ($request->input('estimate_details') as $item_estimate_detail) {
             $discount = (isset($item_estimate_detail['discount'])) ? $item_estimate_detail['discount'] : 0;
