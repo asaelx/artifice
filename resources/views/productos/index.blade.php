@@ -82,8 +82,8 @@
                     <tbody>
                         @foreach ($products as $product)
                             <tr>
-                                <td>{{ $product->code }}</td>
-                                <td>
+                                <td data-th="Código">{{ $product->code }}</td>
+                                <td data-th="Foto">
                                     <div class="product-photo">
                                         @if ($product->pictures()->first())
                                             {{ Html::image(asset('storage/'.$product->pictures()->first()->url), $product->title, ['class' => 'img']) }}
@@ -91,7 +91,7 @@
                                     </div>
                                     <!-- /.photo -->
                                 </td>
-                                <td>
+                                <td data-th="Descripción">
                                     <h4 class="product-title">{{ $product->title }}</h4>
                                     <!-- /.product-title -->
                                     @if ($product->brand)
@@ -107,12 +107,12 @@
                                     </div>
                                     <!-- /.product-description -->
                                 </td>
-                                <td>{{ $product->stock }}</td>
-                                <td>
+                                <td data-th="Disponibles">{{ $product->stock }}</td>
+                                <td data-th="Precio">
                                     <span class="price {{ ($product->sale_price != '') ? 'with-sale' : '' }}">${{ $product->regular_price }}</span>
                                     {!! ($product->sale_price != '') ? '<span class="price">$'.$product->sale_price.'</span>' : '' !!}
                                 </td>
-                                <td>
+                                <td data-th="Opciones">
                                     <span class="dropdown">
                                         <i class="typcn typcn-social-flickr"></i>
                                         <ul class="list">

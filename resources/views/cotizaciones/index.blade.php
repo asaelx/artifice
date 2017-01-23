@@ -72,11 +72,11 @@
                     <tbody>
                         @foreach ($estimates as $estimate)
                             <tr>
-                                <td>{{ $estimate->folio }}</td>
-                                <td>{{ ucfirst(\Date::createFromFormat('Y-m-d H:i:s', $estimate->created_at)->diffForHumans()) }}</td>
-                                <td>{{ $estimate->client->name }}</td>
-                                <td>{{ $estimate->user->name }}</td>
-                                <td>
+                                <td data-th="Folio">{{ $estimate->folio }}</td>
+                                <td data-th="Fecha">{{ ucfirst(\Date::createFromFormat('Y-m-d H:i:s', $estimate->created_at)->diffForHumans()) }}</td>
+                                <td data-th="Cliente">{{ $estimate->client->name }}</td>
+                                <td data-th="Vendedor">{{ $estimate->user->name }}</td>
+                                <td data-th="Estado">
                                     @if ($estimate->status == 'Pendiente')
                                         <span class="badge badge-yellow">Pendiente</span>
                                     @elseif($estimate->status == 'Aceptada')
@@ -85,9 +85,9 @@
                                         <span class="badge badge-red">Rechazada</span>
                                     @endif
                                 </td>
-                                <td>{{ ucfirst(\Date::createFromFormat('Y-m-d', $estimate->expiration)->diffForHumans()) }}</td>
-                                <td><span class="price">${{ $estimate->total }}</span></td>
-                                <td>
+                                <td data-th="Expira">{{ ucfirst(\Date::createFromFormat('Y-m-d', $estimate->expiration)->diffForHumans()) }}</td>
+                                <td data-th="Total"><span class="price">${{ $estimate->total }}</span></td>
+                                <td data-th="Opciones">
                                     <span href="#" class="dropdown">
                                         <i class="typcn typcn-social-flickr"></i>
                                         <ul class="list">

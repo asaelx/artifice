@@ -200,7 +200,8 @@ $(function(){
             function add_product(id) {
                 $.get(base_url+'/productos/getProductById/'+id, function(data){
                     var td_code = $('<td>', {
-                        text: data.code
+                        text: data.code,
+                        'data-th': 'Código'
                     });
 
                     var div_photo = $('<div>', {
@@ -212,7 +213,8 @@ $(function(){
                         })
                     });
                     var td_photo = $('<td>', {
-                        html: div_photo
+                        html: div_photo,
+                        'data-th': 'Foto'
                     });
 
                     var h4_title = $('<h4>', {
@@ -223,7 +225,7 @@ $(function(){
                         class: 'product-description',
                         html: data.description
                     });
-                    var td_product = $('<td>');
+                    var td_product = $('<td>', {'data-th': 'Descripción'});
                     if(data.brand){
                         var h5_brand = $('<h5>', {
                             class: 'product-brand',
@@ -246,7 +248,8 @@ $(function(){
                     var sale_price = (data.sale_price != '' && data.sale_price) ? '<h5 class="price">$'+data.sale_price+'</h5>' : '';
                     var price = (data.sale_price != '' && data.sale_price) ? data.sale_price : data.regular_price;
                     var td_price = $('<td>', {
-                        html: regular_price+sale_price
+                        html: regular_price+sale_price,
+                        'data-th': 'Precio Unit.'
                     });
 
                     var td_quantity = $('<td>', {
@@ -257,7 +260,8 @@ $(function(){
                             min: 1,
                             max: (data.stock > 0) ? data.stock : 1,
                             name: 'estimate_details['+data.id+'][qty]'
-                        })
+                        }),
+                        'data-th': 'Cantidad'
                     });
 
                     var input_discount = $('<input>', {
@@ -275,11 +279,13 @@ $(function(){
                             html: $('<i>', { class: 'typcn typcn-lock-closed' })
                         });
                     var td_discount = $('<td>', {
-                        html: button_discount
+                        html: button_discount,
+                        'data-th': 'Descuento'
                     });
 
                     var td_total = $('<td>', {
-                        html: '<span class="product-price-total price" data-price="'+price+'">$'+price+'</span>'
+                        html: '<span class="product-price-total price" data-price="'+price+'">$'+price+'</span>',
+                        'data-th': 'Total'
                     });
 
                     var button_delete = $('<button>', {
@@ -291,7 +297,7 @@ $(function(){
                         value: data.id,
                         type: 'hidden'
                     });
-                    var td_options = $('<td>');
+                    var td_options = $('<td>', {'data-th': 'Opciones'});
                     td_options.append(product_hidden);
                     td_options.append(button_delete);
 

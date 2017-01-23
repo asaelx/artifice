@@ -791,6 +791,38 @@ img {
   background: #ccc;
 }
 
+@media only screen and (max-width: 1200px) {
+  .table, thead, tbody, tfoot, th, td, tr {
+    display: block;
+  }
+  .table thead tr {
+    left: -9999px;
+    position: absolute;
+    top: -9999px;
+  }
+  .table tbody td {
+    padding-left: 50% !important;
+    position: relative;
+  }
+  .table tbody td:before {
+    background: #1abc9c;
+    bottom: 0;
+    border-bottom: 2px solid #fff;
+    color: #fff;
+    content: attr(data-th);
+    left: 0;
+    padding-right: 10px;
+    padding: 1rem;
+    position: absolute;
+    top: 0;
+    white-space: nowrap;
+    width: 45%;
+  }
+  .table tfoot td {
+    text-align: right;
+  }
+}
+
 .form .form-group {
   margin-bottom: 1rem;
 }
@@ -853,6 +885,12 @@ img {
 
 .form.search [class^="col-"] .form-group {
   margin: 0;
+}
+
+@media only screen and (max-width: 1000px) {
+  .form.estimate_form .col-3 {
+    width: 50%;
+  }
 }
 
 .layer {

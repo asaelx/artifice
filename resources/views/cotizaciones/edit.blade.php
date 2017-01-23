@@ -7,7 +7,7 @@
     <div class="row">
         <div class="col-12">
             @include('layout.errors')
-            {{ Form::model($estimate, ['url' => url('cotizaciones', $estimate->id), 'class' => 'form', 'method' => 'PATCH']) }}
+            {{ Form::model($estimate, ['url' => url('cotizaciones', $estimate->id), 'class' => 'estimate_form form', 'method' => 'PATCH']) }}
                 @include('cotizaciones.form')
             {{ Form::close() }}
         </div>

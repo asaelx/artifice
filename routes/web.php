@@ -36,6 +36,7 @@ Route::get('clientes/{client}', 'ClientController@show');
 Route::delete('clientes/{client}', 'ClientController@destroy');
 Route::get('clientes/{client}/editar', 'ClientController@edit');
 Route::get('clientes/getClientById/{id}', 'ClientController@getClientById');
+Route::post('clientes/importClients', 'ClientController@importClients');
 
 // Marcas
 Route::get('marcas', 'BrandController@index');

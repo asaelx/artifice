@@ -113,14 +113,14 @@
                             $price = ($product->sale_price != '') ? $product->sale_price : $product->regular_price;
                         @endphp
                         <tr>
-                            <td>{{ $product->code }}</td>
-                            <td>
+                            <td data-th="Código">{{ $product->code }}</td>
+                            <td data-th="Foto">
                                 <div class="product-photo">
                                     {{ Html::image(url('storage/'.$product->pictures->first()->url), $product->title, ['class' => 'img']) }}
                                 </div>
                                 <!-- /.photo -->
                             </td>
-                            <td>
+                            <td data-th="Descripción">
                                 <h4 class="product-title">{{ $product->title }}</h4>
                                 <!-- /.product-title -->
                                 <h5 class="product-brand"><b>Marca:</b> <i>{{ $product->brand->title }}</i></h5>
@@ -132,22 +132,22 @@
                                 </div>
                                 <!-- /.product-description -->
                             </td>
-                            <td>
+                            <td data-th="Precio Unit.">
                                 <h5 class="price {{ ($product->sale_price != '') ? 'with-sale' : '' }}">${{ $product->regular_price }}</h5>
                                 <!-- /.price -->
                                 <h5 class="price">${{ $price }}</h5>
                                 <!-- /.price -->
                             </td>
-                            <td>
+                            <td data-th="Cantidad">
                                 {{ Form::input('number', 'estimate_details['.$product->id.'][qty]', $estimate_detail->quantity, ['class' => 'input qty', 'min' => '1', 'max' => ($product->stock > 0) ? $product->stock : '1']) }}
                             </td>
-                            <td>
+                            <td data-th="Descuento">
                                 {{ Form::input('number', 'estimate_details['.$product->id.'][discount]', $estimate_detail->discount, ['class' => 'input discount', 'min' => '0', 'max' => '100']) }}
                             </td>
-                            <td>
+                            <td data-th="Total">
                                 <span class="product-price-total price" data-price="{{ $price }}">${{ $price }}</span>
                             </td>
-                            <td>
+                            <td data-th="Opciones">
                                 {{ Form::hidden('estimate_details['.$product->id.'][product_id]', $product->id) }}
                                 @if ($estimate_detail->id)
                                     {{ Form::hidden('estimate_details['.$product->id.'][id]', $estimate_detail->id) }}

@@ -156,3 +156,33 @@
                 color: $white
             span
                 background: $gray
++bp($large)
+    .table, thead, tbody, tfoot, th, td, tr
+        display: block
+    .table
+        thead
+            tr
+                left: -9999px
+                position: absolute
+                top: -9999px
+        tbody
+            td
+                padding-left: 50%!important
+                position: relative
+                &:before
+                    background: $green
+                    bottom: 0
+                    border-bottom: 2px solid $white
+                    color: $white
+                    content: attr(data-th)
+                    left: 0
+                    padding-right: 10px
+                    padding: 1rem
+                    position: absolute
+                    top: 0
+                    white-space: nowrap
+                    width: 45%
+        tfoot
+            td
+                text-align: right
+
