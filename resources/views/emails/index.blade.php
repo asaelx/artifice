@@ -50,10 +50,10 @@
                     <tbody>
                         @foreach ($emails as $email)
                             <tr>
-                                <td>{{ $email->to }}</td>
-                                <td>{{ $email->subject }}</td>
-                                <td>{{ $email->message }}</td>
-                                <td>{{ ucfirst(\Date::createFromFormat('Y-m-d H:i:s', $email->created_at)->diffForHumans()) }}</td>
+                                <td data-th="Enviado a">{{ $email->to }}</td>
+                                <td data-th="Asunto">{{ $email->subject }}</td>
+                                <td data-th="Mensaje">{{ $email->message }}</td>
+                                <td data-th="Fecha de envío">{{ ucfirst(\Date::createFromFormat('Y-m-d H:i:s', $email->created_at)->diffForHumans()) }}</td>
                             </tr>
                         @endforeach
                     </tbody>

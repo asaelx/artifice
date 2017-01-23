@@ -57,11 +57,11 @@
                     <tbody>
                         @foreach ($currencies as $currency)
                             <tr>
-                                <td>{{ $currency->title }}</td>
-                                <td>{{ $currency->code }}</td>
-                                <td>{{ $currency->symbol }}</td>
-                                <td>{{ $currency->precision }}</td>
-                                <td>
+                                <td data-th="Título">{{ $currency->title }}</td>
+                                <td data-th="Código">{{ $currency->code }}</td>
+                                <td data-th="Símbolo">{{ $currency->symbol }}</td>
+                                <td data-th="Precisión">{{ $currency->precision }}</td>
+                                <td data-th="Opciones">
                                     <span href="#" class="dropdown">
                                         <i class="typcn typcn-social-flickr"></i>
                                         <ul class="list">

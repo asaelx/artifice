@@ -32,7 +32,7 @@ class ProductController extends Controller
     {
         $values = '';
         foreach($request->all() as $key => $value){
-            $values .= $value;
+            if($key != 'page') $values .= $value;
         }
         if($values == ''){
             $products = Product::latest()->paginate(5);

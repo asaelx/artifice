@@ -23,10 +23,10 @@
                     <tbody>
                         @foreach ($users as $user)
                             <tr>
-                                <td>{{ $user->name }}</td>
-                                <td>{{ $user->estimates()->where('status', 'Pendiente')->count() }}</td>
-                                <td>{{ $user->estimates()->where('status', 'Aceptada')->count() }}</td>
-                                <td>{{ $user->estimates()->where('status', 'Rechazada')->count() }}</td>
+                                <td data-th="Vendedor">{{ $user->name }}</td>
+                                <td data-th="Pendientes">{{ $user->estimates()->where('status', 'Pendiente')->count() }}</td>
+                                <td data-th="Aceptadas">{{ $user->estimates()->where('status', 'Aceptada')->count() }}</td>
+                                <td data-th="Rechazadas">{{ $user->estimates()->where('status', 'Rechazada')->count() }}</td>
                             </tr>
                         @endforeach
                     </tbody>
@@ -59,14 +59,14 @@
                                 $product = $most_estimated_detail->product;
                             @endphp
                             <tr>
-                                <td>{{ $product->code }}</td>
-                                <td>
+                                <td data-th="Código">{{ $product->code }}</td>
+                                <td data-th="Foto">
                                     <div class="product-photo">
                                         {{ Html::image(asset('storage/'.$product->pictures()->first()->url), $product->title, ['class' => 'img']) }}
                                     </div>
                                     <!-- /.photo -->
                                 </td>
-                                <td>
+                                <td data-th="Descripción">
                                     <h4 class="product-title">{{ $product->title }}</h4>
                                     <!-- /.product-title -->
                                     <h5 class="product-brand"><b>Marca:</b> <i>{{ $product->brand->title }}</i></h5>
@@ -78,7 +78,7 @@
                                     </div>
                                     <!-- /.product-description -->
                                 </td>
-                                <td>{{ $most_estimated_detail->total }}</td>
+                                <td data-th="Cotizaciones">{{ $most_estimated_detail->total }}</td>
                             </tr>
                         @endforeach
                     </tbody>
@@ -110,9 +110,9 @@
                                 $category = \App\Category::find($most_estimated_category->category_id);
                             @endphp
                             <tr>
-                                <td>{{ $category->title }}</td>
-                                <td>{{ $category->description }}</td>
-                                <td>{{ $most_estimated_category->total }}</td>
+                                <td data-th="Categoría">{{ $category->title }}</td>
+                                <td data-th="Descripción">{{ $category->description }}</td>
+                                <td data-th="Cotizaciones">{{ $most_estimated_category->total }}</td>
                             </tr>
                         @endforeach
                     </tbody>

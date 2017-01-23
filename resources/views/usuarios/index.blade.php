@@ -66,13 +66,12 @@
                     <tbody>
                         @foreach ($users as $user)
                             <tr>
-                                <td>{{ $user->name }} {!! ($user->role == 'admin') ? '<span class="badge badge-blue">Administrador</span>' : '<span class="badge badge-blue">Vendedor</span>' !!}</td>
-                                <td>{{ $user->username }}</td>
-                                <td><a href="mailto:{{ $user->email }}" class="link">{{ $user->email }}</a></td>
-                                <td>{{ ucfirst(\Date::createFromFormat('Y-m-d H:i:s', $user->created_at)->diffForHumans()) }}</td>
-                                {{-- <td>{{ $user->created_at }}</td> --}}
-                                <td><a href="{{ url('cotizaciones') }}" class="link">{{ $user->estimates()->count() }}</a></td>
-                                <td>
+                                <td data-th="Nombre">{{ $user->name }} {!! ($user->role == 'admin') ? '<span class="badge badge-blue">Administrador</span>' : '<span class="badge badge-blue">Vendedor</span>' !!}</td>
+                                <td data-th="Usuario">{{ $user->username }}</td>
+                                <td data-th="Correo electrónico"><a href="mailto:{{ $user->email }}" class="link">{{ $user->email }}</a></td>
+                                <td data-th="Registro">{{ ucfirst(\Date::createFromFormat('Y-m-d H:i:s', $user->created_at)->diffForHumans()) }}</td>
+                                <td data-th="Cotizaciones"><a href="{{ url('cotizaciones') }}" class="link">{{ $user->estimates()->count() }}</a></td>
+                                <td data-th="Opciones">
                                     <span href="#" class="dropdown">
                                         <i class="typcn typcn-social-flickr"></i>
                                         <ul class="list">

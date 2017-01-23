@@ -56,10 +56,10 @@
                     <tbody>
                         @foreach ($categories as $category)
                             <tr>
-                                <td>{{ $category->title }}</td>
-                                <td>{{ $category->description }}</td>
-                                <td>{{ $category->products()->count() }}</td>
-                                <td>
+                                <td data-th="Título">{{ $category->title }}</td>
+                                <td data-th="Descripción">{{ $category->description }}</td>
+                                <td data-th="Productos">{{ $category->products()->count() }}</td>
+                                <td data-th="Opciones">
                                     <span href="#" class="dropdown">
                                         <i class="typcn typcn-social-flickr"></i>
                                         <ul class="list">
