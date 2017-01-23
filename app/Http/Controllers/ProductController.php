@@ -96,22 +96,22 @@ class ProductController extends Controller
 
             foreach ($results as $result) {
                 // TODO: Validate to avoid duplicates
-                $brand = Brand::where('title', $result->marca_producto)->first();
-                if($brand){
-                    $brand_id = $brand->id;
-                }else{
-                    $brand_id = Brand::create(['title' => $result->marca_producto, 'description' => $result->marca_producto])->id;
-                }
+                // $brand = Brand::where('title', $result->marca_producto)->first();
+                // if($brand){
+                //     $brand_id = $brand->id;
+                // }else{
+                //     $brand_id = Brand::create(['title' => $result->marca_producto, 'description' => $result->marca_producto])->id;
+                // }
 
-                $category = Category::where('title', $result->categoria_producto)->first();
-                if($category){
-                    $category_id = $category->id;
-                }else{
-                    $category_id = Brand::create(['title' => $result->categoria_producto, 'description' => $result->categoria_producto])->id;
-                }
+                // $category = Category::where('title', $result->categoria_producto)->first();
+                // if($category){
+                //     $category_id = $category->id;
+                // }else{
+                //     $category_id = Brand::create(['title' => $result->categoria_producto, 'description' => $result->categoria_producto])->id;
+                // }
 
-                // $exists = Product::where('title', $result->titulo_producto)->first();
-                // if(!$exists){
+                $exists = Product::where('title', $result->titulo_producto)->first();
+                if(!$exists){
                     $photo_url = 'http://artificestore.mx/archivos/imagenes/'.$result->id_foto.'_image_'.$result->nombre_foto;
                     $file = @file_get_contents($photo_url);
                     $save = Storage::put('public/products/'.$result->nombre_foto, $file);
@@ -127,14 +127,14 @@ class ProductController extends Controller
                         'stock' => 10,
                         'regular_price' => $result->precio_producto,
                         'sale_price' => null,
-                        'brand_id' => $brand_id,
-                        // 'brand_id' => null,
-                        'category_id' => $category_id
-                        // 'category_id' => null
+                        // 'brand_id' => $brand_id,
+                        'brand_id' => null,
+                        // 'category_id' => $category_id
+                        'category_id' => null
                     ]);
 
                     $product->pictures()->sync([$picture->id]);
-                // }
+                }
             }
 
             session()->flash('flash_message', 'Se han importado '.$results->count().' productos');
