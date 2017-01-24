@@ -80,15 +80,15 @@
                 </tbody>
                 <tfoot>
                     <tr class="subtotal">
-                        <td colspan="5" class="tr"><b>Subtotal</b></td>
-                        <td colspan="2"><span class="price">${{ ($estimate->subtotal) ? $estimate->subtotal : '0.00' }}</span></td>
+                        <td colspan="4" class="tr"><b>Subtotal</b></td>
+                        <td colspan="1"><span class="price">${{ ($estimate->subtotal) ? $estimate->subtotal : '0.00' }}</span></td>
                     </tr>
-                        <td colspan="5" class="tr"><b>I.V.A.</b></td>
-                        <td colspan="2"><span class="price" data-tax="{{ $settings->tax }}">{{ $settings->tax }}%</span></td>
+                        <td colspan="4" class="tr"><b>I.V.A.</b></td>
+                        <td colspan="1"><span class="price" data-tax="{{ $settings->tax }}">{{ $settings->tax }}%</span></td>
                     </tr>
                     <tr class="total">
-                        <td colspan="5" class="tr"><b>Total</b></td>
-                        <td colspan="2"><span class="price">${{ ($estimate->total) ? $estimate->total : '0.00' }}</span></td>
+                        <td colspan="4" class="tr"><b>Total</b></td>
+                        <td colspan="1"><span class="price">${{ ($estimate->total) ? $estimate->total : '0.00' }}</span></td>
                     </tr>
                 </tfoot>
             </table>
