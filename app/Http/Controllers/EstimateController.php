@@ -66,6 +66,7 @@ class EstimateController extends Controller
     {
         $request->merge(['discount' => ($request->has('discount')) ? $request->input('discount') : 0]);
         $request->merge(['save' => ($request->has('save')) ? $request->input('save') : 0]);
+        $request->merge(['expiration' => ($request->has('expiration')) ? $request->input('expiration') : Carbon::today()->addDays(5)->format('Y-m-d')]);
         $latest = Estimate::latest()->first();
         $folio = (is_null($latest)) ? sprintf('%05d', 1) : sprintf('%05d', $latest->folio + 1);
         $request->merge(['folio' => $folio]);
