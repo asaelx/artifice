@@ -130,6 +130,7 @@ class EstimateController extends Controller
         $pdf = \PDF::loadView('cotizaciones.pdf', ['estimate' => $estimate]);
         $filename = $setting->title.' - Cotización para '.$estimate->client->name.'['.Carbon::now().'].pdf';
         return $pdf->stream($filename);
+        // return view('cotizaciones.pdf', compact('estimate'));
     }
 
     /**

@@ -21,12 +21,12 @@
                 </div>
                 <!-- /.logo -->
                 <div class="info">
-                    <span class="data"><b>Cotización Piezas en existencia</b></span>
-                    <span class="data"><b>Fecha:</b> {{ ucfirst(\Date::today()->format('d/m/Y')) }}</span>
-                    <span class="data"><b>Atención:</b> {{ $estimate->client->name }}</span>
-                    <span class="data"><b>Teléfono:</b> {{ $estimate->client->phone }}</span>
-                    <span class="data"><b>E-mail:</b> {{ $estimate->client->email }}</span>
-                    <span class="data"><b>Vendedor:</b> {{ $estimate->user->name }}</span>
+                    <span class="data left"><b>Cotización Piezas en existencia</b></span>
+                    <span class="data right"><b>Fecha:</b> {{ ucfirst(\Date::today()->format('d/m/Y')) }}</span>
+                    <span class="data left"><b>Atención:</b> {{ $estimate->client->name }}</span>
+                    <span class="data right"><b>Teléfono:</b> {{ $estimate->client->phone }}</span>
+                    <span class="data left"><b>E-mail:</b> {{ $estimate->client->email }}</span>
+                    <span class="data right"><b>Vendedor:</b> {{ $estimate->user->name }}</span>
                 </div>
                 <!-- /.info -->
             </header>
@@ -34,7 +34,7 @@
             <table class="estimate-table">
                 <thead>
                     <tr>
-                        <th>Foto</th>
+                        <th>Imagen</th>
                         <th>No. Art.</th>
                         <th>Descripción</th>
                         <th>P. Unit.</th>
@@ -46,6 +46,7 @@
                         @php
                             $product = $estimate_detail->product;
                             $price = ($product->sale_price != '') ? $product->sale_price : $product->regular_price;
+                            $price = number_format((float) $price, 2, '.', ',');
                         @endphp
                         <tr>
                             <td>
@@ -54,24 +55,28 @@
                                 </div>
                                 <!-- /.photo -->
                             </td>
-                            <td><span class="qty">&times; {{ $estimate_detail->quantity }} PZ{{ ($estimate_detail->quantity > 1) ? 'S' : '' }}</span></td>
+                            <td><span class="qty">{{ $estimate_detail->quantity }} PZ{{ ($estimate_detail->quantity > 1) ? 'S' : '' }}</span></td>
                             <td>
-                                <h4 class="product-title">{{ $product->title }}</h4>
-                                <!-- /.product-title -->
                                 <h5 class="product-brand"><b>Modelo:</b> <i>{{ $product->code }}</i></h5>
                                 <!-- /.product-brand -->
-                                @if($product->category)
-                                    <h5 class="product-category"><b>Categoría:</b> <i>{{ $product->category->title }}</i></h5>
-                                    <!-- /.product-category -->
-                                @endif
-                                <div class="product-description">
+                                <h4 class="product-title">{{ $product->title }}</h4>
+                                <!-- /.product-title -->
+                                {{-- <div class="product-description">
                                     {{ $product->description }}
                                 </div>
-                                <!-- /.product-description -->
+                                <!-- /.product-description --> --}}
                             </td>
                             <td>
-                                <h5 class="price {{ ($product->sale_price != '') ? 'with-sale' : '' }}">${{ $product->regular_price }}</h5>
-                                {!! ($product->sale_price != '') ? '<h5 class="price">$'.$product->sale_price.'</h5>' : '' !!}
+                                @php
+                                    $regular_price = number_format((float) $product->regular_price, 2, '.', ',');
+                                @endphp
+                                <h5 class="price {{ ($product->sale_price != '') ? 'with-sale' : '' }}">${{ $regular_price }}</h5>
+                                @if($product->sale_price != '')
+                                    @php
+                                        $sale_price = number_format((float) $product->sale_price, 2, '.', ',');
+                                    @endphp
+                                    <h5 class="price">$'.$sale_price.'</h5>
+                                @endif
                             </td>
                             <td>
                                 <span class="product-price-total price" data-price="{{ $price }}">${{ $price }}</span>
@@ -81,14 +86,14 @@
                 <tfoot>
                     <tr class="subtotal">
                         <td colspan="4" class="tr"><b>Subtotal</b></td>
-                        <td colspan="1"><span class="price">${{ ($estimate->subtotal) ? $estimate->subtotal : '0.00' }}</span></td>
+                        <td colspan="1"><span class="price">${{ ($estimate->subtotal) ? number_format((float) $estimate->subtotal, 2, '.', ',') : '0.00' }}</span></td>
                     </tr>
                         <td colspan="4" class="tr"><b>I.V.A.</b></td>
                         <td colspan="1"><span class="price" data-tax="{{ $settings->tax }}">{{ $settings->tax }}%</span></td>
                     </tr>
                     <tr class="total">
                         <td colspan="4" class="tr"><b>Total</b></td>
-                        <td colspan="1"><span class="price">${{ ($estimate->total) ? $estimate->total : '0.00' }}</span></td>
+                        <td colspan="1"><span class="price">${{ ($estimate->total) ? number_format((float) $estimate->total, 2, '.', ',') : '0.00' }}</span></td>
                     </tr>
                 </tfoot>
             </table>

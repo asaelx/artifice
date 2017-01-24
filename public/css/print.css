@@ -60,6 +60,10 @@ body {
   width: 49%;
 }
 
+.estimate-print .header .info .data.right {
+  padding-left: 12rem;
+}
+
 .estimate-print .estimate-table {
   border-collapse: collapse;
   margin-bottom: .5rem;
