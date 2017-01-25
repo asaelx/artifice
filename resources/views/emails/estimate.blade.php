@@ -74,14 +74,15 @@
             {{ $request->input('message') }}
         </div>
         <!-- /.message -->
-
-        <div class="notes">
-            <h2 class="title">Notas:</h2>
-            <!-- /.title -->
-            <div class="content">{{ $estimate->notes }}</div>
-            <!-- /.content -->
-        </div>
-        <!-- /.notes -->
+        @if($estimate->notes != '')
+            <div class="notes">
+                <h2 class="title">Notas:</h2>
+                <!-- /.title -->
+                <div class="content">{{ $estimate->notes }}</div>
+                <!-- /.content -->
+            </div>
+            <!-- /.notes -->
+        @endif
 
         <div class="footer">
             <p>{{ $settings->title }}</p>

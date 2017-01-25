@@ -153,12 +153,12 @@
                     <!-- /.form-group -->
                     <div class="form-group">
                         {{ Form::label('subject', 'Asunto', ['class' => 'label']) }}
-                        {{ Form::input('text', 'subject', 'Envío Cotización', ['class' => 'input']) }}
+                        {{ Form::input('text', 'subject', $settings->subject, ['class' => 'input']) }}
                     </div>
                     <!-- /.form-group -->
                     <div class="form-group">
                         {{ Form::label('message', 'Mensaje', ['class' => 'label']) }}
-                        {{ Form::textarea('message', null, ['size' => '30x5', 'class' => 'input autosizable']) }}
+                        {{ Form::textarea('message', $settings->message, ['size' => '30x5', 'class' => 'input autosizable']) }}
                     </div>
                     <!-- /.form-group -->
                     <div class="form-group">

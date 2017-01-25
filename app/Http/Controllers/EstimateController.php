@@ -37,7 +37,8 @@ class EstimateController extends Controller
     public function index()
     {
         $estimates = Estimate::latest()->paginate(5);
-        return view('cotizaciones.index', compact('estimates', 'emails'));
+        $settings = Setting::first();
+        return view('cotizaciones.index', compact('estimates', 'settings'));
     }
 
     /**
