@@ -116,7 +116,7 @@
                             <td data-th="Código">{{ $product->code }}</td>
                             <td data-th="Foto">
                                 <div class="product-photo">
-                                    {{ Html::image(url('storage/'.$product->pictures->first()->url), $product->title, ['class' => 'img']) }}
+                                    {{ Html::image(($product->pictures->first()) ? url('storage/'.$product->pictures->first()->url) : url('storage/products/photo.jpg'), $product->title, ['class' => 'img']) }}
                                 </div>
                                 <!-- /.photo -->
                             </td>
@@ -131,25 +131,41 @@
                                     <h5 class="product-category"><b>Categoría:</b> <i>{{ $product->category->title }}</i></h5>
                                     <!-- /.product-category -->
                                 @endif
+                                @if($product->dimensions)
+                                    {{ Form::checkbox('estimate_details['.$product->id.'][show_dimensions]', 1, ($estimate_detail->show_dimensions) ? true : null) }} {{ Form::label('estimate_details['.$product->id.'][show_dimensions]', 'Mostrar dimensiones') }}
+                                    <h5 class="product-dimensions"><b>Dimensiones:</b> <i>{{ $product->dimensions }}</i></h5>
+                                    <!-- /.product-dimensions -->
+                                @endif
                                 <div class="product-description">
                                     {{ $product->description }}
                                 </div>
                                 <!-- /.product-description -->
                             </td>
                             <td data-th="Precio Unit.">
-                                <h5 class="price {{ ($product->sale_price != '') ? 'with-sale' : '' }}">${{ $product->regular_price }}</h5>
-                                <!-- /.price -->
-                                <h5 class="price">${{ $price }}</h5>
-                                <!-- /.price -->
+                                @php
+                                    $regular_price = number_format((float) $product->regular_price, 2, '.', ',');
+                                @endphp
+                                <h5 class="price {{ ($product->sale_price != '') ? 'with-sale' : '' }}">${{ $regular_price }}</h5>
+                                @if($product->sale_price != '')
+                                    @php
+                                        $sale_price = number_format((float) $product->sale_price, 2, '.', ',');
+                                    @endphp
+                                    <h5 class="price">$'.$sale_price.'</h5>
+                                @endif
                             </td>
                             <td data-th="Cantidad">
                                 {{ Form::input('number', 'estimate_details['.$product->id.'][qty]', $estimate_detail->quantity, ['class' => 'input qty', 'min' => '1', 'max' => ($product->stock > 0) ? $product->stock : '1']) }}
                             </td>
                             <td data-th="Descuento">
-                                {{ Form::input('number', 'estimate_details['.$product->id.'][discount]', $estimate_detail->discount, ['class' => 'input discount', 'min' => '0', 'max' => '100']) }}
+                                <span class="badge badge-green">{{ $estimate_detail->discount }}%</span>
+                                <button class="unlock-discount btn btn-blue modal-trigger" data-modal="unlock-discount"," data-id="{{ $product->id }}"><i class="typcn typcn-lock-closed"></i></button>
+                                @if($estimate_detail->discount > 0)
+                                    {{ Form::hidden('estimate_details['.$product->id.'][discount]', $estimate_detail->discount) }}
+                                @endif
                             </td>
                             <td data-th="Total">
-                                <span class="product-price-total price" data-price="{{ $price }}">${{ $price }}</span>
+                                <span class="product-price-total price" data-price="{{ $price }}">${{ number_format((float) $estimate_detail->total, 2, '.', ',') }}</span>
+                                {{ Form::input('hidden', 'estimate_details['.$product->id.'][total]', $estimate_detail->total, ['class' => 'input total', 'min' => '1', 'max' => '100']) }}
                             </td>
                             <td data-th="Opciones">
                                 {{ Form::hidden('estimate_details['.$product->id.'][product_id]', $product->id) }}
@@ -165,27 +181,19 @@
             <tfoot>
                 <tr class="subtotal">
                     <td colspan="6" class="tr"><b>Subtotal</b></td>
-                    <td colspan="2"><span id="grand_subtotal" class="price">${{ ($estimate->subtotal) ? $estimate->subtotal : '0.00' }}</span></td>
+                    <td colspan="2"><span id="grand_subtotal" class="price">${{ ($estimate->subtotal) ? number_format((float) $estimate->subtotal, 2, '.', ',') : '0.00' }}</span></td>
                     {{ Form::hidden('subtotal', ($estimate->subtotal) ? $estimate->subtotal : 0) }}
                 </tr>
-                {{-- <tr class="discount">
-                    <td colspan="6" class="tr"><b>Con descuento</b></td>
-                    <td colspan="2"><span id="grand_discount" class="price">${{ ($estimate->discount) ? $estimate->discount : '0.00' }}</span></td>
-                    {{ Form::hidden('discount', ($estimate->discount) ? $estimate->discount : 0) }}
-                </tr>
-                <tr class="save">
-                    <td colspan="6" class="tr"><b>Usted ahorra</b></td>
-                    <td colspan="2"><span id="grand_save" class="price">${{ ($estimate->save) ? $estimate->save : '0.00' }}</span></td>
-                    {{ Form::hidden('save', ($estimate->save) ? $estimate->save : 0) }}
-                </tr> --}}
                 <tr class="tax">
                     <td colspan="6" class="tr"><b>I.V.A.</b></td>
                     <td colspan="2"><span id="tax" class="price" data-tax="{{ $settings->tax }}">{{ $settings->tax }}%</span></td>
                 </tr>
                 <tr class="total">
                     <td colspan="6" class="tr"><b>Total</b></td>
-                    <td colspan="2"><span id="grand_total" class="price">${{ ($estimate->total) ? $estimate->total : '0.00' }}</span></td>
+                    <td colspan="2"><span id="grand_total" class="price">${{ ($estimate->total) ? number_format((float) $estimate->total, 2, '.', ',') : '0.00' }}</span></td>
                     {{ Form::hidden('total', ($estimate->total) ? $estimate->total : 0) }}
+                    {{ Form::hidden('discount', ($estimate->discount) ? $estimate->discount : 0) }}
+                    {{ Form::hidden('save', ($estimate->save) ? $estimate->save : 0) }}
                 </tr>
             </tfoot>
         </table>

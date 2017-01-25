@@ -170,7 +170,8 @@ $(function(){
         dateable.datepicker({
             language: 'es-ES',
             format: 'yyyy-mm-dd',
-            startDate: new Date()
+            startDate: new Date(),
+            autoHide: true
         });
     }
 
@@ -203,6 +204,7 @@ $(function(){
                 var qty = parseFloat((tr.find('.qty').val() != '') ? tr.find('.qty').val() : 0),
                     price_tag = tr.find('.product-price-total'),
                     price = parseFloat(price_tag.data('price')),
+                    total_input = tr.find('.total'),
                     subtotal = price*qty,
                     discount_input = tr.find('.discount'),
                     discount_value = (discount_input.length && discount_input.val() != '') ? discount_input.val() : 0,
@@ -210,6 +212,7 @@ $(function(){
                     total = subtotal - discount;
 
                 price_tag.text('$'+total.toFixed(2));
+                total_input.val(total.toFixed(2));
             }
 
             var products = $('.cotizador').find('tbody').find('tr');
@@ -307,7 +310,23 @@ $(function(){
                         });
                         td_product.append(h5_category);
                     }
+                    if(data.dimensions){
+                        var checkbox_dimensions = $('<input>', {
+                            type: 'checkbox',
+                            name: 'estimate_details['+data.id+'][show_dimensions]',
+                            value: 1
+                        });
+                        var label_dimensions = $('<label>', {text: 'Mostrar dimensiones'})
+                        var h5_dimensions = $('<h5>', {
+                            class: 'product-dimensions',
+                            html: '<b>Dimensiones:</b> <i>'+data.dimensions+'</i>'
+                        });
+                        td_product.append(h5_category);
+                    }
                     td_product.append(h4_title);
+                    td_product.append(checkbox_dimensions);
+                    td_product.append(label_dimensions);
+                    td_product.append(h5_dimensions);
                     td_product.append(div_description);
 
                     var with_sale = (data.sale_price != '' && data.sale_price) ? 'with-sale' : '';
@@ -350,10 +369,20 @@ $(function(){
                         'data-th': 'Descuento'
                     });
 
-                    var td_total = $('<td>', {
-                        html: '<span class="product-price-total price" data-price="'+price+'">$'+price+'</span>',
-                        'data-th': 'Total'
+                    var input_total = $('<input>', {
+                        type: 'hidden',
+                        name: 'estimate_details['+data.id+'][total]',
+                        value: data.total,
+                        class: 'total'
                     });
+                    var span_total = $('<span>', {
+                        class: 'product-price-total price',
+                        'data-price': price,
+                        text: '$'+price
+                    });
+                    var td_total = $('<td>', {'data-th': 'Total'});
+                    td_total.append(span_total);
+                    td_total.append(input_total);
 
                     var button_delete = $('<button>', {
                         class: 'delete-row',
@@ -436,7 +465,7 @@ $(function(){
             var form = modal.find('.form');
             if(form.length){
                 var action = form.attr('action'),
-                    action_wildcard = action.replace(/\d/g, '{id}');
+                    action_wildcard = action.replace(/\d+/g, '{id}');
                 form.attr('action', action_wildcard);
                 form[0].reset();
             }

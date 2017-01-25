@@ -64,28 +64,34 @@ class EstimateController extends Controller
      */
     public function store(EstimateRequest $request)
     {
-        $request->merge(['discount' => ($request->has('discount')) ? $request->input('discount') : 0]);
-        $request->merge(['save' => ($request->has('save')) ? $request->input('save') : 0]);
-        $request->merge(['expiration' => ($request->has('expiration')) ? $request->input('expiration') : Carbon::today()->addDays(5)->format('Y-m-d')]);
+        $request->merge(['expiration' => ($request->has('expiration') && $request->input('expiration') != '') ? $request->input('expiration') : Carbon::today()->addDays(5)->format('Y-m-d')]);
+
         $latest = Estimate::latest()->first();
         $folio = (is_null($latest)) ? sprintf('%05d', 1) : sprintf('%05d', $latest->folio + 1);
         $request->merge(['folio' => $folio]);
+
         if(!is_numeric($request->input('client_id'))){
             $request->merge(['name' => $request->input('client_id')]);
             $client = Client::create($request->all());
             $request->merge(['client_id' => $client->id]);
         }
-        $request->merge(['discount' => ($request->has('discount')) ? $request->input('discount') : 0]);
+
         $estimate = Estimate::create($request->all());
+
         foreach ($request->input('estimate_details') as $item_estimate_detail) {
             $discount = (isset($item_estimate_detail['discount'])) ? $item_estimate_detail['discount'] : 0;
+            $show_dimensions = (isset($item_estimate_detail['show_dimensions'])) ? $item_estimate_detail['show_dimensions'] : 0;
             $estimate->estimate_details()->create([
                 'quantity' => $item_estimate_detail['qty'],
                 'discount' => $discount,
+                'total' => $item_estimate_detail['total'],
+                'show_dimensions' => $show_dimensions,
                 'product_id' => $item_estimate_detail['product_id']
             ]);
         }
+
         session()->flash('flash_message', 'Se ha generado la cotización: '.$estimate->folio);
+
         return redirect('cotizaciones');
     }
 
@@ -184,6 +190,8 @@ class EstimateController extends Controller
      */
     public function update(EstimateRequest $request, Estimate $estimate)
     {
+        // dd($request->all());
+        $request->merge(['expiration' => ($request->has('expiration')) ? $request->input('expiration') : Carbon::today()->addDays(5)->format('Y-m-d')]);
         foreach ($estimate->estimate_details as $estimate_detail) {
             EstimateDetail::find($estimate_detail->id)->delete();
         }
@@ -195,9 +203,12 @@ class EstimateController extends Controller
         $estimate->update($request->all());
         foreach ($request->input('estimate_details') as $item_estimate_detail) {
             $discount = (isset($item_estimate_detail['discount'])) ? $item_estimate_detail['discount'] : 0;
+            $show_dimensions = (isset($item_estimate_detail['show_dimensions'])) ? $item_estimate_detail['show_dimensions'] : 0;
             $estimate->estimate_details()->create([
                 'quantity' => $item_estimate_detail['qty'],
                 'discount' => $discount,
+                'total' => $item_estimate_detail['total'],
+                'show_dimensions' => $show_dimensions,
                 'product_id' => $item_estimate_detail['product_id']
             ]);
         }

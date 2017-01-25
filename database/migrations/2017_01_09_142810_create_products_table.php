@@ -18,6 +18,7 @@ class CreateProductsTable extends Migration
             $table->string('title');
             $table->string('slug');
             $table->text('description');
+            $table->string('dimensions')->nullable();
             $table->string('code')->nullable();
             $table->string('stock');
             $table->string('regular_price');

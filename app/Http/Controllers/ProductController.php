@@ -70,6 +70,7 @@ class ProductController extends Controller
                 'text' => $product->title,
                 'title' => $product->title,
                 'description' => $product->description,
+                'dimensions' => $product->dimensions,
                 'code' => $product->code,
                 'stock' => $product->stock,
                 'regular_price' => $product->regular_price,
@@ -95,20 +96,23 @@ class ProductController extends Controller
             $results = $reader->get();
 
             foreach ($results as $result) {
-                // TODO: Validate to avoid duplicates
-                // $brand = Brand::where('title', $result->marca_producto)->first();
-                // if($brand){
-                //     $brand_id = $brand->id;
-                // }else{
-                //     $brand_id = Brand::create(['title' => $result->marca_producto, 'description' => $result->marca_producto])->id;
-                // }
+                if($result->marca_producto){
+                    $brand = Brand::where('title', $result->marca_producto)->first();
+                    if($brand){
+                        $brand_id = $brand->id;
+                    }else{
+                        $brand_id = Brand::create(['title' => $result->marca_producto, 'description' => $result->marca_producto])->id;
+                    }
+                }
 
-                // $category = Category::where('title', $result->categoria_producto)->first();
-                // if($category){
-                //     $category_id = $category->id;
-                // }else{
-                //     $category_id = Brand::create(['title' => $result->categoria_producto, 'description' => $result->categoria_producto])->id;
-                // }
+                if($result->categoria_producto){
+                    $category = Category::where('title', $result->categoria_producto)->first();
+                    if($category){
+                        $category_id = $category->id;
+                    }else{
+                        $category_id = Brand::create(['title' => $result->categoria_producto, 'description' => $result->categoria_producto])->id;
+                    }
+                }
 
                 $exists = Product::where('title', $result->titulo_producto)->first();
                 if(!$exists){
@@ -127,10 +131,8 @@ class ProductController extends Controller
                         'stock' => 10,
                         'regular_price' => $result->precio_producto,
                         'sale_price' => null,
-                        // 'brand_id' => $brand_id,
-                        'brand_id' => null,
-                        // 'category_id' => $category_id
-                        'category_id' => null
+                        'brand_id' => (isset($brand_id)) ? $brand_id : null,
+                        'category_id' => (isset($category_id)) ? $category_id : null,
                     ]);
 
                     $product->pictures()->sync([$picture->id]);

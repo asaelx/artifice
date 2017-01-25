@@ -51,7 +51,7 @@
                         <tr>
                             <td>
                                 <div class="product-photo">
-                                    {{ Html::image(url('storage/'.$product->pictures->first()->url), $product->title, ['class' => 'img']) }}
+                                    {{ Html::image(($product->pictures->first()) ? url('storage/'.$product->pictures->first()->url) : url('storage/products/photo.jpg'), $product->title, ['class' => 'img']) }}
                                 </div>
                                 <!-- /.photo -->
                             </td>
@@ -61,10 +61,10 @@
                                 <!-- /.product-brand -->
                                 <h4 class="product-title">{{ $product->title }}</h4>
                                 <!-- /.product-title -->
-                                {{-- <div class="product-description">
-                                    {{ $product->description }}
-                                </div>
-                                <!-- /.product-description --> --}}
+                                @if($estimate_detail->show_dimensions)
+                                    <h5 class="product-dimensions"><b>Dimensiones:</b> <i>{{ $product->dimensions }}</i></h5>
+                                    <!-- /.product-dimensions -->
+                                @endif
                             </td>
                             <td>
                                 @php
@@ -79,7 +79,7 @@
                                 @endif
                             </td>
                             <td>
-                                <span class="product-price-total price" data-price="{{ $price }}">${{ $price }}</span>
+                                <span class="product-price-total price" data-price="{{ $price }}">${{ number_format((float) $estimate_detail->total, 2, '.', ',') }}</span>
                             </td>
                     @endforeach
                 </tbody>

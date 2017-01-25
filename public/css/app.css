@@ -569,8 +569,10 @@ img {
 
 .table tbody tr td .product-category,
 .table tbody tr td .product-brand,
+.table tbody tr td .product-dimensions,
 .table tfoot tr td .product-category,
-.table tfoot tr td .product-brand {
+.table tfoot tr td .product-brand,
+.table tfoot tr td .product-dimensions {
   font-size: 14px;
   font-size: 1rem;
 }
@@ -992,6 +994,7 @@ img {
   display: table;
   color: #2c3e50;
   padding: 1rem 0;
+  width: 100%;
 }
 
 .product-result > * {

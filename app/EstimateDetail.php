@@ -12,7 +12,7 @@ class EstimateDetail extends Model
      * The attributes that are mass assignable.
      * @var array
      */
-    protected $fillable = ['quantity', 'discount', 'product_id'];
+    protected $fillable = ['quantity', 'discount', 'total', 'show_dimensions', 'product_id'];
 
     public function estimate()
     {

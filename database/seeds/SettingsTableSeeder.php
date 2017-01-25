@@ -25,6 +25,7 @@ class SettingsTableSeeder extends Seeder
             'address' => 'Calle 49 Num. 230 x 28 y 28A Col. San Antonio Cucul Mérida, Yucatán',
             'Observations' => 'Lorem ipsum',
             'tax' => 16,
+            'discount_code' => 333,
             'currency_id' => $currency->id
         ]);
     }

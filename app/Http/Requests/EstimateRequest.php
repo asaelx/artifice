@@ -29,9 +29,7 @@ class EstimateRequest extends FormRequest
             'expiration' => 'date_format:Y-m-d',
             'status' => 'required',
             'client_id' => 'required',
-            'company' => 'required',
-            'phone' => 'required',
-            'email' => 'required|email',
+            'email' => 'email',
             'estimate_details' => 'required'
         ];
     }
@@ -49,9 +47,6 @@ class EstimateRequest extends FormRequest
             'expiration.date_format' => 'No has seleccionado una fecha válida',
             'status.required' => 'No has seleccionado un estado',
             'client_id.required' => 'No has seleccionado un cliente',
-            'company.required' => 'No has escrito una empresa',
-            'phone.required' => 'No has escrito un teléfono de contacto',
-            'email.required' => 'No has escrito un correo electrónico',
             'email.email' => 'No has escrito un correo electrónico válido',
             'estimate_details.required' => 'No has seleccionado ningún producto'
         ];
