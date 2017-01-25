@@ -62,16 +62,15 @@
 </head>
 <body>
     <section class="email">
-        <header class="header">
+        <div class="header">
             @if (isset($settings->sidebar_logo->url))
                 <img src="{{ asset('storage/'.$settings->sidebar_logo->url) }}" alt="{{ $settings->title }}" class="img">
             @else
                 <img src="{{ asset('img/logo.png') }}" alt="{{ $settings->title }}" class="img">
             @endif
-        </header>
+        </div>
 
         <div class="message">
-            <p>Hola, {{ $estimate->client->name }}</p>
             {{ $request->input('message') }}
         </div>
         <!-- /.message -->
@@ -84,11 +83,11 @@
         </div>
         <!-- /.notes -->
 
-        <footer class="footer">
+        <div class="footer">
             <p>{{ $settings->title }}</p>
             <p>{{ $settings->owner }}</p>
             <p>{{ $settings->phone }}</p>
-        </footer>
+        </div>
     </section>
     <!-- /.email -->
 

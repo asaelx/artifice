@@ -449,13 +449,16 @@ $(function(){
     var modal = $('.modal');
     if(modal.length){
 
-        function show_modal(modal_id, resource_id) {
+        function show_modal(modal_id, resource_id, client_email) {
             var modal = $('#'+modal_id+'-modal').addClass('show'),
                 form = modal.find('.form'),
                 action = form.attr('action')
                 action_id = action.replace('{id}', resource_id);
             if(form.length)
                 form.attr('action', action_id);
+            if(client_email){
+                $('#send-mail-modal').find('input[name="email"]').val(client_email);
+            }
         }
 
         function close_modal(id){
@@ -498,8 +501,9 @@ $(function(){
         $body.on('click', '.modal-trigger', function(){
             var $this = $(this),
                 modal_id = $this.data('modal'),
-                resource_id = $this.data('id');
-            show_modal(modal_id, resource_id);
+                resource_id = $this.data('id'),
+                client_email = ($this[0].hasAttribute('data-email')) ? $this.data('email') : null;
+            show_modal(modal_id, resource_id, client_email);
             return false;
         });
 

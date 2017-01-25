@@ -86,7 +86,7 @@
                                     @endif
                                 </td>
                                 <td data-th="Expira">{{ ucfirst(\Date::createFromFormat('Y-m-d', $estimate->expiration)->diffForHumans()) }}</td>
-                                <td data-th="Total"><span class="price">${{ $estimate->total }}</span></td>
+                                <td data-th="Total"><span class="price">${{ number_format((float) $estimate->total, 2, '.', ',') }}</span></td>
                                 <td data-th="Opciones">
                                     <span href="#" class="dropdown">
                                         <i class="typcn typcn-social-flickr"></i>
@@ -104,7 +104,7 @@
                                             </li>
                                             <!-- /.item -->
                                             <li class="item">
-                                                <a href="#" class="link modal-trigger" data-modal="send-mail" data-id="{{ $estimate->id }}"><i class="typcn typcn-mail"></i> Enviar correo</a>
+                                                <a href="#" class="link modal-trigger" data-modal="send-mail" data-id="{{ $estimate->id }}" data-email="{{ $estimate->client->email }}"><i class="typcn typcn-mail"></i> Enviar correo</a>
                                             </li>
                                             <!-- /.item -->
                                             <li class="item">
@@ -148,7 +148,7 @@
                 {{ Form::open(['url' => url('cotizaciones/{id}/email'), 'class' => 'form']) }}
                     <div class="form-group">
                         {{ Form::label('email', 'Enviar a', ['class' => 'label']) }}
-                        {{ Form::select('email', $emails, null, ['class' => 'select2-add', 'data-placeholder' => 'Selecciona o escribe un correo electrónico']) }}
+                        {{ Form::input('text', 'email', null, ['class' => 'input']) }}
                     </div>
                     <!-- /.form-group -->
                     <div class="form-group">

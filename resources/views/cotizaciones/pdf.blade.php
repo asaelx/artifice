@@ -112,13 +112,7 @@
                     <h3 class="title">Observaciones:</h3>
                     <!-- /.title -->
                     <div class="content">
-                        <p>En PEDIDOS, el anticipo será del 70% del TOTAL y el saldo el 30% contra entrega de la mercancía.</p>
-                        <p>En APARTADOS, el anticipo será del 50% del TOTAL y el saldo contra entrega de la mercancia.</p>
-                        <p>El tiempo máximo de apartado será de 2 meses. En caso de haber cumplido el plazo ó la mercancia sea cancelada después de este período, tendrá una penalización del 5% sobre el total del apartado.</p>
-                        <p>Precios sujetos a cambios sin previo aviso. Toda vez efectuado el pago del anticipo, el precio del articulo no variará.</p>
-                        <p>Los precios son en MXN y NO INCLUYEN IVA.</p>
-                        <p>NO se aceptan cambios ni devoluciones.</p>
-                        <p>La válidez de esta cotización es por 5 días y dependerá de la disponibilidad de las piezas.</p>
+                        {!! nl2br($settings->observations) !!}
                     </div>
                     <!-- /.content -->
                 </div>

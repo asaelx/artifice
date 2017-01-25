@@ -36,8 +36,6 @@ class EstimateController extends Controller
      */
     public function index()
     {
-        $emails = Client::pluck('email', 'email');
-        $emails = ['' => ''] + $emails->toArray();
         $estimates = Estimate::latest()->paginate(5);
         return view('cotizaciones.index', compact('estimates', 'emails'));
     }

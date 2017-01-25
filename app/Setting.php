@@ -20,6 +20,8 @@ class Setting extends Model
         'store_url',
         'address',
         'observations',
+        'subject',
+        'message',
         'tax',
         'discount_code',
         'currency_id',
