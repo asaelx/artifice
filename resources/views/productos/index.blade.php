@@ -113,8 +113,8 @@
                                 </td>
                                 <td data-th="Disponibles">{{ $product->stock }}</td>
                                 <td data-th="Precio">
-                                    <span class="price {{ ($product->sale_price != '') ? 'with-sale' : '' }}">${{ $product->regular_price }}</span>
-                                    {!! ($product->sale_price != '') ? '<span class="price">$'.$product->sale_price.'</span>' : '' !!}
+                                    <span class="price {{ ($product->sale_price != '') ? 'with-sale' : '' }}">${{ number_format((float) $product->regular_price, 2, '.', ',') }}</span>
+                                    {!! ($product->sale_price != '') ? '<span class="price">$'.number_format((float) $product->sale_price, 2, '.', ',').'</span>' : '' !!}
                                 </td>
                                 <td data-th="Opciones">
                                     <span class="dropdown">

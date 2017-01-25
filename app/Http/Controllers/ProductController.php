@@ -35,7 +35,7 @@ class ProductController extends Controller
             if($key != 'page') $values .= $value;
         }
         if($values == ''){
-            $products = Product::latest()->paginate(5);
+            $products = Product::latest()->paginate(50);
         }else{
             $products = Product::latest()
                 ->where('title', $request->input('title'))
