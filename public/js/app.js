@@ -199,6 +199,12 @@ $(function(){
             });
         });
 
+        function numberWithCommas(x) {
+            var parts = x.toString().split(".");
+            parts[0] = parts[0].replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+            return parts.join(".");
+        }
+
         function set_total(tr){
             if(tr){
                 var qty = parseFloat((tr.find('.qty').val() != '') ? tr.find('.qty').val() : 0),
@@ -211,7 +217,7 @@ $(function(){
                     discount = (parseFloat(discount_value) / 100) * parseFloat(subtotal),
                     total = subtotal - discount;
 
-                price_tag.text('$'+total.toFixed(2));
+                price_tag.text('$'+numberWithCommas(total.toFixed(2)));
                 total_input.val(total.toFixed(2));
             }
 
@@ -247,8 +253,8 @@ $(function(){
                 taxes = (tax / 100) * grand_total,
                 grand_total_after_tax =  grand_total + taxes;
 
-            span_grand_subtotal.text('$'+grand_subtotal.toFixed(2));
-            span_grand_total.text('$'+grand_total_after_tax.toFixed(2));
+            span_grand_subtotal.text('$'+numberWithCommas(grand_subtotal.toFixed(2)));
+            span_grand_total.text('$'+numberWithCommas(grand_total_after_tax.toFixed(2)));
 
             var input_grand_subtotal = $('[name="subtotal"]'),
                 input_grand_discount = $('[name="discount"]'),
@@ -330,8 +336,8 @@ $(function(){
                     td_product.append(div_description);
 
                     var with_sale = (data.sale_price != '' && data.sale_price) ? 'with-sale' : '';
-                    var regular_price = '<h5 class="price '+with_sale+'">$'+data.regular_price+'</h5>';
-                    var sale_price = (data.sale_price != '' && data.sale_price) ? '<h5 class="price">$'+data.sale_price+'</h5>' : '';
+                    var regular_price = '<h5 class="price '+with_sale+'">$'+numberWithCommas(data.regular_price)+'</h5>';
+                    var sale_price = (data.sale_price != '' && data.sale_price) ? '<h5 class="price">$'+numberWithCommas(data.sale_price)+'</h5>' : '';
                     var price = (data.sale_price != '' && data.sale_price) ? data.sale_price : data.regular_price;
                     var td_price = $('<td>', {
                         html: regular_price+sale_price,
