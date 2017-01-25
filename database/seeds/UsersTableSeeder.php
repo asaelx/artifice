@@ -15,7 +15,8 @@ class UsersTableSeeder extends Seeder
         User::create([
             'name' => 'Administrador',
             'username' => 'admin',
-            'email' => 'admin@artificestore.mx',
+            'email' => 'cotizador@artificestore.mx',
+            'email_password' => 'artifice2016',
             'password' => bcrypt('admin'),
             'role' => 'admin'
         ]);

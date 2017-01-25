@@ -49,15 +49,6 @@
             padding: 2rem;
             text-align: center;
         }
-        .footer p{
-            color: #908778;
-            font-size: .8rem;
-            margin-bottom: .5rem;
-            margin-top: 0;
-        }
-        .footer p:last-child{
-            margin: 0;
-        }
     </style>
 </head>
 <body>
@@ -85,9 +76,9 @@
         @endif
 
         <div class="footer">
-            <p>{{ $settings->title }}</p>
-            <p>{{ $settings->owner }}</p>
-            <p>{{ $settings->phone }}</p>
+            @if(\Auth::user()->picture)
+                <img src="{{ asset('storage/'.\Auth::user()->picture->url) }}" alt="" class="img" />
+            @endif
         </div>
     </section>
     <!-- /.email -->
