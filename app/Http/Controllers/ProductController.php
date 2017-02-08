@@ -38,7 +38,7 @@ class ProductController extends Controller
             $products = Product::latest()->paginate(50);
         }else{
             $products = Product::latest()
-                ->where('title', $request->input('title'))
+                ->where('title', 'like', '%'.$request->input('title').'%')
                 ->orWhere('code', $request->input('code'))
                 ->orWhere('brand_id', $request->input('brand_id'))
                 ->orWhere('category_id', $request->input('category_id'))
@@ -175,6 +175,9 @@ class ProductController extends Controller
             $category = Category::create(['title' => $request->input('category_id'), 'description' => $request->input('category_id')]);
             $request->merge(['category_id' => $category->id]);
         }
+        $request->merge(['regular_price' => str_replace(',', '', $request->input('regular_price'))]);
+        if($request->has('sale_price'))
+            $request->merge(['sale_price' => str_replace(',', '', $request->input('sale_price'))]);
         $product = Product::create($request->all());
         if($request->hasFile('photos')){
             foreach ($request->file('photos') as $photo) {

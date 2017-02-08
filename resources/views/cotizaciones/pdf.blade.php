@@ -120,7 +120,7 @@
                 <div class="right">
                     <div class="signature">
                         <p>Atte.</p>
-                        <p>{{ $settings->owner }}</p>
+                        <p>{{ $estimate->user->name }}</p>
                         <p>{{ $settings->title }}</p>
                     </div>
                     <!-- /.signature -->
