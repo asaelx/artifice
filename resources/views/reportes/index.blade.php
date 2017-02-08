@@ -69,10 +69,18 @@
                                 <td data-th="Descripción">
                                     <h4 class="product-title">{{ $product->title }}</h4>
                                     <!-- /.product-title -->
-                                    <h5 class="product-brand"><b>Marca:</b> <i>{{ $product->brand->title }}</i></h5>
-                                    <!-- /.product-brand -->
-                                    <h5 class="product-category"><b>Categoría:</b> <i>{{ $product->category->title }}</i></h5>
-                                    <!-- /.product-category -->
+                                    @if ($product->brand)
+                                        <h5 class="product-brand"><b>Marca:</b> <i>{{ $product->brand->title }}</i></h5>
+                                        <!-- /.product-brand -->
+                                    @endif
+                                    @if ($product->category)
+                                        <h5 class="product-category"><b>Categoría:</b> <i>{{ $product->category->title }}</i></h5>
+                                        <!-- /.product-category -->
+                                    @endif
+                                    @if ($product->dimensions)
+                                        <h5 class="product-dimensions"><b>Dimensiones:</b> <i>{{ $product->dimensions }}</i></h5>
+                                        <!-- /.product-dimensions -->
+                                    @endif
                                     <div class="product-description">
                                         {{ $product->description }}
                                     </div>
