@@ -24,6 +24,7 @@ class ReportController extends Controller
         $most_estimated_categories = EstimateDetail::groupBy('category_id')
             ->leftJoin('products', 'products.id', 'estimate_details.product_id')
             ->leftJoin('categories', 'categories.id', 'products.category_id')
+            ->where('products.category_id', '!=', 'null')
             ->select('category_id', \DB::raw('count(*) as total'))
             ->orderBy('total', 'desc')
             ->get();
