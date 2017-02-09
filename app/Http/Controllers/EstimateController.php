@@ -16,6 +16,8 @@ use App\User;
 use App\Setting;
 use Mail;
 use App\Mail\EstimateGenerated;
+use Auth;
+use Config;
 
 class EstimateController extends Controller
 {
@@ -168,6 +170,11 @@ class EstimateController extends Controller
         $path = 'storage/cotizaciones/'.$slug.'.pdf';
         $pdf->save($path);
         $request->merge(['pdf' => $path]);
+
+        Config::set('mail.username', Auth::user()->email);
+        Config::set('mail.password', Auth::user()->email_password);
+        Config::set('mail.from', ['address' => Auth::user()->email, 'name' => Auth::user()->name]);
+
         Mail::to($request->input('email'))->send(new EstimateGenerated($estimate, $request));
         unlink($path);
         $estimate->emails()->create([
