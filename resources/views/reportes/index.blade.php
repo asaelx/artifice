@@ -9,7 +9,7 @@
             {{-- <canvas id="estimates-chart" class="chart" width="400" height="400"></canvas>
             <!-- /#estimates-chart.chart --> --}}
             <section class="box">
-                <h2 class="title">Cotizaciones por vendedor</h2>
+                <h2 class="title">Cotizaciones por vendedor <a href="{{ url('reportes/exportEstimatesByUser') }}" class="btn btn-green pr">Exportar a Excel</a></h2>
                 <!-- /.title -->
                 <table class="table">
                     <thead>
@@ -42,7 +42,7 @@
     <div class="row">
         <div class="col-12">
             <section class="box">
-                <h2 class="title">Productos más cotizados</h2>
+                <h2 class="title">Productos más cotizados <a href="{{ url('reportes/exportMostEstimatedDetails') }}" class="btn btn-green pr">Exportar a Excel</a></h2>
                 <!-- /.title -->
                 <table class="table">
                     <thead>
@@ -102,7 +102,7 @@
     <div class="row">
         <div class="col-12">
             <section class="box">
-                <h2 class="title">Categorías más cotizadas</h2>
+                <h2 class="title">Categorías más cotizadas <a href="{{ url('reportes/exportMostEstimatedCategories') }}" class="btn btn-green pr">Exportar a Excel</a></h2>
                 <!-- /.title -->
                 <table class="table">
                     <thead>
