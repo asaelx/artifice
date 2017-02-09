@@ -23,7 +23,8 @@ class CreateEmailsTable extends Migration
 
             $table->foreign('estimate_id')
                     ->references('id')
-                    ->on('estimates');
+                    ->on('estimates')
+                    ->onDelete('cascade');
         });
     }
 
