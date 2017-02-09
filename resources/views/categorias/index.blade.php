@@ -10,29 +10,6 @@
 @endsection
 
 @section('content')
-    @unless ($categories->isEmpty())
-        {{-- <div class="row">
-            {{ Form::open(['url' => '/', 'class' => 'form']) }}
-                <div class="col-6">
-                    <div class="form-group">
-                        {{ Form::label('title', 'Título', ['class' => 'label']) }}
-                        {{ Form::input('text', 'title', null, ['class' => 'input']) }}
-                    </div>
-                    <!-- /.form-group -->
-                </div>
-                <!-- /.col-6 -->
-                <div class="col-6">
-                    <div class="form-group">
-                        {{ Form::label('description', 'Descripción', ['class' => 'label']) }}
-                        {{ Form::input('text', 'description', null, ['class' => 'input']) }}
-                    </div>
-                    <!-- /.form-group -->
-                </div>
-                <!-- /.col-6 -->
-            {{ Form::close() }}
-        </div>
-        <!-- /.row --> --}}
-    @endunless
     <div class="row">
         <div class="col-12">
             @if ($categories->isEmpty())
@@ -65,6 +42,10 @@
                                         <ul class="list">
                                             <li class="item">
                                                 <a href="{{ url('categorias/'.$category->id.'/editar') }}" class="link"><i class="typcn typcn-edit"></i> Editar</a>
+                                            </li>
+                                            <!-- /.item -->
+                                            <li class="item">
+                                                <a href="{{ url('categorias/'.$category->id.'/exportProducts') }}" class="link"><i class="typcn typcn-download"></i> Excel Productos</a>
                                             </li>
                                             <!-- /.item -->
                                             <li class="item">

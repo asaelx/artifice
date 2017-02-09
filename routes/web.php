@@ -55,6 +55,7 @@ Route::patch('categorias/{category}', 'CategoryController@update');
 Route::get('categorias/{category}', 'CategoryController@show');
 Route::delete('categorias/{category}', 'CategoryController@destroy');
 Route::get('categorias/{category}/editar', 'CategoryController@edit');
+Route::get('categorias/{category}/exportProducts', 'CategoryController@exportProducts');
 
 // Monedas
 Route::get('monedas', 'CurrencyController@index');

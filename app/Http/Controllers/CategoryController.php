@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Http\Requests\CategoryRequest;
 use App\Category;
+use Excel;
 
 class CategoryController extends Controller
 {
@@ -100,5 +101,33 @@ class CategoryController extends Controller
         $category->delete();
         session()->flash('flash_message', 'Se ha eliminado la categoría');
         return redirect('categorias');
+    }
+
+    public function exportProducts(Category $category)
+    {
+        $products = $category->products;
+        $array = [];
+        $title = 'Productos';
+
+        foreach ($products as $product) {
+            $array[] = [
+                'Producto' => $product->title,
+                'Descripción' => $product->description,
+                'Dimensiones' => ($product->dimensions) ? $product->dimensions : 'Sin dimensiones',
+                'Código' => ($product->code) ? $product->code : 'Sin código',
+                'Precio Regular' => $product->regular_price,
+                'Precio de oferta' => ($product->sale_price) ? $product->sale_price : 'Sin oferta',
+                'Marca' => ($product->brand) ? $product->brand->title : 'Sin marca',
+                'Categoría' => ($product->category) ? $product->category->title : 'Sin categoría'
+            ];
+        }
+
+        $xls = Excel::create($title, function($excel) use ($title, $array) {
+            $excel->setTitle($title);
+            $excel->sheet($title, function($sheet) use ($array) {
+                $sheet->fromArray($array);
+            });
+        });
+        return $xls->download('xls');
     }
 }

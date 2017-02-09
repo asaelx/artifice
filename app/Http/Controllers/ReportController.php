@@ -56,7 +56,7 @@ class ReportController extends Controller
             $product = $most_estimated_detail->product;
 
             $array[] = [
-                'Código' => $product->code,
+                'Código' => ($product->code) ? $product->code : 'Sin código',
                 'Producto' => $product->title,
                 'Descripción' => $product->description,
                 'Marca' => ($product->brand) ? $product->brand->title : 'Sin marca',
