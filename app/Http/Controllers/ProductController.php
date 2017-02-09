@@ -37,13 +37,18 @@ class ProductController extends Controller
         if($values == ''){
             $products = Product::latest()->paginate(50);
         }else{
-            $products = Product::latest()
-                ->where('title', 'like', '%'.$request->input('title').'%')
-                ->orWhere('code', $request->input('code'))
-                ->orWhere('brand_id', $request->input('brand_id'))
-                ->orWhere('category_id', $request->input('category_id'))
-                ->paginate(5);
+            $products = Product::latest();
+            if($request->has('title') && $request->input('title') != '')
+                $products = $products->where('title', 'like', '%'.$request->input('title').'%');
+            if($request->has('code') && $request->input('code') != '')
+                $products = $products->where('code', $request->input('code'));
+            if($request->has('brand_id') && $request->input('brand_id') != '')
+                $products = $products->where('brand_id', $request->input('brand_id'));
+            if($request->has('category_id') && $request->input('category_id') != '')
+                $products = $products->where('category_id', $request->input('category_id'));
+            $products = $products->paginate(5);
         }
+
         $brands = Brand::pluck('title', 'id');
         $brands = [''=>''] + $brands->toArray();
         $categories = Category::pluck('title', 'id');
