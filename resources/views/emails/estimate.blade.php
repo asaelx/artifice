@@ -36,12 +36,12 @@
             padding: 2rem;
         }
         .notes .title{
-            font-size: 1.1rem;
+            font-size: .7rem;
             font-weight: bold;
             margin: 0;
         }
         .notes .content{
-            font-size: .9rem;
+            font-size: .6rem;
             line-height: 1.5em;
         }
         .footer{
