@@ -104,18 +104,11 @@ class UserController extends Controller
     {
         if($request->hasFile('signature')){
             $url = $request->file('signature')->store('public/signatures');
-            if(is_null($user->picture)){
-                $picture = Picture::create([
-                    'original_name' => $request->file('signature')->getClientOriginalName(),
-                    'url' => str_replace('public/', '', $url)
-                ]);
-                $request->merge(['picture_id' => $picture->id]);
-            }else{
-                $user->picture()->update([
-                    'original_name' => $request->file('signature')->getClientOriginalName(),
-                    'url' => str_replace('public/', '', $url)
-                ]);
-            }
+            $picture = Picture::create([
+                'original_name' => $request->file('signature')->getClientOriginalName(),
+                'url' => str_replace('public/', '', $url)
+            ]);
+            $request->merge(['picture_id' => $picture->id]);
         }
         if($request->input('password') == ''){
             $user->update($request->except(['password']));
