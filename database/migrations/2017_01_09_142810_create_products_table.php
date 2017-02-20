@@ -40,12 +40,14 @@ class CreateProductsTable extends Migration
             $table->integer('picture_id')->unsigned()->index();
                         $table->foreign('picture_id')
                                 ->references('id')
-                                ->on('pictures');
+                                ->on('pictures')
+                                ->onDelete('cascade');
 
             $table->integer('product_id')->unsigned()->index();
                         $table->foreign('product_id')
                                 ->references('id')
-                                ->on('products');
+                                ->on('products')
+                                ->onDelete('cascade');
 
             $table->timestamps();
         });
