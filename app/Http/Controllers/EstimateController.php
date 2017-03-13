@@ -120,7 +120,11 @@ class EstimateController extends Controller
     public function download(Estimate $estimate)
     {
         $setting = Setting::latest()->first();
+        $header = $this->pdfHeader($estimate);
+        $footer = $this->pdfFooter($estimate);
         $pdf = \PDF::loadView('cotizaciones.pdf', ['estimate' => $estimate]);
+        $pdf->setOption('header-html', $header)->setOption('margin-top', 60);
+        $pdf->setOption('footer-html', $footer)->setOption('margin-bottom', 90);
         $filename = $setting->title.' - Cotización para '.$estimate->client->name.'['.Carbon::now().'].pdf';
         return $pdf->download($filename);
     }
@@ -180,7 +184,11 @@ class EstimateController extends Controller
     {
         // Email
         $setting = Setting::latest()->first();
+        $header = $this->pdfHeader($estimate);
+        $footer = $this->pdfFooter($estimate);
         $pdf = \PDF::loadView('cotizaciones.pdf', ['estimate' => $estimate]);
+        $pdf->setOption('header-html', $header)->setOption('margin-top', 60);
+        $pdf->setOption('footer-html', $footer)->setOption('margin-bottom', 90);
         $filename = $setting->title.'_Cotización_para_'.$estimate->client->name.'-'.Carbon::now();
         $slug = str_slug($filename);
         $path = 'storage/cotizaciones/'.$slug.'.pdf';
