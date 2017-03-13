@@ -134,10 +134,26 @@ class EstimateController extends Controller
     public function pdf(Estimate $estimate)
     {
         $setting = Setting::latest()->first();
+        $header = $this->pdfHeader($estimate);
+        $footer = $this->pdfFooter($estimate);
         $pdf = \PDF::loadView('cotizaciones.pdf', ['estimate' => $estimate]);
+        $pdf->setOption('header-html', $header)->setOption('margin-top', 60);
+        $pdf->setOption('footer-html', $footer)->setOption('margin-bottom', 90);
         $filename = $setting->title.' - Cotización para '.$estimate->client->name.'['.Carbon::now().'].pdf';
         return $pdf->stream($filename);
         // return view('cotizaciones.pdf', compact('estimate'));
+    }
+
+    private function pdfHeader($estimate)
+    {
+        $settings = Setting::latest()->first();
+        return view('cotizaciones.header', compact('estimate', 'settings'));
+    }
+
+    private function pdfFooter($estimate)
+    {
+        $settings = Setting::latest()->first();
+        return view('cotizaciones.footer', compact('estimate', 'settings'));
     }
 
     /**

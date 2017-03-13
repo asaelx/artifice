@@ -9,28 +9,7 @@
         <link rel="stylesheet" href="{{ asset('css/print.css') }}" media="screen">
     </head>
     <body>
-
         <section class="estimate-print">
-            <header class="header">
-                <div class="logo">
-                    @if (isset($settings->sidebar_logo->url))
-                        <img src="{{ asset('storage/'.$settings->estimate_logo->url) }}" alt="{{ $settings->title }}" class="img">
-                    @else
-                        <img src="{{ asset('img/logo_cotizacion.png') }}" alt="{{ $settings->title }}" class="img">
-                    @endif
-                </div>
-                <!-- /.logo -->
-                <div class="info">
-                    <span class="data left"><b>Cotización Piezas en existencia</b></span>
-                    <span class="data right"><b>Fecha:</b> {{ ucfirst(\Date::today()->format('d/m/Y')) }}</span>
-                    <span class="data left"><b>Atención:</b> {{ $estimate->client->name }}</span>
-                    <span class="data right"><b>Teléfono:</b> {{ $estimate->client->phone }}</span>
-                    <span class="data left"><b>E-mail:</b> {{ $estimate->client->email }}</span>
-                    <span class="data right"><b>Vendedor:</b> {{ $estimate->user->name }}</span>
-                </div>
-                <!-- /.info -->
-            </header>
-            <!-- /.header -->
             <table class="estimate-table">
                 <thead>
                     <tr>
@@ -98,48 +77,6 @@
                 </tfoot>
             </table>
             <!-- /.estimate-table -->
-            @if ($estimate->notes != '')
-                <div class="notes">
-                    <h3 class="title">Notas:</h3>
-                    <!-- /.title -->
-                    <div class="content">{{ $estimate->notes }}</div>
-                    <!-- /.content -->
-                </div>
-                <!-- /.notes -->
-            @endif
-            <div class="observations">
-                <div class="left">
-                    <h3 class="title">Observaciones:</h3>
-                    <!-- /.title -->
-                    <div class="content">
-                        {!! nl2br($settings->observations) !!}
-                    </div>
-                    <!-- /.content -->
-                </div>
-                <!-- /.left -->
-                <div class="right">
-                    <div class="signature">
-                        <p>Atte.</p>
-                        <p>{{ $estimate->user->name }}</p>
-                        <p>{{ $settings->title }}</p>
-                    </div>
-                    <!-- /.signature -->
-                </div>
-                <!-- /.right -->
-
-            </div>
-            <!-- /.observations -->
-            <footer class="footer">
-                <div class="address">{{ $settings->address }}</div>
-                <div class="contact">
-                    <span class="phone">Tel. {{ $settings->phone }}</span>
-                    <span class="email">{{ $settings->email }}</span>
-                    <span class="store">{{ $settings->store_url }}</span>
-                </div>
-                <!-- /.contact -->
-                <!-- /.address -->
-            </footer>
-            <!-- /.footer -->
         </section>
         <!-- /.estimate-print -->
     </body>
