@@ -160,7 +160,7 @@
                                 <span class="badge badge-green">{{ $estimate_detail->discount }}%</span>
                                 <button class="unlock-discount btn btn-blue modal-trigger" data-modal="unlock-discount"," data-id="{{ $product->id }}"><i class="typcn typcn-lock-closed"></i></button>
                                 @if($estimate_detail->discount > 0)
-                                    {{ Form::hidden('estimate_details['.$product->id.'][discount]', $estimate_detail->discount) }}
+                                    {{ Form::hidden('estimate_details['.$product->id.'][discount]', $estimate_detail->discount, ['class' => 'discount']) }}
                                 @endif
                             </td>
                             <td data-th="Total">

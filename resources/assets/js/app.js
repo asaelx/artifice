@@ -178,15 +178,13 @@ $(function(){
             grand_save = grand_subtotal - grand_total;
             grand_discount = grand_subtotal - grand_save;
 
-            $('#grand_subtotal').text(grand_subtotal);
-
             var span_grand_subtotal = $('#grand_subtotal'),
                 span_grand_total = $('#grand_total'),
                 tax = parseFloat($('#tax').data('tax')),
                 taxes = (tax / 100) * grand_total,
                 grand_total_after_tax =  grand_total + taxes;
 
-            span_grand_subtotal.text('$'+numberWithCommas(grand_subtotal.toFixed(2)));
+            span_grand_subtotal.text('$'+numberWithCommas(grand_discount.toFixed(2)));
             span_grand_total.text('$'+numberWithCommas(grand_total_after_tax.toFixed(2)));
 
             var input_grand_subtotal = $('[name="subtotal"]'),
@@ -194,7 +192,7 @@ $(function(){
                 input_grand_save = $('[name="save"]'),
                 input_grand_total = $('[name="total"]');
 
-            input_grand_subtotal.val(grand_subtotal.toFixed(2));
+            input_grand_subtotal.val(grand_discount.toFixed(2));
             input_grand_discount.val(grand_discount.toFixed(2));
             input_grand_save.val(grand_save.toFixed(2));
             input_grand_total.val(grand_total_after_tax.toFixed(2));
@@ -419,11 +417,16 @@ $(function(){
                             .find('input[name="estimate_details['+id+'][product_id]"]')
                             .closest('tr');
                     if(tr.length){
-                        var td = tr.find('.unlock-discount').closest('td');
+                        var td = tr.find('.unlock-discount').closest('td'),
+                            hidden_discount = tr.find('.discount'),
+                            current_discount = 0;
+                        if(hidden_discount.length){
+                            current_discount = hidden_discount.val();
+                        }
                         if(td.length){
                             var input_discount = $('<input>', {
                                     class: 'input discount',
-                                    value: 0,
+                                    value: current_discount,
                                     type: 'number',
                                     min: 0,
                                     max: 100,
