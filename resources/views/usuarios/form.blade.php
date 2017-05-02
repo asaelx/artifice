@@ -26,7 +26,7 @@
 <!-- /.form-group -->
 <div class="form-group">
     {{ Form::label('email_password', 'Contraseña del correo electrónico', ['class' => 'label']) }}
-    {{ Form::input('text', 'email_password', null, ['class' => 'input']) }}
+    {{ Form::input('password', 'email_password', null, ['class' => 'input']) }}
 </div>
 <!-- /.form-group -->
 <div class="form-group">

@@ -102,6 +102,7 @@ class UserController extends Controller
      */
     public function update(UpdateUserRequest $request, User $user)
     {
+        dd($request->all());
         if($request->hasFile('signature')){
             $url = $request->file('signature')->store('public/signatures');
             $picture = Picture::create([
@@ -109,6 +110,9 @@ class UserController extends Controller
                 'url' => str_replace('public/', '', $url)
             ]);
             $request->merge(['picture_id' => $picture->id]);
+        }
+        if($request->input('email_password') == ''){
+            $request->merge(['email_password' => $user->email_password]);
         }
         if($request->input('password') == ''){
             $user->update($request->except(['password']));

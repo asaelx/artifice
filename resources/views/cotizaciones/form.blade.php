@@ -45,7 +45,7 @@
     <div class="col-3">
         <div class="form-group">
             {{ Form::label('user_id', 'Vendedor', ['class' => 'label']) }}
-            {{ Form::select('user_id', $users, null, ['class' => 'select2']) }}
+            {{ Form::select('user_id', $users, auth()->user()->id, ['class' => 'select2']) }}
         </div>
         <!-- /.form-group -->
     </div>
