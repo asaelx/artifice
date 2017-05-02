@@ -102,7 +102,6 @@ class UserController extends Controller
      */
     public function update(UpdateUserRequest $request, User $user)
     {
-        dd($request->all());
         if($request->hasFile('signature')){
             $url = $request->file('signature')->store('public/signatures');
             $picture = Picture::create([
