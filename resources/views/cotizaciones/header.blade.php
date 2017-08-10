@@ -50,7 +50,7 @@
 		    </div>
 		    <!-- /.logo -->
 		    <div class="info">
-		        <span class="data left"><b>Cotización Piezas en existencia</b></span>
+		        <span class="data left"><b>Orden de pedido</b></span>
 		        <span class="data right"><b>Fecha:</b> {{ ucfirst(\Date::today()->format('d/m/Y')) }}</span>
 		        <span class="data left"><b>Atención:</b> {{ $estimate->client->name }}</span>
 		        <span class="data right"><b>Teléfono:</b> {{ $estimate->client->phone }}</span>

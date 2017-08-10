@@ -142,7 +142,7 @@ class EstimateController extends Controller
         $footer = $this->pdfFooter($estimate);
         $pdf = \PDF::loadView('cotizaciones.pdf', ['estimate' => $estimate]);
         $pdf->setOption('header-html', $header)->setOption('margin-top', 60);
-        $pdf->setOption('footer-html', $footer)->setOption('margin-bottom', 90);
+        $pdf->setOption('footer-html', $footer)->setOption('margin-bottom', 120);
         $filename = $setting->title.' - Cotización para '.$estimate->client->name.'['.Carbon::now().'].pdf';
         return $pdf->stream($filename);
         // return view('cotizaciones.pdf', compact('estimate'));
