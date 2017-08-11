@@ -47,8 +47,8 @@ body {
 .estimate-print .estimate-table thead tr th {
   background: #000;
   color: #fff;
-  font-size: 14px;
-  font-size: 1rem;
+  font-size: 13px;
+  font-size: 0.9285714286rem;
   font-weight: 400;
   padding: .5rem;
   text-align: center;
@@ -75,7 +75,7 @@ body {
 .estimate-print .estimate-table tfoot tr td {
   font-size: 14px;
   font-size: 1rem;
-  padding: .5rem;
+  padding: .3rem .5rem;
 }
 
 .estimate-print .estimate-table tbody tr td .product-title,
@@ -101,10 +101,10 @@ body {
 
 .estimate-print .estimate-table tbody tr td .product-photo,
 .estimate-print .estimate-table tfoot tr td .product-photo {
-  height: 4.2857142857rem;
+  height: 2.8571428571rem;
   overflow: hidden;
   position: relative;
-  width: 4.2857142857rem;
+  width: 2.8571428571rem;
 }
 
 .estimate-print .estimate-table tbody tr td .product-photo .img,

@@ -41,7 +41,7 @@ class ProductController extends Controller
             if($request->has('title') && $request->input('title') != '')
                 $products = $products->where('title', 'like', '%'.$request->input('title').'%');
             if($request->has('code') && $request->input('code') != '')
-                $products = $products->where('code', $request->input('code'));
+                $products = $products->where('code', 'like', '%'.$request->input('code').'%');
             if($request->has('brand_id') && $request->input('brand_id') != '')
                 $products = $products->where('brand_id', $request->input('brand_id'));
             if($request->has('category_id') && $request->input('category_id') != '')
