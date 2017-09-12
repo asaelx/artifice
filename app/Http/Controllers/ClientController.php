@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Http\Requests\ClientRequest;
+use Carbon\Carbon;
 use App\Client;
 use Excel;
 
@@ -52,6 +53,31 @@ class ClientController extends Controller
             session()->flash('flash_message', 'Se han importado '.$results->count().' clientes');
 
         });
+
+        return redirect('clientes');
+    }
+
+    /**
+     * Export clients to excel
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function exportClients()
+    {
+        Excel::create('Clientes['.Carbon::now().']', function($excel) {
+
+            $excel->setTitle('Clientes Artífice Store');
+
+            $excel->sheet('Clientes', function($sheet) {
+
+                $clients = Client::all();
+
+                $sheet->with($clients->toArray());
+
+            });
+        })->download('xls');
+
+        session()->flash('flash_message', 'Se han importado '.$results->count().' clientes');
 
         return redirect('clientes');
     }
