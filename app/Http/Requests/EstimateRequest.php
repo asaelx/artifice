@@ -24,9 +24,13 @@ class EstimateRequest extends FormRequest
     public function rules()
     {
         return [
-            'status' => 'required',
             'currency_id' => 'required|numeric',
-            'expiration' => 'date_format:Y-m-d'
+            'user_id' => 'required|numeric',
+            'expiration' => 'date_format:Y-m-d',
+            'status' => 'required',
+            'client_id' => 'required',
+            'email' => 'email',
+            'estimate_details' => 'required'
         ];
     }
 
@@ -38,10 +42,13 @@ class EstimateRequest extends FormRequest
     public function messages()
     {
         return [
-            'status.required' => 'No has seleccionado un estado',
             'currency_id.required' => 'No has seleccionado una moneda',
             'currency_id.numeric' => 'No has seleccionado una moneda',
-            'expiration.date_format' => 'No has seleccionado una fecha válida'
+            'expiration.date_format' => 'No has seleccionado una fecha válida',
+            'status.required' => 'No has seleccionado un estado',
+            'client_id.required' => 'No has seleccionado un cliente',
+            'email.email' => 'No has escrito un correo electrónico válido',
+            'estimate_details.required' => 'No has seleccionado ningún producto'
         ];
     }
 }

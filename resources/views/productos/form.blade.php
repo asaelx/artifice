@@ -22,6 +22,11 @@
 </div>
 <!-- /.form-group -->
 <div class="form-group">
+    {{ Form::label('dimensions', 'Dimensiones', ['class' => 'label']) }}
+    {{ Form::input('text', 'dimensions', null, ['class' => 'input']) }}
+</div>
+<!-- /.form-group -->
+<div class="form-group">
     {{ Form::label('code', 'Código', ['class' => 'label']) }}
     {{ Form::input('text', 'code', null, ['class' => 'input']) }}
 </div>

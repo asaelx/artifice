@@ -26,6 +26,9 @@ class AppServiceProvider extends ServiceProvider
         view()->composer('cotizaciones.pdf', function($view) {
             $view->with('settings', Setting::first());
         });
+        view()->composer('emails.estimate', function($view) {
+            $view->with('settings', Setting::first());
+        });
     }
 
     /**

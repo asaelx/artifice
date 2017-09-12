@@ -25,8 +25,12 @@ class ProductRequest extends FormRequest
     {
         return [
             'title' => 'required',
-            // 'slug' => 'required',
-            'description' => 'required'
+            'description' => 'required',
+            'code' => 'required',
+            'stock' => 'required|numeric',
+            'regular_price' => 'required',
+            'brand_id' => 'required',
+            'category_id' => 'required'
         ];
     }
 
@@ -39,8 +43,13 @@ class ProductRequest extends FormRequest
     {
         return [
             'title.required' => 'No has escrito un título',
-            // 'slug.required' => 'No has escrito un slug',
             'description.required' => 'No has escrito una descripción',
+            'code.required' => 'No has escrito un código',
+            'stock.required' => 'No has escrito una cantidad',
+            'stock.numeric' => 'La cantidad debe ser un número entero',
+            'regular_price.required' => 'No has escrito un precio',
+            'brand_id.required' => 'No has seleccionado una marca',
+            'category_id.required' => 'No has seleccionado una categoría'
         ];
     }
 }

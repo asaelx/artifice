@@ -6,6 +6,7 @@
 @section('content')
     <div class="row">
         <div class="col-6">
+            @include('layout.errors')
             {{ Form::model($currency = new \App\Currency, ['url' => 'monedas', 'class' => 'form']) }}
                 @include('monedas.form')
             {{ Form::close() }}

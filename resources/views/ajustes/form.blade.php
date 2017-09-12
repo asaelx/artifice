@@ -46,6 +46,21 @@
 </div>
 <!-- /.form-group -->
 <div class="form-group">
+    {{ Form::label('observations', 'Observaciones', ['class' => 'label']) }}
+    {{ Form::textarea('observations', null, ['size' => '30x5', 'class' => 'input autosizable']) }}
+</div>
+<!-- /.form-group -->
+<div class="form-group">
+    {{ Form::label('subject', 'Asunto del correo', ['class' => 'label']) }}
+    {{ Form::input('text', 'subject', null, ['class' => 'input']) }}
+</div>
+<!-- /.form-group -->
+<div class="form-group">
+    {{ Form::label('message', 'Mensaje del correo', ['class' => 'label']) }}
+    {{ Form::textarea('message', null, ['size' => '30x5', 'class' => 'input autosizable']) }}
+</div>
+<!-- /.form-group -->
+<div class="form-group">
     {{ Form::label('tax', 'I.V.A.', ['class' => 'label']) }}
     {{ Form::input('text', 'tax', null, ['class' => 'input']) }}
 </div>

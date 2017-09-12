@@ -3,33 +3,13 @@
 @section('title', 'Categorías')
 @section('sectionTitle', 'Categorías')
 @section('add')
-    <a href="{{ url('categorias/nuevo') }}" class="btn btn-blue add"><i class="typcn typcn-plus"></i> Agregar categoría</a>
+    <div class="buttons pr">
+        <a href="{{ url('categorias/nuevo') }}" class="btn btn-blue add"><i class="typcn typcn-plus"></i> Agregar categoría</a>
+    </div>
+    <!-- /.buttons -->
 @endsection
 
 @section('content')
-    @unless ($categories->isEmpty())
-        <div class="row">
-            {{ Form::open(['url' => '/', 'class' => 'form']) }}
-                <div class="col-6">
-                    <div class="form-group">
-                        {{ Form::label('title', 'Título', ['class' => 'label']) }}
-                        {{ Form::input('text', 'title', null, ['class' => 'input']) }}
-                    </div>
-                    <!-- /.form-group -->
-                </div>
-                <!-- /.col-6 -->
-                <div class="col-6">
-                    <div class="form-group">
-                        {{ Form::label('description', 'Descripción', ['class' => 'label']) }}
-                        {{ Form::input('text', 'description', null, ['class' => 'input']) }}
-                    </div>
-                    <!-- /.form-group -->
-                </div>
-                <!-- /.col-6 -->
-            {{ Form::close() }}
-        </div>
-        <!-- /.row -->
-    @endunless
     <div class="row">
         <div class="col-12">
             @if ($categories->isEmpty())
@@ -46,20 +26,26 @@
                         <tr>
                             <th>Título</th>
                             <th>Descripción</th>
+                            <th>Productos</th>
                             <th>Opciones</th>
                         </tr>
                     </thead>
                     <tbody>
                         @foreach ($categories as $category)
                             <tr>
-                                <td>{{ $category->title }}</td>
-                                <td>{{ $category->description }}</td>
-                                <td>
+                                <td data-th="Título">{{ $category->title }}</td>
+                                <td data-th="Descripción">{{ $category->description }}</td>
+                                <td data-th="Productos">{{ $category->products()->count() }}</td>
+                                <td data-th="Opciones">
                                     <span href="#" class="dropdown">
                                         <i class="typcn typcn-social-flickr"></i>
                                         <ul class="list">
                                             <li class="item">
                                                 <a href="{{ url('categorias/'.$category->id.'/editar') }}" class="link"><i class="typcn typcn-edit"></i> Editar</a>
+                                            </li>
+                                            <!-- /.item -->
+                                            <li class="item">
+                                                <a href="{{ url('categorias/'.$category->id.'/exportProducts') }}" class="link"><i class="typcn typcn-download"></i> Excel Productos</a>
                                             </li>
                                             <!-- /.item -->
                                             <li class="item">
@@ -78,6 +64,16 @@
                 </table>
                 <!-- /.table -->
             @endif
+        </div>
+        <!-- /.col-12 -->
+    </div>
+    <!-- /.row -->
+    <div class="row">
+        <div class="col-12">
+            <div class="pagination">
+                {{ $categories->links() }}
+            </div>
+            <!-- /.pagination -->
         </div>
         <!-- /.col-12 -->
     </div>

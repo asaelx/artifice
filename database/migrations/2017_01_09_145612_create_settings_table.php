@@ -21,7 +21,9 @@ class CreateSettingsTable extends Migration
             $table->string('phone');
             $table->string('store_url');
             $table->string('address');
-            $table->string('observations');
+            $table->text('observations');
+            $table->string('subject');
+            $table->text('message');
             $table->float('tax');
             $table->string('discount_code')->nullable();
             $table->integer('currency_id')->unsigned()->nullable();

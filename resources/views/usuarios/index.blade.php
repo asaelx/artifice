@@ -3,12 +3,15 @@
 @section('title', 'Usuarios')
 @section('sectionTitle', 'Usuarios')
 @section('add')
-    <a href="{{ url('usuarios/nuevo') }}" class="btn btn-blue add"><i class="typcn typcn-plus"></i> Nuevo usuario</a>
+    <div class="buttons pr">
+        <a href="{{ url('usuarios/nuevo') }}" class="btn btn-blue add"><i class="typcn typcn-plus"></i> Nuevo usuario</a>
+    </div>
+    <!-- /.buttons -->
 @endsection
 
 @section('content')
     @unless ($users->isEmpty())
-        <div class="row">
+        {{-- <div class="row">
             {{ Form::open(['url' => '/', 'class' => 'form']) }}
                 <div class="col-4">
                     <div class="form-group">
@@ -36,7 +39,7 @@
                 <!-- /.col-4 -->
             {{ Form::close() }}
         </div>
-        <!-- /.row -->
+        <!-- /.row --> --}}
     @endunless
     <div class="row">
         <div class="col-12">
@@ -55,7 +58,7 @@
                             <th>Nombre</th>
                             <th>Usuario</th>
                             <th>Correo electrónico</th>
-                            <th>Fecha de registro</th>
+                            <th>Registro</th>
                             <th>Cotizaciones</th>
                             <th>Opciones</th>
                         </tr>
@@ -63,12 +66,12 @@
                     <tbody>
                         @foreach ($users as $user)
                             <tr>
-                                <td>{{ $user->name }} {!! ($user->role == 'admin') ? '<span class="badge badge-blue">Administrador</span>' : '<span class="badge badge-blue">Vendedor</span>' !!}</td>
-                                <td>{{ $user->username }}</td>
-                                <td><a href="mailto:{{ $user->email }}" class="link">{{ $user->email }}</a></td>
-                                <td>{{ $user->created_at }}</td>
-                                <td><a href="#" class="link">3</a></td>
-                                <td>
+                                <td data-th="Nombre">{{ $user->name }} {!! ($user->role == 'admin') ? '<span class="badge badge-blue">Administrador</span>' : '<span class="badge badge-blue">Vendedor</span>' !!}</td>
+                                <td data-th="Usuario">{{ $user->username }}</td>
+                                <td data-th="Correo electrónico"><a href="mailto:{{ $user->email }}" class="link">{{ $user->email }}</a></td>
+                                <td data-th="Registro">{{ ucfirst(\Date::createFromFormat('Y-m-d H:i:s', $user->created_at)->diffForHumans()) }}</td>
+                                <td data-th="Cotizaciones"><a href="{{ url('cotizaciones') }}" class="link">{{ $user->estimates()->count() }}</a></td>
+                                <td data-th="Opciones">
                                     <span href="#" class="dropdown">
                                         <i class="typcn typcn-social-flickr"></i>
                                         <ul class="list">
@@ -77,7 +80,7 @@
                                             </li>
                                             <!-- /.item -->
                                             <li class="item">
-                                                <a href="#" class="link"><i class="typcn typcn-clipboard"></i> Cotizaciones</a>
+                                                <a href="{{ url('cotizaciones') }}" class="link"><i class="typcn typcn-clipboard"></i> Cotizaciones</a>
                                             </li>
                                             <!-- /.item -->
                                             <li class="item">
@@ -96,6 +99,16 @@
                 </table>
                 <!-- /.table -->
             @endif
+        </div>
+        <!-- /.col-12 -->
+    </div>
+    <!-- /.row -->
+    <div class="row">
+        <div class="col-12">
+            <div class="pagination">
+                {{ $users->links() }}
+            </div>
+            <!-- /.pagination -->
         </div>
         <!-- /.col-12 -->
     </div>

@@ -6,6 +6,7 @@
 @section('content')
     <div class="row">
         <div class="col-6">
+            @include('layout.errors')
             {{ Form::model($product, ['url' => url('productos', $product->id), 'files' => true, 'class' => 'form', 'method' => 'PATCH']) }}
                 @include('productos.form')
             {{ Form::close() }}

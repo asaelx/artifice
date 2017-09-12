@@ -33,6 +33,7 @@ elixir((mix) => {
         './node_modules/autosize/dist/autosize.min.js',
         './node_modules/@fengyuanchen/datepicker/dist/datepicker.min.js',
         './node_modules/@fengyuanchen/datepicker/i18n/datepicker.es-ES.js',
+        './node_modules/chart.js/dist/Chart.min.js',
         'app.js'
     ], 'public/js/app.js');
 

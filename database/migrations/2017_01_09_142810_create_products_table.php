@@ -18,12 +18,13 @@ class CreateProductsTable extends Migration
             $table->string('title');
             $table->string('slug');
             $table->text('description');
-            $table->string('code');
+            $table->string('dimensions')->nullable();
+            $table->string('code')->nullable();
             $table->string('stock');
             $table->string('regular_price');
-            $table->string('sale_price');
-            $table->integer('brand_id')->unsigned();
-            $table->integer('category_id')->unsigned();
+            $table->string('sale_price')->nullable();
+            $table->integer('brand_id')->unsigned()->nullable();
+            $table->integer('category_id')->unsigned()->nullable();
             $table->timestamps();
 
             $table->foreign('brand_id')
@@ -39,12 +40,14 @@ class CreateProductsTable extends Migration
             $table->integer('picture_id')->unsigned()->index();
                         $table->foreign('picture_id')
                                 ->references('id')
-                                ->on('pictures');
+                                ->on('pictures')
+                                ->onDelete('cascade');
 
             $table->integer('product_id')->unsigned()->index();
                         $table->foreign('product_id')
                                 ->references('id')
-                                ->on('products');
+                                ->on('products')
+                                ->onDelete('cascade');
 
             $table->timestamps();
         });

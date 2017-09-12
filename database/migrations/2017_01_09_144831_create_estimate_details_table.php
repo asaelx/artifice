@@ -17,6 +17,8 @@ class CreateEstimateDetailsTable extends Migration
             $table->increments('id');
             $table->integer('quantity')->unsigned();
             $table->float('discount');
+            $table->float('total');
+            $table->boolean('show_dimensions')->default(false);
             $table->integer('product_id')->unsigned();
             $table->integer('estimate_id')->unsigned();
             $table->timestamps();

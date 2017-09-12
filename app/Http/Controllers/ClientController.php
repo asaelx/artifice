@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Http\Requests\ClientRequest;
 use App\Client;
+use Excel;
 
 class ClientController extends Controller
 {
@@ -27,6 +28,32 @@ class ClientController extends Controller
     {
         $clients = Client::latest()->paginate(5);
         return view('clientes.index', compact('clients'));
+    }
+
+    /**
+     * Import clients from file.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function importClients(Request $request)
+    {
+        Excel::load($request->file('file'), function($reader) {
+            // Getting all results
+            $results = $reader->get();
+
+            foreach ($results as $result) {
+                Client::create([
+                    'name' => (!is_null($result->name)) ? $result->name : 'Sin nombre',
+                    'email' => (!is_null($result->email)) ? $result->email : 'Sin correo',
+                    'phone' => (!is_null($result->phone)) ? $result->phone : 'Sin teléfono'
+                ]);
+            }
+
+            session()->flash('flash_message', 'Se han importado '.$results->count().' clientes');
+
+        });
+
+        return redirect('clientes');
     }
 
     /**

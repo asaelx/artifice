@@ -6,7 +6,8 @@
 @section('content')
     <div class="row">
         <div class="col-6">
-            {{ Form::model($user, ['url' => url('usuarios', $user->id), 'class' => 'form', 'method' => 'PATCH']) }}
+            @include('layout.errors')
+            {{ Form::model($user, ['url' => url('usuarios', $user->id), 'class' => 'form', 'files' => true, 'method' => 'PATCH']) }}
                 @include('usuarios.form')
             {{ Form::close() }}
         </div>

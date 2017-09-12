@@ -4,6 +4,8 @@ namespace App;
 
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use App\Estimate;
+use App\Picture;
 
 class User extends Authenticatable
 {
@@ -15,7 +17,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name', 'username', 'email', 'password', 'role'
+        'name', 'username', 'email', 'email_password', 'password', 'role', 'picture_id'
     ];
 
     /**
@@ -26,4 +28,14 @@ class User extends Authenticatable
     protected $hidden = [
         'password', 'remember_token',
     ];
+
+    public function estimates($value='')
+    {
+        return $this->hasMany('App\Estimate');
+    }
+
+    public function picture()
+    {
+        return $this->belongsTo('App\Picture');
+    }
 }

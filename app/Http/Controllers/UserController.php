@@ -4,7 +4,9 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Http\Requests\UserRequest;
+use App\Http\Requests\UpdateUserRequest;
 use App\User;
+use App\Picture;
 
 class UserController extends Controller
 {
@@ -51,6 +53,14 @@ class UserController extends Controller
      */
     public function store(UserRequest $request)
     {
+        if($request->hasFile('signature')){
+            $url = $request->file('signature')->store('public/signatures');
+            $picture = Picture::create([
+                'original_name' => $request->file('signature')->getClientOriginalName(),
+                'url' => str_replace('public/', '', $url)
+            ]);
+            $request->merge(['picture_id' => $picture->id]);
+        }
         $request->merge(['password' => bcrypt($request->input('password'))]);
         $user = User::create($request->all());
         session()->flash('flash_message', 'Se ha agregado el usuario: '.$user->username);
@@ -86,13 +96,29 @@ class UserController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \App\Http\Requests|UserRequest  $request
+     * @param  \App\Http\Requests|UpdateUserRequest  $request
      * @param  User  $user
      * @return \Illuminate\Http\Response
      */
-    public function update(UserRequest $request, User $user)
+    public function update(UpdateUserRequest $request, User $user)
     {
-        $user->update($request->all());
+        if($request->hasFile('signature')){
+            $url = $request->file('signature')->store('public/signatures');
+            $picture = Picture::create([
+                'original_name' => $request->file('signature')->getClientOriginalName(),
+                'url' => str_replace('public/', '', $url)
+            ]);
+            $request->merge(['picture_id' => $picture->id]);
+        }
+        if($request->input('email_password') == ''){
+            $request->merge(['email_password' => $user->email_password]);
+        }
+        if($request->input('password') == ''){
+            $user->update($request->except(['password']));
+        }else{
+            $request->merge(['password' => bcrypt($request->input('password'))]);
+            $user->update($request->all());
+        }
         session()->flash('flash_message', 'Se ha actualizado el usuario: '.$user->username);
         return redirect('usuarios');
     }

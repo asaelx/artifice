@@ -46,7 +46,7 @@ class UserRequest extends FormRequest
             'email.email' => 'No has escrito un correo electrónico válido',
             'email.unique' => 'Ese correo electrónico ya existe',
             'password.required' => 'No has escrito una contraseña',
-            'password.confirmed' => 'Las contrasñeas no coinciden'
+            'password.confirmed' => 'Las contraseñas no coinciden'
         ];
     }
 }

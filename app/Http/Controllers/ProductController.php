@@ -8,6 +8,8 @@ use App\Product;
 use App\Brand;
 use App\Category;
 use App\Picture;
+use Storage;
+use Excel;
 
 class ProductController extends Controller
 {
@@ -26,12 +28,32 @@ class ProductController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        $products = Product::latest()->paginate(5);
+        $values = '';
+        foreach($request->all() as $key => $value){
+            if($key != 'page') $values .= $value;
+        }
+        if($values == ''){
+            $products = Product::latest()->paginate(50);
+        }else{
+            $products = Product::latest();
+            if($request->has('title') && $request->input('title') != '')
+                $products = $products->where('title', 'like', '%'.$request->input('title').'%');
+            if($request->has('code') && $request->input('code') != '')
+                $products = $products->where('code', 'like', '%'.$request->input('code').'%');
+            if($request->has('brand_id') && $request->input('brand_id') != '')
+                $products = $products->where('brand_id', $request->input('brand_id'));
+            if($request->has('category_id') && $request->input('category_id') != '')
+                $products = $products->where('category_id', $request->input('category_id'));
+            $products = $products->paginate(5);
+        }
+
         $brands = Brand::pluck('title', 'id');
+        $brands = [''=>''] + $brands->toArray();
         $categories = Category::pluck('title', 'id');
-        return view('productos.index', compact('products', 'brands', 'categories'));
+        $categories = [''=>''] + $categories->toArray();
+        return view('productos.index', compact('products', 'brands', 'categories', 'request'));
     }
 
     /**
@@ -43,26 +65,89 @@ class ProductController extends Controller
     {
         $products = Product::latest()
             ->where('title', 'like', '%'.$request->input('q').'%')
-            ->orWhere('code', $request->input('q'))
+            ->orWhere('code', 'like', '%'.$request->input('q').'%')
             ->with('pictures', 'brand', 'category')->get();
         $data = ['items' => [], 'total_count' => $products->count()];
         foreach ($products as $product) {
+            $picture = (isset($product->pictures[0])) ? url('storage/'.$product->pictures[0]->url) : null;
             $push = [
                 'id' => $product->id,
                 'text' => $product->title,
                 'title' => $product->title,
                 'description' => $product->description,
+                'dimensions' => $product->dimensions,
                 'code' => $product->code,
                 'stock' => $product->stock,
                 'regular_price' => $product->regular_price,
                 'sale_price' => $product->sale_price,
-                'brand' => $product->brand->title,
-                'category' => $product->category->title,
-                'picture' => url('storage/'.$product->pictures[0]->url)
+                'brand' => ($product->brand) ? $product->brand->title : '',
+                'category' => ($product->category) ? $product->category->title : '',
+                'picture' => $picture
             ];
             array_push($data['items'], $push);
         }
         return $data;
+    }
+
+    /**
+     * Import products from file.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function importProducts(Request $request)
+    {
+        Excel::load($request->file('file'), function($reader) {
+            // Getting all results
+            $results = $reader->get();
+
+            foreach ($results as $result) {
+                if($result->marca_producto){
+                    $brand = Brand::where('title', $result->marca_producto)->first();
+                    if($brand){
+                        $brand_id = $brand->id;
+                    }else{
+                        $brand_id = Brand::create(['title' => $result->marca_producto, 'description' => $result->marca_producto])->id;
+                    }
+                }
+
+                if($result->categoria_producto){
+                    $category = Category::where('title', $result->categoria_producto)->first();
+                    if($category){
+                        $category_id = $category->id;
+                    }else{
+                        $category_id = Brand::create(['title' => $result->categoria_producto, 'description' => $result->categoria_producto])->id;
+                    }
+                }
+
+                $exists = Product::where('title', $result->titulo_producto)->first();
+                if(!$exists){
+                    $photo_url = 'http://artificestore.mx/archivos/imagenes/'.$result->id_foto.'_image_'.$result->nombre_foto;
+                    $file = @file_get_contents($photo_url);
+                    $save = Storage::put('public/products/'.$result->nombre_foto, $file);
+                    $picture = Picture::create([
+                        'original_name' => $result->nombre_foto,
+                        'url' => str_replace('/storage/', '', Storage::url('products/'.$result->nombre_foto))
+                    ]);
+
+                    $product = Product::create([
+                        'title' => $result->titulo_producto,
+                        'description' => $result->titulo_producto,
+                        'code' => $result->sku_producto,
+                        'stock' => 10,
+                        'regular_price' => $result->precio_producto,
+                        'sale_price' => null,
+                        'brand_id' => (isset($brand_id)) ? $brand_id : null,
+                        'category_id' => (isset($category_id)) ? $category_id : null,
+                    ]);
+
+                    $product->pictures()->sync([$picture->id]);
+                }
+            }
+
+            session()->flash('flash_message', 'Se han importado '.$results->count().' productos');
+
+        });
+        return redirect('productos');
     }
 
     /**
@@ -87,14 +172,17 @@ class ProductController extends Controller
      */
     public function store(ProductRequest $request)
     {
-        if(!is_numeric($request->input('brand_id'))){
+        if(!is_numeric($request->input('brand_id')) && $request->input('brand_id') != ''){
             $brand = Brand::create(['title' => $request->input('brand_id'), 'description' => $request->input('brand_id')]);
             $request->merge(['brand_id' => $brand->id]);
         }
-        if(!is_numeric($request->input('category_id'))){
+        if(!is_numeric($request->input('category_id')) && $request->input('category_id') != ''){
             $category = Category::create(['title' => $request->input('category_id'), 'description' => $request->input('category_id')]);
             $request->merge(['category_id' => $category->id]);
         }
+        $request->merge(['regular_price' => str_replace(',', '', $request->input('regular_price'))]);
+        if($request->has('sale_price'))
+            $request->merge(['sale_price' => str_replace(',', '', $request->input('sale_price'))]);
         $product = Product::create($request->all());
         if($request->hasFile('photos')){
             foreach ($request->file('photos') as $photo) {
@@ -120,7 +208,7 @@ class ProductController extends Controller
     {
         $product = Product::with('pictures', 'brand', 'category')
             ->find($id);
-        $product->picture = url('storage/'.$product->pictures[0]->url);
+        $product->picture = (isset($product->pictures[0])) ? url('storage/'.$product->pictures[0]->url) : null;
         return $product;
     }
 

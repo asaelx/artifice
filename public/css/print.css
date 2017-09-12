@@ -34,33 +34,11 @@ body {
 }
 
 .estimate-print {
-  padding: 2rem;
-}
-
-.estimate-print .header .logo {
-  background: #000;
-  padding: 1rem;
-  text-align: center;
-}
-
-.estimate-print .header .logo .img {
-  width: 10.7142857143rem;
-}
-
-.estimate-print .header .info {
-  padding: .5rem 0;
-}
-
-.estimate-print .header .info .data {
-  font-size: 14px;
-  font-size: 1rem;
-  display: inline-block;
-  font-weight: 400;
-  padding: .2rem;
-  width: 49%;
+  padding: 0 2rem 1rem 2rem;
 }
 
 .estimate-print .estimate-table {
+  page-break-inside: auto;
   border-collapse: collapse;
   margin-bottom: .5rem;
   width: 100%;
@@ -69,12 +47,23 @@ body {
 .estimate-print .estimate-table thead tr th {
   background: #000;
   color: #fff;
-  font-size: 14px;
-  font-size: 1rem;
+  font-size: 13px;
+  font-size: 0.9285714286rem;
   font-weight: 400;
   padding: .5rem;
-  text-align: left;
+  text-align: center;
   text-transform: uppercase;
+}
+
+.estimate-print .estimate-table tbody,
+.estimate-print .estimate-table tfoot {
+  display: table-row-group;
+}
+
+.estimate-print .estimate-table tbody tr,
+.estimate-print .estimate-table tfoot tr {
+  page-break-inside: avoid;
+  page-break-after: auto;
 }
 
 .estimate-print .estimate-table tbody tr:nth-child(odd),
@@ -86,7 +75,7 @@ body {
 .estimate-print .estimate-table tfoot tr td {
   font-size: 14px;
   font-size: 1rem;
-  padding: .5rem;
+  padding: .3rem .5rem;
 }
 
 .estimate-print .estimate-table tbody tr td .product-title,
@@ -112,10 +101,10 @@ body {
 
 .estimate-print .estimate-table tbody tr td .product-photo,
 .estimate-print .estimate-table tfoot tr td .product-photo {
-  height: 4.2857142857rem;
+  height: 2.8571428571rem;
   overflow: hidden;
   position: relative;
-  width: 4.2857142857rem;
+  width: 2.8571428571rem;
 }
 
 .estimate-print .estimate-table tbody tr td .product-photo .img,
@@ -160,59 +149,6 @@ body {
 .estimate-print .estimate-table tfoot tr td .qty {
   font-size: 16px;
   font-size: 1.1428571429rem;
-}
-
-.estimate-print .notes,
-.estimate-print .observations {
-  margin-bottom: .5rem;
-}
-
-.estimate-print .notes .left,
-.estimate-print .observations .left {
-  display: inline-block;
-  width: 80%;
-}
-
-.estimate-print .notes .right,
-.estimate-print .observations .right {
-  display: inline-block;
-  width: 19%;
-}
-
-.estimate-print .notes .title,
-.estimate-print .observations .title {
-  font-size: 14px;
-  font-size: 1rem;
-  font-weight: 600;
-}
-
-.estimate-print .notes .content,
-.estimate-print .observations .content {
-  font-size: 12px;
-  font-size: 0.8571428571rem;
-  line-height: 1.5;
-}
-
-.estimate-print .signature {
-  font-size: 13px;
-  font-size: 0.9285714286rem;
-  text-align: center;
-}
-
-.estimate-print .footer {
-  font-size: 12px;
-  font-size: 0.8571428571rem;
-  margin-top: 1rem;
-  text-align: center;
-}
-
-.estimate-print .footer .address {
-  width: 100%;
-}
-
-.estimate-print .footer .contact span {
-  display: inline-block;
-  padding: 0 2rem;
 }
 
 /*! normalize.css v5.0.0 | MIT License | github.com/necolas/normalize.css */

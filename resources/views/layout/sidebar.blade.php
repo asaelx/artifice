@@ -1,7 +1,11 @@
 <aside class="sidebar">
     <header class="header">
         <a href="{{ url('/') }}" class="logo">
-            <img src="{{ asset('storage/'.$settings->sidebar_logo->url) }}" alt="{{ $settings->title }}" class="img">
+            @if (isset($settings->sidebar_logo->url))
+                <img src="{{ asset('storage/'.$settings->sidebar_logo->url) }}" alt="{{ $settings->title }}" class="img">
+            @else
+                <img src="{{ asset('img/logo.png') }}" alt="{{ $settings->title }}" class="img">
+            @endif
         </a>
         <!-- /.logo -->
         <h2 class="title">{{ $settings->title }}</h2>
@@ -17,7 +21,7 @@
             'marcas' => ['icon' => 'tags', 'name' => 'Marcas'],
             'categorias' => ['icon' => 'tags', 'name' => 'Categorías'],
             'reportes' => ['icon' => 'chart-pie', 'name' => 'Reportes'],
-            // 'actividad' => ['icon' => 'chart-area', 'name' => 'Actividad']
+            'emails' => ['icon' => 'mail', 'name' => 'Emails enviados']
         ];
 
         $admin_options = [

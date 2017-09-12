@@ -13,6 +13,13 @@
         @include('layout.sidebar')
 
         <main class="main">
+            @if (session()->has('flash_message'))
+                <div class="notification">
+                    <span><i class="typcn typcn-coffee"></i> {{ session()->get('flash_message') }}</span>
+                    <button class="close-notification"><i class="typcn typcn-delete-outline"></i></button>
+                </div>
+                <!-- /.notification -->
+            @endif
             <div class="row">
                 <div class="col-12">
                     <h1 class="section-title">

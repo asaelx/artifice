@@ -20,12 +20,12 @@ Route::get('cotizaciones', 'EstimateController@index');
 Route::post('cotizaciones', 'EstimateController@store');
 Route::get('cotizaciones/nuevo', 'EstimateController@create');
 Route::patch('cotizaciones/{estimate}', 'EstimateController@update');
-Route::get('cotizaciones/{estimate}', 'EstimateController@show');
 Route::delete('cotizaciones/{estimate}', 'EstimateController@destroy');
 Route::get('cotizaciones/{estimate}/editar', 'EstimateController@edit');
 Route::get('cotizaciones/{estimate}/download', 'EstimateController@download');
 Route::get('cotizaciones/{estimate}/pdf', 'EstimateController@pdf');
 Route::post('cotizaciones/{estimate}/email', 'EstimateController@email');
+Route::post('cotizaciones/unlockDiscount/{id}', 'EstimateController@unlockDiscount');
 
 // Clientes
 Route::get('clientes', 'ClientController@index');
@@ -36,6 +36,7 @@ Route::get('clientes/{client}', 'ClientController@show');
 Route::delete('clientes/{client}', 'ClientController@destroy');
 Route::get('clientes/{client}/editar', 'ClientController@edit');
 Route::get('clientes/getClientById/{id}', 'ClientController@getClientById');
+Route::post('clientes/importClients', 'ClientController@importClients');
 
 // Marcas
 Route::get('marcas', 'BrandController@index');
@@ -54,6 +55,7 @@ Route::patch('categorias/{category}', 'CategoryController@update');
 Route::get('categorias/{category}', 'CategoryController@show');
 Route::delete('categorias/{category}', 'CategoryController@destroy');
 Route::get('categorias/{category}/editar', 'CategoryController@edit');
+Route::get('categorias/{category}/exportProducts', 'CategoryController@exportProducts');
 
 // Monedas
 Route::get('monedas', 'CurrencyController@index');
@@ -82,7 +84,17 @@ Route::delete('productos/{product}', 'ProductController@destroy');
 Route::get('productos/{product}/editar', 'ProductController@edit');
 Route::get('productos/getProducts', 'ProductController@getProducts');
 Route::get('productos/getProductById/{id}', 'ProductController@getProductById');
+Route::post('productos/importProducts', 'ProductController@importProducts');
 
 // Ajustes
 Route::get('ajustes', 'SettingController@index');
 Route::patch('ajustes/{setting}', 'SettingController@update');
+
+// Reportes
+Route::get('reportes', 'ReportController@index');
+Route::get('reportes/exportMostEstimatedDetails', 'ReportController@exportMostEstimatedDetails');
+Route::get('reportes/exportMostEstimatedCategories', 'ReportController@exportMostEstimatedCategories');
+Route::get('reportes/exportEstimatesByUser', 'ReportController@exportEstimatesByUser');
+
+// Emails
+Route::get('emails', 'EmailController@index');

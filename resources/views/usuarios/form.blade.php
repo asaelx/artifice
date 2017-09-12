@@ -1,4 +1,15 @@
 <div class="form-group">
+    {{ Form::label('signature', 'Firma del correo', ['class' => 'label']) }}
+    @if (isset($user->picture->url))
+        <div class="picture">
+            {{ Html::image(asset('storage/'.$user->picture->url), $user->name, ['class' => 'img']) }}
+        </div>
+        <!-- /.picture -->
+    @endif
+    {{ Form::file('signature', ['class' => 'file']) }}
+</div>
+<!-- /.form-group -->
+<div class="form-group">
     {{ Form::label('name', 'Nombre', ['class' => 'label']) }}
     {{ Form::input('text', 'name', null, ['class' => 'input']) }}
 </div>
@@ -11,6 +22,11 @@
 <div class="form-group">
     {{ Form::label('email', 'Correo electrónico', ['class' => 'label']) }}
     {{ Form::input('email', 'email', null, ['class' => 'input']) }}
+</div>
+<!-- /.form-group -->
+<div class="form-group">
+    {{ Form::label('email_password', 'Contraseña del correo electrónico', ['class' => 'label']) }}
+    {{ Form::input('password', 'email_password', null, ['class' => 'input']) }}
 </div>
 <!-- /.form-group -->
 <div class="form-group">

@@ -3,12 +3,15 @@
 @section('title', 'Monedas')
 @section('sectionTitle', 'Monedas')
 @section('add')
-    <a href="{{ url('monedas/nuevo') }}" class="btn btn-blue add"><i class="typcn typcn-plus"></i> Agregar moneda</a>
+    <div class="buttons pr">
+        <a href="{{ url('monedas/nuevo') }}" class="btn btn-blue add"><i class="typcn typcn-plus"></i> Agregar moneda</a>
+    </div>
+    <!-- /.buttons -->
 @endsection
 
 @section('content')
     @unless ($currencies->isEmpty())
-        <div class="row">
+        {{-- <div class="row">
             {{ Form::open(['url' => '/', 'class' => 'form']) }}
                 <div class="col-6">
                     <div class="form-group">
@@ -28,7 +31,7 @@
                 <!-- /.col-6 -->
             {{ Form::close() }}
         </div>
-        <!-- /.row -->
+        <!-- /.row --> --}}
     @endunless
     <div class="row">
         <div class="col-12">
@@ -54,11 +57,11 @@
                     <tbody>
                         @foreach ($currencies as $currency)
                             <tr>
-                                <td>{{ $currency->title }}</td>
-                                <td>{{ $currency->code }}</td>
-                                <td>{{ $currency->symbol }}</td>
-                                <td>{{ $currency->precision }}</td>
-                                <td>
+                                <td data-th="Título">{{ $currency->title }}</td>
+                                <td data-th="Código">{{ $currency->code }}</td>
+                                <td data-th="Símbolo">{{ $currency->symbol }}</td>
+                                <td data-th="Precisión">{{ $currency->precision }}</td>
+                                <td data-th="Opciones">
                                     <span href="#" class="dropdown">
                                         <i class="typcn typcn-social-flickr"></i>
                                         <ul class="list">
@@ -82,6 +85,16 @@
                 </table>
                 <!-- /.table -->
             @endif
+        </div>
+        <!-- /.col-12 -->
+    </div>
+    <!-- /.row -->
+    <div class="row">
+        <div class="col-12">
+            <div class="pagination">
+                {{ $currencies->links() }}
+            </div>
+            <!-- /.pagination -->
         </div>
         <!-- /.col-12 -->
     </div>

@@ -5,6 +5,7 @@ namespace App;
 use Illuminate\Database\Eloquent\Model;
 use App\Setting;
 use App\Product;
+use App\User;
 
 class Picture extends Model
 {
@@ -26,5 +27,10 @@ class Picture extends Model
     {
         return $this->belongsToMany('App\Product')
                     ->withTimestamps();
+    }
+
+    public function users()
+    {
+        return $this->hasMany('App\User');
     }
 }

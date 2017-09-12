@@ -30,7 +30,8 @@
                     +font-size(16px)
                     font-weight: bold
                 .product-category,
-                .product-brand
+                .product-brand,
+                .product-dimensions
                     +font-size(14px)
                 .link
                     color: $blue
@@ -81,11 +82,9 @@
                 .dropdown
                     +font-size(20px)
                     color: inherit
-                    display: block
+                    cursor: pointer
+                    display: inline-block
                     position: relative
-                    &:hover
-                        .list
-                            +opacity(1)
                     .list
                         +opacity(0)
                         background: $white
@@ -97,6 +96,8 @@
                         position: absolute
                         top: 0
                         z-index: 10
+                        &.open
+                            +opacity(1)
                         .item
                             .link
                                 +font-size(16px)
@@ -132,3 +133,57 @@
         +font-size(28px)
         font-weight: 400
         margin-bottom: 3rem
+.pagination
+    text-align: center
+    .list
+        +clear
+        display: inline-block
+        list-style: none
+        .item
+            float: left
+            margin-right: .5rem
+            .link,
+            span
+                +font-size(14px)
+                border-radius: rem(3px)
+                display: inline-block
+                font-family: $sans
+                font-weight: 400
+                padding: .4rem .8rem
+                text-align: center
+                text-decoration: none
+            .link
+                background: $green
+                color: $white
+            span
+                background: $gray
++bp($large)
+    .table, thead, tbody, tfoot, th, td, tr
+        display: block
+    .table
+        thead
+            tr
+                left: -9999px
+                position: absolute
+                top: -9999px
+        tbody
+            td
+                padding-left: 50%!important
+                position: relative
+                &:before
+                    background: $green
+                    bottom: 0
+                    border-bottom: 2px solid $white
+                    color: $white
+                    content: attr(data-th)
+                    left: 0
+                    padding-right: 10px
+                    padding: 1rem
+                    position: absolute
+                    top: 0
+                    white-space: nowrap
+                    width: 45%
+        tfoot
+            td
+                text-align: right
+

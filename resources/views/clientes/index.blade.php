@@ -3,12 +3,16 @@
 @section('title', 'Clientes')
 @section('sectionTitle', 'Clientes')
 @section('add')
-    <a href="{{ url('clientes/nuevo') }}" class="btn btn-blue add"><i class="typcn typcn-plus"></i> Nuevo cliente</a>
+    <div class="buttons pr">
+        <button class="btn btn-green modal-trigger" data-modal="upload-excel"><i class="typcn typcn-plus"></i> Importar clientes</button>
+        <a href="{{ url('clientes/nuevo') }}" class="btn btn-blue add"><i class="typcn typcn-plus"></i> Nuevo cliente</a>
+    </div>
+    <!-- /.buttons -->
 @endsection
 
 @section('content')
     @unless ($clients->isEmpty())
-        <div class="row">
+        {{-- <div class="row">
             {{ Form::open(['url' => '/', 'class' => 'form']) }}
                 <div class="col-4">
                     <div class="form-group">
@@ -36,7 +40,7 @@
                 <!-- /.col-4 -->
             {{ Form::close() }}
         </div>
-        <!-- /.row -->
+        <!-- /.row --> --}}
     @endunless
     <div class="row">
         <div class="col-12">
@@ -63,12 +67,12 @@
                     <tbody>
                         @foreach ($clients as $client)
                             <tr>
-                                <td>{{ $client->name }}</td>
-                                <td><a href="mailto:{{ $client->email }}" class="link">{{ $client->email }}</a></td>
-                                <td>{{ $client->phone }}</td>
-                                <td>{{ $client->created_at }}</td>
-                                <td><a href="#" class="link">3</a></td>
-                                <td>
+                                <td data-th="Nombre">{{ $client->name }}</td>
+                                <td data-th="Correo electrónico"><a href="mailto:{{ $client->email }}" class="link">{{ $client->email }}</a></td>
+                                <td data-th="Teléfono">{{ $client->phone }}</td>
+                                <td data-th="Fecha de registro">{{ $client->created_at }}</td>
+                                <td data-th="Cotizaciones"><a href="{{ url('cotizaciones') }}" class="link">{{ $client->estimates()->count() }}</a></td>
+                                <td data-th="Opciones">
                                     <span href="#" class="dropdown">
                                         <i class="typcn typcn-social-flickr"></i>
                                         <ul class="list">
@@ -77,7 +81,7 @@
                                             </li>
                                             <!-- /.item -->
                                             <li class="item">
-                                                <a href="#" class="link"><i class="typcn typcn-clipboard"></i> Cotizaciones</a>
+                                                <a href="{{ url('cotizaciones') }}" class="link"><i class="typcn typcn-clipboard"></i> Cotizaciones</a>
                                             </li>
                                             <!-- /.item -->
                                             <li class="item">
@@ -100,4 +104,52 @@
         <!-- /.col-12 -->
     </div>
     <!-- /.row -->
+    <div class="row">
+        <div class="col-12">
+            <div class="pagination">
+                {{ $clients->links() }}
+            </div>
+            <!-- /.pagination -->
+        </div>
+        <!-- /.col-12 -->
+    </div>
+    <!-- /.row -->
+@endsection
+
+@section('modal')
+    <div class="layer" id="upload-excel-modal">
+        <div class="modal">
+            <h3 class="title"><i class="typcn typcn-storage"></i> Subir archivo <button class="close-modal"><i class="typcn typcn-times"></i></button></h3>
+            <!-- /.title -->
+            <div class="content">
+                <div class="row">
+                    <div class="col-12">
+                        <p>Asegúrate que los títulos de las columnas sean:</p>
+                        <p><b>name, email, phone</b></p>
+                    </div>
+                    <!-- /.col-12 -->
+                </div>
+                <!-- /.row -->
+                <div class="row">
+                    <div class="col-12">
+                        {{ Form::open(['url' => url('clientes/importClients'), 'files' => true,'class' => 'form']) }}
+                            <div class="form-group">
+                                {{ Form::label('file', 'Selecciona un archivo .xsl, .xlsx o .csv', ['class' => 'label']) }}
+                                {{ Form::file('file', ['required']) }}
+                            </div>
+                            <div class="form-group">
+                                {{ Form::submit('Cargar clientes', ['class' => 'btn btn-green']) }}
+                            </div>
+                            <!-- /.form-group -->
+                        {{ Form::close() }}
+                    </div>
+                    <!-- /.col-12 -->
+                </div>
+                <!-- /.row -->
+            </div>
+            <!-- /.content -->
+        </div>
+        <!-- /.modal -->
+    </div>
+    <!-- /.layer -->
 @endsection

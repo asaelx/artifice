@@ -20,7 +20,7 @@ class CreateEstimatesTable extends Migration
             $table->date('expiration');
             $table->text('notes');
             $table->float('subtotal');
-            $table->float('discount');
+            $table->float('discount')->default('0');
             $table->float('save');
             $table->float('total');
             $table->integer('currency_id')->unsigned();

@@ -3,12 +3,15 @@
 @section('title', 'Marcas')
 @section('sectionTitle', 'Marcas')
 @section('add')
-    <a href="{{ url('marcas/nuevo') }}" class="btn btn-blue add"><i class="typcn typcn-plus"></i> Agregar marca</a>
+    <div class="buttons pr">
+        <a href="{{ url('marcas/nuevo') }}" class="btn btn-blue add"><i class="typcn typcn-plus"></i> Agregar marca</a>
+    </div>
+    <!-- /.buttons -->
 @endsection
 
 @section('content')
     @unless ($brands->isEmpty())
-        <div class="row">
+        {{-- <div class="row">
             {{ Form::open(['url' => '/', 'class' => 'form']) }}
                 <div class="col-6">
                     <div class="form-group">
@@ -28,7 +31,7 @@
                 <!-- /.col-6 -->
             {{ Form::close() }}
         </div>
-        <!-- /.row -->
+        <!-- /.row --> --}}
     @endunless
     <div class="row">
         <div class="col-12">
@@ -46,15 +49,17 @@
                         <tr>
                             <th>Título</th>
                             <th>Descripción</th>
+                            <th>Productos</th>
                             <th>Opciones</th>
                         </tr>
                     </thead>
                     <tbody>
                         @foreach ($brands as $brand)
                             <tr>
-                                <td>{{ $brand->title }}</td>
-                                <td>{{ $brand->description }}</td>
-                                <td>
+                                <td data-th="Título">{{ $brand->title }}</td>
+                                <td data-th="Descripción">{{ $brand->description }}</td>
+                                <td data-th="Productos">{{ $brand->products()->count() }}</td>
+                                <td data-th="Opciones">
                                     <span href="#" class="dropdown">
                                         <i class="typcn typcn-social-flickr"></i>
                                         <ul class="list">
@@ -78,6 +83,16 @@
                 </table>
                 <!-- /.table -->
             @endif
+        </div>
+        <!-- /.col-12 -->
+    </div>
+    <!-- /.row -->
+    <div class="row">
+        <div class="col-12">
+            <div class="pagination">
+                {{ $brands->links() }}
+            </div>
+            <!-- /.pagination -->
         </div>
         <!-- /.col-12 -->
     </div>

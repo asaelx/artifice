@@ -3,12 +3,15 @@
 @section('title', 'Cotizaciones')
 @section('sectionTitle', 'Cotizaciones')
 @section('add')
-    <a href="{{ url('cotizaciones/nuevo') }}" class="btn btn-blue add"><i class="typcn typcn-plus"></i> Nueva cotización</a>
+    <div class="buttons pr">
+        <a href="{{ url('cotizaciones/nuevo') }}" class="btn btn-blue add"><i class="typcn typcn-plus"></i> Nueva cotización</a>
+    </div>
+    <!-- /.buttons -->
 @endsection
 
 @section('content')
     @unless ($estimates->isEmpty())
-        <div class="row">
+        {{-- <div class="row">
             {{ Form::open(['url' => '/', 'class' => 'form']) }}
                 <div class="col-3">
                     <div class="form-group">
@@ -40,7 +43,7 @@
                 <!-- /.col-3 -->
             {{ Form::close() }}
         </div>
-        <!-- /.row -->
+        <!-- /.row --> --}}
     @endunless
     <div class="row">
         <div class="col-12">
@@ -61,6 +64,7 @@
                             <th>Cliente</th>
                             <th>Vendedor</th>
                             <th>Estado</th>
+                            <th>Expira</th>
                             <th>Total</th>
                             <th>Opciones</th>
                         </tr>
@@ -68,11 +72,11 @@
                     <tbody>
                         @foreach ($estimates as $estimate)
                             <tr>
-                                <td>{{ $estimate->folio }}</td>
-                                <td>{{ $estimate->created_at }}</td>
-                                <td>{{ $estimate->client->name }}</td>
-                                <td>{{ $estimate->user->name }}</td>
-                                <td>
+                                <td data-th="Folio">{{ $estimate->folio }}</td>
+                                <td data-th="Fecha">{{ ucfirst(\Date::createFromFormat('Y-m-d H:i:s', $estimate->created_at)->diffForHumans()) }}</td>
+                                <td data-th="Cliente">{{ $estimate->client->name }}</td>
+                                <td data-th="Vendedor">{{ $estimate->user->name }}</td>
+                                <td data-th="Estado">
                                     @if ($estimate->status == 'Pendiente')
                                         <span class="badge badge-yellow">Pendiente</span>
                                     @elseif($estimate->status == 'Aceptada')
@@ -81,8 +85,9 @@
                                         <span class="badge badge-red">Rechazada</span>
                                     @endif
                                 </td>
-                                <td><span class="price">${{ $estimate->total }}</span></td>
-                                <td>
+                                <td data-th="Expira">{{ ucfirst(\Date::createFromFormat('Y-m-d', $estimate->expiration)->diffForHumans()) }}</td>
+                                <td data-th="Total"><span class="price">${{ number_format((float) $estimate->total, 2, '.', ',') }}</span></td>
+                                <td data-th="Opciones">
                                     <span href="#" class="dropdown">
                                         <i class="typcn typcn-social-flickr"></i>
                                         <ul class="list">
@@ -95,11 +100,11 @@
                                             </li>
                                             <!-- /.item -->
                                             <li class="item">
-                                                <a href="{{ url('cotizaciones/'.$estimate->id.'/pdf') }}" class="link"><i class="typcn typcn-printer"></i> Imprimir</a>
+                                                <a href="{{ url('cotizaciones/'.$estimate->id.'/pdf') }}" class="link" target="_blank"><i class="typcn typcn-printer"></i> Imprimir</a>
                                             </li>
                                             <!-- /.item -->
                                             <li class="item">
-                                                <a href="#" class="link modal-trigger" data-modal="send-mail" data-id="{{ $estimate->id }}"><i class="typcn typcn-mail"></i> Enviar correo</a>
+                                                <a href="#" class="link modal-trigger" data-modal="send-mail" data-id="{{ $estimate->id }}" data-email="{{ $estimate->client->email }}"><i class="typcn typcn-mail"></i> Enviar correo</a>
                                             </li>
                                             <!-- /.item -->
                                             <li class="item">
@@ -122,6 +127,16 @@
         <!-- /.col-12 -->
     </div>
     <!-- /.row -->
+    <div class="row">
+        <div class="col-12">
+            <div class="pagination">
+                {{ $estimates->links() }}
+            </div>
+            <!-- /.pagination -->
+        </div>
+        <!-- /.col-12 -->
+    </div>
+    <!-- /.row -->
 @endsection
 
 @section('modal')
@@ -132,18 +147,18 @@
             <div class="content">
                 {{ Form::open(['url' => url('cotizaciones/{id}/email'), 'class' => 'form']) }}
                     <div class="form-group">
-                        {{ Form::label('to', 'Enviar a', ['class' => 'label']) }}
-                        {{ Form::select('to', $emails, null, ['class' => 'select2-add', 'data-placeholder' => 'Selecciona o escribe un correo electrónico']) }}
+                        {{ Form::label('email', 'Enviar a', ['class' => 'label']) }}
+                        {{ Form::input('text', 'email', null, ['class' => 'input']) }}
                     </div>
                     <!-- /.form-group -->
                     <div class="form-group">
                         {{ Form::label('subject', 'Asunto', ['class' => 'label']) }}
-                        {{ Form::input('text', 'subject', 'Envío Cotización', ['class' => 'input']) }}
+                        {{ Form::input('text', 'subject', $settings->subject, ['class' => 'input']) }}
                     </div>
                     <!-- /.form-group -->
                     <div class="form-group">
                         {{ Form::label('message', 'Mensaje', ['class' => 'label']) }}
-                        {{ Form::textarea('message', null, ['size' => '30x5', 'class' => 'input autosizable']) }}
+                        {{ Form::textarea('message', $settings->message, ['size' => '30x5', 'class' => 'input autosizable']) }}
                     </div>
                     <!-- /.form-group -->
                     <div class="form-group">
