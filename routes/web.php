@@ -31,6 +31,7 @@ Route::post('cotizaciones/unlockDiscount/{id}', 'EstimateController@unlockDiscou
 Route::get('clientes', 'ClientController@index');
 Route::post('clientes', 'ClientController@store');
 Route::get('clientes/nuevo', 'ClientController@create');
+Route::get('clientes/exportClients', 'ClientController@exportClients');
 Route::patch('clientes/{client}', 'ClientController@update');
 Route::get('clientes/{client}', 'ClientController@show');
 Route::delete('clientes/{client}', 'ClientController@destroy');

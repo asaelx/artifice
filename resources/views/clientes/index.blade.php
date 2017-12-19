@@ -4,6 +4,7 @@
 @section('sectionTitle', 'Clientes')
 @section('add')
     <div class="buttons pr">
+        <a href="{{ url('clientes/exportClients') }}" class="btn btn-green"><i class="typcn typcn-download"></i> Exportar clientes</a>
         <button class="btn btn-green modal-trigger" data-modal="upload-excel"><i class="typcn typcn-plus"></i> Importar clientes</button>
         <a href="{{ url('clientes/nuevo') }}" class="btn btn-blue add"><i class="typcn typcn-plus"></i> Nuevo cliente</a>
     </div>
