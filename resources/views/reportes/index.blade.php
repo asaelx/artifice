@@ -62,7 +62,9 @@
                                 <td data-th="Código">{{ $product->code }}</td>
                                 <td data-th="Foto">
                                     <div class="product-photo">
-                                        {{ Html::image(asset('storage/'.$product->pictures()->first()->url), $product->title, ['class' => 'img']) }}
+                                        @if ($product->pictures()->first())
+                                            {{ Html::image(asset('storage/'.$product->pictures()->first()->url), $product->title, ['class' => 'img']) }}
+                                        @endif
                                     </div>
                                     <!-- /.photo -->
                                 </td>
